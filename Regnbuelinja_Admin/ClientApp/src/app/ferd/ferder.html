@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>   Alle ferdene:  </h2>
+  <div>
+    <div class="col-md-6">
+      <div *ngIf="laster">Laster ferder...</div>
+      <button class='btn btn-primary' (click)="leggTilFerd()">Legg til ferd</button>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Båt</th>
+            <th>Rute</th>
+            <th>Avreisetid</th>
+            <th>Ankomsttid</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let ferd of alleFerder">
+          <tr>
+            <td>{{ferd.fid}}</td>
+            <!--Legg til routing link til baat(id)-->
+            <td *ngFor="let baaten of ferd.baat">{{baaten.navn}}</td>
+            <!--Legg til routing link til rute(id)-->
+            <td *ngFor="let ruten of ferd.rute">{{ruten.startpunkt}} + " - " + {{ruten.endepunkt}}</td>
+            <td>{{ferd.avreisetid}}</td>
+            <td>{{ferd.ankomsttid}}</td>
+            <td><button class="btn btn-danger" (click)="sletteFerd(ferd.fid)">Slett</button></td>
+            <td><button class="btn btn-success" (click)="endreFerd(ferd.fid)">Endre</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>   Alle rutene:  </h2>
+  <div>
+    <div class="col-md-6">
+      <div *ngIf="laster">Laster ruter.....</div>
+      <button class='btn btn-primary' (click)="leggTilRute()">Legg til rute</button>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Avreisehavn</th>
+            <th>Ankomsthavn</th>
+            <th>Pris</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let rute of alleRuter">
+          <tr>
+            <td>{{rute.rid}}</td>
+            <td>{{rute.startpunkt}}</td>
+            <td>{{rute.endepunkt}}</td>
+            <td>{{rute.pris}}</td>
+            <td><button class="btn btn-danger" (click)="sletteRute(rute.rid)">Slett</button></td>
+            <td><button class="btn btn-success" (click)="endreRute(rute.rid)">Endre</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
