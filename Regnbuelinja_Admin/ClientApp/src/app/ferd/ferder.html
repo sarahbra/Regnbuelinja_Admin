@@ -20,9 +20,9 @@
           <tr>
             <td>{{ferd.fid}}</td>
             <!--Legg til routing link til baat(id)-->
-            <td *ngFor="let baaten of ferd.baat">{{baaten.navn}}</td>
+            <td>{{ferd.baat.navn}}</td>
             <!--Legg til routing link til rute(id)-->
-            <td *ngFor="let ruten of ferd.rute">{{ruten.startpunkt}} + " - " + {{ruten.endepunkt}}</td>
+            <td *ngFor="let ruten of ferd.rute">{{ferd.rute.startpunkt}} + " - " + {{ferd.rute.endepunkt}}</td>
             <td>{{ferd.avreisetid}}</td>
             <td>{{ferd.ankomsttid}}</td>
             <td><button class="btn btn-danger" (click)="sletteFerd(ferd.fid)">Slett</button></td>

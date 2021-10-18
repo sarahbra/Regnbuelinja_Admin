@@ -1,10 +1,7 @@
-import { Rute } from './Rute';
-import { Baat } from './Baat';
-
 export class Ferd {
   fid: number;
-  båt: Baat;
-  rute: Rute;
+  båt: number;
+  rute: number;
   avreisetid: string;
   ankomsttid: string;
 }
