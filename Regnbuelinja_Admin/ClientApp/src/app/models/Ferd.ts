@@ -1,6 +1,6 @@
 export class Ferd {
   fid: number;
-  båt: number;
+  baat: number;
   rute: number;
   avreisetid: string;
   ankomsttid: string;

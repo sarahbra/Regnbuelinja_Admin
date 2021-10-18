@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Rute } from "../Rute";
-import { Baat } from "../Baat";
+import { Rute } from "../models/Rute";
+import { Baat } from "../models/Baat";
 
 @Component({
   templateUrl: "ruter.html"
@@ -28,12 +28,4 @@ export class Ruter {
         error => console.log(error)
       );
   };
-
-  //hentBaat(id) {
-  //  this.http.get<Baat>("api/baat/" + id) {
-  //    .subscribe(baat => {
-  //      this.
-  //    })
-  //  }
-  //}
 }

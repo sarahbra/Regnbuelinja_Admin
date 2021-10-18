@@ -19,10 +19,10 @@
         <tbody *ngFor="let ferd of alleFerder">
           <tr>
             <td>{{ferd.fid}}</td>
-            <!--Legg til routing link til baat(id)-->
-            <td>{{ferd.baat.navn}}</td>
-            <!--Legg til routing link til rute(id)-->
-            <td *ngFor="let ruten of ferd.rute">{{ferd.rute.startpunkt}} + " - " + {{ferd.rute.endepunkt}}</td>
+            <!--Legg til routing link til baat(id) endreForm -->
+            <td>{{ferd.baat}}</td>
+            <!--Legg til routing link til rute(id) endreForm -->
+            <td>{{ferd.rute}}</td>
             <td>{{ferd.avreisetid}}</td>
             <td>{{ferd.ankomsttid}}</td>
             <td><button class="btn btn-danger" (click)="sletteFerd(ferd.fid)">Slett</button></td>
