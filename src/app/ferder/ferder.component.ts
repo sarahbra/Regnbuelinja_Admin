@@ -36,9 +36,9 @@ export class FerderComponent implements OnInit {
       );
   }
 
-  endreFerd(fid: number) {}
+  endreFerd(id: number) {}
 
-  slettFerd(fid: number) {}
+  slettFerd(id: number) {}
 
   leggTilFerd() {}
 }

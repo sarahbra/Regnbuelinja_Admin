@@ -1,9 +1,9 @@
 <div class="container">
-    <h2> Alle billetter: </h2>
+    <h2> Alle bestillinger: </h2>
     <div>
         <div class="col-md-6">
-            <div *ngIf="laster">Laster billetter.....</div>
-            <button class='btn btn-primary' (click)="leggTilBillett()">Legg til billett</button>
+            <div *ngIf="laster">Laster bestillinger.....</div>
+            <button class='btn btn-primary' (click)="leggTilBestilling()">Legg til bestilling</button>
             <table class="table">
                 <thead>
                     <tr>
@@ -12,15 +12,18 @@
                         <th>Billetter</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let bestilling of allBestillinger">
+                <tbody *ngFor="let bestilling of alleBestillinger">
                     <tr>
-                        <td>{{bestilling.beid}}</td>
+                        <td>{{bestilling.id}}</td>
                         <td>{{bestilling.totalpris}}</td>
-                        <td>{{bestilling.billett}}</td>
-                        <td><button class="btn btn-danger" (click)="slettFerd(ferd.fid)">Slett</button></td>
-                        <td><button class="btn btn-success" (click)="endreFerd(ferd.fid)">Endre</button></td>
+                        <td><button class="btn btn-primary" (click)="visBilletter(bestilling.id)">Vis alle
+                                billetter</button></td>
+                        <td><button class="btn btn-danger" (click)="slettBestilling(bestilling.id)">Slett</button></td>
+                        <td><button class="btn btn-success" (click)="endreBestilling(bestilling.id)">Endre</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -37,9 +37,9 @@ export class BaaterComponent implements OnInit {
       );
   }
 
-  endreBaat(bid: number) {}
+  endreBaat(id: number) {}
 
-  slettBaat(bid: number) {}
+  slettBaat(id: number) {}
 
   leggTilBaat() {}
 }
