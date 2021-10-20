@@ -12,7 +12,7 @@ export class RuterComponent implements OnInit {
   alleRuter: Array<Rute> = [];
   laster: boolean = false;
 
-  constructor(private http: HttpClient, private modalService: NgbModal) {}
+  constructor(private http: HttpClient, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.laster = true;
@@ -35,9 +35,9 @@ export class RuterComponent implements OnInit {
       );
   }
 
-  endreRute(rid: number) {}
+  endreRute(rid: number) { }
 
-  sletteRute(rid: number) {}
+  sletteRute(rid: number) { }
 
-  leggTilRute() {}
+  leggTilRute() { }
 }
