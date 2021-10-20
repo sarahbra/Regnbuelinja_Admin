@@ -18,13 +18,13 @@
                 </thead>
                 <tbody *ngFor="let ferd of alleFerder">
                     <tr>
-                        <td>{{ferd.fid}}</td>
+                        <td>{{ferd.id}}</td>
                         <td>{{ferd.baat}}</td>
                         <td>{{ferd.rute}}</td>
                         <td>{{ferd.avreisetid}}</td>
                         <td>{{ferd.ankomsttid}}</td>
-                        <td><button class="btn btn-danger" (click)="slettFerd(ferd.fid)">Slett</button></td>
-                        <td><button class="btn btn-success" (click)="endreFerd(ferd.fid)">Endre</button></td>
+                        <td><button class="btn btn-danger" (click)="slettFerd(ferd.id)">Slett</button></td>
+                        <td><button class="btn btn-success" (click)="endreFerd(ferd.id)">Endre</button></td>
                     </tr>
                 </tbody>
             </table>

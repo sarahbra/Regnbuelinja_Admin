@@ -15,10 +15,10 @@
                 </thead>
                 <tbody *ngFor="let baat of alleBaater">
                     <tr>
-                        <td>{{baat.bid}}</td>
+                        <td>{{baat.id}}</td>
                         <td>{{baat.navn}}</td>
-                        <td><button class="btn btn-danger" (click)="slettBaat(baat.bid)">Slett</button></td>
-                        <td><button class="btn btn-success" (click)="endreBaat(baat.bid)">Endre</button></td>
+                        <td><button class="btn btn-danger" (click)="slettBaat(baat.id)">Slett</button></td>
+                        <td><button class="btn btn-success" (click)="endreBaat(baat.id)">Endre</button></td>
                     </tr>
                 </tbody>
             </table>
