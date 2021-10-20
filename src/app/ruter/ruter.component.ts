@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Rute } from '../models/rute';
 
 @Component({
-  selector: 'app-ruter',
+  //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør
   templateUrl: './ruter.component.html',
   //styleUrls: ['./app.ruter.css'],
 })
