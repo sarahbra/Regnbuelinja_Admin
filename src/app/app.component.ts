@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+  //selector: app-root componenten blir rendret inn i index.html
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
