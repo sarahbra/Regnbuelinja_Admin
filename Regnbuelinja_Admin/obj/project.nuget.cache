@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "dgSpecHash": "qkTLnp0ni00uMF5UW/A+N3k+QQVpOLQRxV6RoafylsCGh0xOzPVfXaCJM29kICOYUeP+RhZ7YFg664eZSBHhIA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sarah\\Source\\Repos\\Regnbuelinja_Admin\\Regnbuelinja_Admin\\Regnbuelinja_Admin.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.aspnetcore.nodeservices\\3.1.18\\microsoft.aspnetcore.nodeservices.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.aspnetcore.spaservices\\3.1.18\\microsoft.aspnetcore.spaservices.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.aspnetcore.spaservices.extensions\\3.1.18\\microsoft.aspnetcore.spaservices.extensions.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.18\\microsoft.extensions.configuration.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.18\\microsoft.extensions.configuration.abstractions.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.18\\microsoft.extensions.configuration.binder.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.18\\microsoft.extensions.dependencyinjection.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.18\\microsoft.extensions.dependencyinjection.abstractions.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\3.1.18\\microsoft.extensions.fileproviders.abstractions.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\3.1.18\\microsoft.extensions.fileproviders.physical.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\3.1.18\\microsoft.extensions.filesystemglobbing.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.logging\\3.1.18\\microsoft.extensions.logging.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.18\\microsoft.extensions.logging.abstractions.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.logging.configuration\\3.1.18\\microsoft.extensions.logging.configuration.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.logging.console\\3.1.18\\microsoft.extensions.logging.console.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.options\\3.1.18\\microsoft.extensions.options.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\3.1.18\\microsoft.extensions.options.configurationextensions.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.18\\microsoft.extensions.primitives.3.1.18.nupkg.sha512",
+    "C:\\Users\\sarah\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
