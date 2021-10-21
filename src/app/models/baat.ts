@@ -1,4 +1,4 @@
 export interface Baat {
-  bid: number;
+  id: number;
   navn: string;
 }

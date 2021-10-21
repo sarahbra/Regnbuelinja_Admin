@@ -1,5 +1,5 @@
 <div class="container">
-    <h2> Alle rutene: </h2>
+    <h2> Alle ruter: </h2>
     <div>
         <div class="col-md-6">
             <div *ngIf="laster">Laster ruter.....</div>
@@ -17,12 +17,12 @@
                 </thead>
                 <tbody *ngFor="let rute of alleRuter">
                     <tr>
-                        <td>{{rute.rid}}</td>
+                        <td>{{rute.id}}</td>
                         <td>{{rute.startpunkt}}</td>
                         <td>{{rute.endepunkt}}</td>
                         <td>{{rute.pris}}</td>
-                        <td><button class="btn btn-danger" (click)="sletteRute(rute.rid)">Slett</button></td>
-                        <td><button class="btn btn-success" (click)="endreRute(rute.rid)">Endre</button></td>
+                        <td><button class="btn btn-danger" (click)="slettRute(rute.id)">Slett</button></td>
+                        <td><button class="btn btn-success" (click)="endreRute(rute.id)">Endre</button></td>
                     </tr>
                 </tbody>
             </table>

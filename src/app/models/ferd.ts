@@ -1,5 +1,5 @@
 export interface Ferd {
-  fid: number;
+  id: number;
   baat: number;
   rute: number;
   avreisetid: string;

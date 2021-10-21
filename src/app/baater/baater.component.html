@@ -1,0 +1,27 @@
+<div class="container">
+    <h2> Alle båtene: </h2>
+    <div>
+        <div class="col-md-6">
+            <div *ngIf="laster">Laster båter.....</div>
+            <button class='btn btn-primary' (click)="leggTilBaat()">Legg til båt</button>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Navn</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let baat of alleBaater">
+                    <tr>
+                        <td>{{baat.id}}</td>
+                        <td>{{baat.navn}}</td>
+                        <td><button class="btn btn-danger" (click)="slettBaat(baat.id)">Slett</button></td>
+                        <td><button class="btn btn-success" (click)="endreBaat(baat.id)">Endre</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

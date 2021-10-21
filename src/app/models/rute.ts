@@ -1,5 +1,5 @@
 export interface Rute {
-  rid: number;
+  id: number;
   startpunkt: string;
   endepunkt: string;
   pris: number;

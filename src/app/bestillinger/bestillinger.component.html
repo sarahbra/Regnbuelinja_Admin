@@ -1,0 +1,32 @@
+<div class="container">
+    <h2> Alle bestillinger: </h2>
+    <div>
+        <div class="col-md-6">
+            <div *ngIf="laster">Laster bestillinger.....</div>
+            <button class='btn btn-primary' (click)="leggTilBestilling()">Legg til bestilling</button>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Totalpris</th>
+                        <th>Billetter</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let bestilling of alleBestillinger">
+                    <tr>
+                        <td>{{bestilling.id}}</td>
+                        <td>{{bestilling.totalpris}}</td>
+                        <td><button class="btn btn-primary" (click)="visBilletter(bestilling.id)">Vis alle
+                                billetter</button></td>
+                        <td><button class="btn btn-danger" (click)="slettBestilling(bestilling.id)">Slett</button></td>
+                        <td><button class="btn btn-success" (click)="endreBestilling(bestilling.id)">Endre</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
