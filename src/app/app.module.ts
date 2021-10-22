@@ -12,6 +12,7 @@ import { FerderComponent } from './ferder/ferder.component';
 import { BaaterComponent } from './baater/baater.component';
 import { BestillingerComponent } from './bestillinger/bestillinger.component';
 import { LoginComponent } from './login/login.component';
+import { SlettModal } from './modals/slett.modal';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LoginComponent } from './login/login.component';
     BaaterComponent,
     BestillingerComponent,
     LoginComponent,
+    SlettModal
   ],
 
   imports: [
@@ -33,5 +35,6 @@ import { LoginComponent } from './login/login.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents: [SlettModal]
 })
 export class AppModule {}
