@@ -28,7 +28,7 @@ export class BaaterComponent implements OnInit {
 
   hentAlleBaater() {
     //Endre til nytt endepunkt som henter alle båter.
-    this._http.get<Baat[]>('/api/Bestilling/HentAlleBaater').subscribe(
+    this._http.get<Baat[]>('/api/admin/baater').subscribe(
       (baater) => {
         this.alleBaater = baater;
         this.laster = false;
