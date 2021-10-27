@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Baat } from '../models/baat';
-import { Ferd } from '../models/ferd';
 import { Router } from '@angular/router';
 import { SlettModal } from '../modals/slett.modal';
+import { AlertModal } from '../modals/alert.modal';
 
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør ingenting
@@ -46,47 +46,28 @@ export class BaaterComponent implements OnInit {
       keyboard: false,
     });
 
-    let textBody: string =
-      'Båt med id ' + id + 'kan slettes. Vil du slette Båt ' + id + '?';
-
-    this._http.get<Ferd[]>('/api/admin/ferder/' + id).subscribe(
-      (ferdene) => {
-        console.log(ferdene);
-        console.log(ferdene.length);
-        if (ferdene.length == 0) {
-          modalRef.componentInstance.updateBody(textBody);
-          textBody += 'Er du sikker ';
-        } else {
-          textBody =
-            'Båt ' + id + ' kan ikke slettes. Den brukes av følgene ferd(er): ';
-          console.log('looping');
-          for (let i = 0; i < ferdene.length; i++) {
-            if (i < ferdene.length - 1) {
-              textBody += ferdene[i].id + ', ';
-            } else {
-              textBody += ferdene[i].id + '. ';
-            }
-          }
-
-          //updated tsconfig.json
-          textBody += 'Slett gjeldene ferder for å kunne slette båt ' + id;
-          modalRef.componentInstance.updateBody(textBody);
-        }
-      },
-      (error) => console.log(error)
-    );
+    let textBody: string = 'Vil du slette Båt ' + id + '?';
+    modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
       console.log('Lukket med:' + retur);
       if (retur == 'Slett') {
-        this._http.delete('api/admin/baat/slett/' + id).subscribe(
-          (retur) => {
+        this._http.delete('/api/admin/baat/' + id).subscribe(
+          () => {
             this.hentAlleBaater();
           },
-          (error) => console.log(error)
+          //Lage en kulere alert dialog?
+          (res) => {
+            const modalRef = this.modalService.open(AlertModal, {
+              backdrop: 'static',
+              keyboard: false,
+            });
+            let textBody: string = res.error;
+            modalRef.componentInstance.updateBody(textBody);
+          }
         );
       }
-      this._router.navigate(['/baater']);
+      this._router.navigate(['/ruter']);
     });
   }
 
