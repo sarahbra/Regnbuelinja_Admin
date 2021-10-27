@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-    FormGroup,
-    FormControl,
-    Validators,
-    FormBuilder,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Bruker } from '../models/bruker';
 
@@ -14,6 +9,8 @@ import { Bruker } from '../models/bruker';
 })
 export class LoginComponent {
     loginSkjema: FormGroup;
+    loginError: boolean;
+
 
     validering = {
         brukernavn: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZøæåØÆÅ\\-. ]{2,30}')],),
@@ -21,15 +18,16 @@ export class LoginComponent {
         passord: [null, Validators.compose([Validators.required, Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-ZæøåÆØÅ])([a-zA-ZæøåÆØÅ0-9]+){6,}$')])],
     };
 
-    constructor(
-        private http: HttpClient,
-        private fb: FormBuilder,
-        private router: Router
-    ) {
+    constructor(private http: HttpClient, private fb: FormBuilder, private router: Router) {
         this.loginSkjema = fb.group(this.validering);
+
     }
 
-    //FIXME: @Mikael. Er dette riktig?
+    ngOnInit() {
+        this.loginError = false;
+    }
+
+
     vedSubmit() {
         const brukernavn = this.loginSkjema.value.brukernavn;
         const passord = this.loginSkjema.value.passord;
@@ -39,7 +37,10 @@ export class LoginComponent {
             (ok) => {
                 if (ok) {
                     this.router.navigate(['/ruter']);
-                } //else hva ?
+                } else {
+                    this.loginError = true;
+                }
+
             },
             (error) => console.log(error)
         );
