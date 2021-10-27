@@ -67,7 +67,7 @@ export class BaaterComponent implements OnInit {
           }
         );
       }
-      this._router.navigate(['/baater']);
+      this._router.navigate(['/ruter']);
     });
   }
 
