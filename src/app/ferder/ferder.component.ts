@@ -22,14 +22,11 @@ export class FerderComponent implements OnInit {
   hentAlleFerder() {
     this._http
       //Endre til nytt endepunkt som henter alle ferder uten ruteid.
-      .get<Ferd[]>('/api/Bestilling/HentFerder', {
-        params: {
-          ruteid: '5',
-        },
-      })
+      .get<Ferd[]>('/api/admin/ferder')
       .subscribe(
-        (ferdene) => {
-          this.alleFerder = ferdene;
+        (ferder) => {
+          this.alleFerder = ferder;
+          console.log(this.alleFerder);
           this.laster = false;
         },
         (error) => console.log(error)
