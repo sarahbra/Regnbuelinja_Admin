@@ -12,7 +12,7 @@ export class FerderComponent implements OnInit {
   alleFerder: Array<Ferd> = [];
   laster: boolean = false;
 
-  constructor(private http: HttpClient, private modalService: NgbModal) {}
+  constructor(private _http: HttpClient, private modalService: NgbModal) {}
 
   ngOnInit() {
     this.laster = true;
@@ -20,7 +20,7 @@ export class FerderComponent implements OnInit {
   }
 
   hentAlleFerder() {
-    this.http
+    this._http
       //Endre til nytt endepunkt som henter alle ferder uten ruteid.
       .get<Ferd[]>('/api/Bestilling/HentFerder', {
         params: {
