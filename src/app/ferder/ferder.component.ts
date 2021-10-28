@@ -5,6 +5,7 @@ import { Ferd } from '../models/ferd';
 import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
 import { Router } from '@angular/router';
+import { NavbarService } from '../nav-meny/nav-meny.service';
 
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør ingenting
@@ -18,10 +19,12 @@ export class FerderComponent implements OnInit {
   constructor(
     private _http: HttpClient,
     private _router: Router,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+    public nav: NavbarService
+  ) { }
 
   ngOnInit() {
+    this.nav.show()
     this.laster = true;
     this.hentAlleFerder();
   }
@@ -40,7 +43,7 @@ export class FerderComponent implements OnInit {
       );
   }
 
-  endreFerd(id: number) {}
+  endreFerd(id: number) { }
 
   visModalOgSlett(id: number) {
     console.log(id);
@@ -73,5 +76,5 @@ export class FerderComponent implements OnInit {
     });
   }
 
-  leggTilFerd() {}
+  leggTilFerd() { }
 }

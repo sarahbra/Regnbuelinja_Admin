@@ -5,6 +5,7 @@ import { Baat } from '../models/baat';
 import { Router } from '@angular/router';
 import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
+import { NavbarService } from '../nav-meny/nav-meny.service';
 
 @Component({
   templateUrl: './baater.component.html',
@@ -16,10 +17,12 @@ export class BaaterComponent implements OnInit {
   constructor(
     private _http: HttpClient,
     private _router: Router,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+    public nav: NavbarService
+  ) { }
 
   ngOnInit() {
+    this.nav.show()
     this.laster = true;
     this.hentAlleBaater();
   }
@@ -67,9 +70,9 @@ export class BaaterComponent implements OnInit {
     });
   }
 
-  endreBaat(id: number) {}
+  endreBaat(id: number) { }
 
-  slettBaat(id: number) {}
+  slettBaat(id: number) { }
 
-  leggTilBaat() {}
+  leggTilBaat() { }
 }
