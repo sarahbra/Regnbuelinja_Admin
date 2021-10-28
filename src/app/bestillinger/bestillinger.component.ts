@@ -10,7 +10,7 @@ export class BestillingerComponent implements OnInit {
   alleBestillinger: Array<Bestilling> = [];
   laster: boolean = false;
 
-  constructor(private http: HttpClient, private modalService: NgbModal) {}
+  constructor(private http: HttpClient, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.laster = true;
@@ -30,11 +30,11 @@ export class BestillingerComponent implements OnInit {
       );
   }
 
-  endreBestilling(id: number) {}
+  endreBestilling(id: number) { }
 
-  slettBestilling(id: number) {}
+  slettBestilling(id: number) { }
 
-  visBilletter(id: number) {}
+  visBilletter(id: number) { }
 
-  leggTilBestilling() {}
+  leggTilBestilling() { }
 }
