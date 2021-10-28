@@ -12,11 +12,11 @@ const routes: Routes = [
   { path: 'baater', component: BaaterComponent },
   { path: 'bestillinger', component: BestillingerComponent },
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: 'ruter', pathMatch: 'full' }, //Dette er default: Hvis ingenting er oppgitt
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, //Dette er default: Hvis ingenting er oppgitt
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

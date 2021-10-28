@@ -7,9 +7,7 @@ import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
 
 @Component({
-  //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør ingenting
   templateUrl: './baater.component.html',
-  //styleUrls: ['./app.ruter.css'],
 })
 export class BaaterComponent implements OnInit {
   alleBaater: Array<Baat> = [];
@@ -19,7 +17,7 @@ export class BaaterComponent implements OnInit {
     private _http: HttpClient,
     private _router: Router,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.laster = true;
@@ -37,7 +35,6 @@ export class BaaterComponent implements OnInit {
     );
   }
 
-  endreBaat(id: number) {}
 
   visModalOgSlett(id: number) {
     console.log(id);
@@ -71,5 +68,8 @@ export class BaaterComponent implements OnInit {
     });
   }
 
-  leggTilBaat() {}
+  slettBaat(id: number) { }
+
+  leggTilBaat() { }
 }
+
