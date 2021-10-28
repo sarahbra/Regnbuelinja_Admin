@@ -1,15 +1,15 @@
 <div class="container">
     <h2> Alle ferdene: </h2>
     <div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div *ngIf="laster">Laster ferder.....</div>
             <button class='btn btn-primary' (click)="leggTilFerd()">Legg til ferd</button>
             <table class="table">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Båt</th>
-                        <th>Rute</th>
+                        <th>Båt-id</th>
+                        <th>Rute-id</th>
                         <th>Avreisetid</th>
                         <th>Ankomsttid</th>
                         <th></th>
@@ -18,13 +18,13 @@
                 </thead>
                 <tbody *ngFor="let ferd of alleFerder">
                     <tr>
-                        <td>{{ferd.id}}</td>
-                        <td>{{ferd.baat}}</td>
-                        <td>{{ferd.rute}}</td>
-                        <td>{{ferd.avreisetid}}</td>
-                        <td>{{ferd.ankomsttid}}</td>
-                        <td><button class="btn btn-danger" (click)="slettFerd(ferd.id)">Slett</button></td>
-                        <td><button class="btn btn-success" (click)="endreFerd(ferd.id)">Endre</button></td>
+                        <td>{{ferd.fId}}</td>
+                        <td>{{ferd.bId}}</td>
+                        <td>{{ferd.rId}}</td>
+                        <td>{{ferd.avreiseTid | date:'dd/MM/yyyy HH:mm'}}</td>
+                        <td>{{ferd.ankomstTid | date:'dd/MM/yyyy HH:mm'}}</td>
+                        <td><button class="btn btn-danger" (click)="visModalOgSlett(ferd.fId)">Slett</button></td>
+                        <td><button class="btn btn-success" (click)="endreFerd(ferd.fId)">Endre</button></td>
                     </tr>
                 </tbody>
             </table>

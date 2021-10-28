@@ -1,9 +1,9 @@
 <div class="container">
-    <h2> Alle ruter: </h2>
+    <button class='btn btn-primary col-sm-3 mb-4 ' (click)="leggTilRute()">Legg til rute</button>
     <div>
-        <div class="col-md-6">
+        <div class="col-md-12">
+            <h2 class="mb-4"> Alle ruter: </h2>
             <div *ngIf="laster">Laster ruter.....</div>
-            <button class='btn btn-primary' (click)="leggTilRute()">Legg til rute</button>
             <table class="table">
                 <thead>
                     <tr>

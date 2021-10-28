@@ -1,7 +1,7 @@
 <div class="container">
     <h2> Alle båtene: </h2>
     <div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div *ngIf="laster">Laster båter.....</div>
             <button class='btn btn-primary' (click)="leggTilBaat()">Legg til båt</button>
             <table class="table">
@@ -17,7 +17,7 @@
                     <tr>
                         <td>{{baat.id}}</td>
                         <td>{{baat.navn}}</td>
-                        <td><button class="btn btn-danger" (click)="slettBaat(baat.id)">Slett</button></td>
+                        <td><button class="btn btn-danger" (click)="visModalOgSlett(baat.id)">Slett</button></td>
                         <td><button class="btn btn-success" (click)="endreBaat(baat.id)">Endre</button></td>
                     </tr>
                 </tbody>
