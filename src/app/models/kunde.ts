@@ -3,4 +3,5 @@ export interface Kunde {
     fornavn: string;
     etternavn: string;
     epost: string;
+    telefonnr: string;
 }
