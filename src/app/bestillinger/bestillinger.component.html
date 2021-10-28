@@ -8,8 +8,10 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Kunde</th>
                         <th>Totalpris</th>
                         <th>Billetter</th>
+                        <th>Betalt</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -17,12 +19,15 @@
                 </thead>
                 <tbody *ngFor="let bestilling of alleBestillinger">
                     <tr>
-                        <td>{{bestilling.id}}</td>
-                        <td>{{bestilling.totalpris}}</td>
-                        <td><button class="btn btn-primary" (click)="visBilletter(bestilling.id)">Vis alle
+                        <td>{{bestilling.beId}}</td>
+                        <td>{{bestilling.kId}}</td>
+                        <td>{{bestilling.totalPris}}</td>
+                        <td><button class="btn btn-primary" (click)="visBilletter(bestilling.beId)">Vis alle
                                 billetter</button></td>
-                        <td><button class="btn btn-danger" (click)="slettBestilling(bestilling.id)">Slett</button></td>
-                        <td><button class="btn btn-success" (click)="endreBestilling(bestilling.id)">Endre</button>
+                        <td>{{bestilling.betalt}}</td>
+                        <td><button class="btn btn-danger" (click)="slettBestilling(bestilling.beId)">Slett</button>
+                        </td>
+                        <td><button class="btn btn-success" (click)="endreBestilling(bestilling.beId)">Endre</button>
                         </td>
                     </tr>
                 </tbody>
