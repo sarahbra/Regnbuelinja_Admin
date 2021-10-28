@@ -1,9 +1,9 @@
 <div class="container">
-    <h2> Alle ferdene: </h2>
+    <button class='btn btn-primary col-sm-3 mb-4' (click)="leggTilFerd()">Legg til ferd</button>
     <div>
         <div class="col-md-12">
+            <h2> Alle ferdene: </h2>
             <div *ngIf="laster">Laster ferder.....</div>
-            <button class='btn btn-primary' (click)="leggTilFerd()">Legg til ferd</button>
             <table class="table">
                 <thead>
                     <tr>

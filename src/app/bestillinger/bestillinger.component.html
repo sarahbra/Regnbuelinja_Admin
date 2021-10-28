@@ -1,9 +1,9 @@
 <div class="container">
-    <h2> Alle bestillinger: </h2>
+    <button class='btn btn-primary col-sm-3 mb-4' (click)="leggTilBestilling()">Legg til bestilling</button>
     <div>
         <div class="col-md-6">
+            <h2> Alle bestillinger: </h2>
             <div *ngIf="laster">Laster bestillinger.....</div>
-            <button class='btn btn-primary' (click)="leggTilBestilling()">Legg til bestilling</button>
             <table class="table">
                 <thead>
                     <tr>
