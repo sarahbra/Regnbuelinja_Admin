@@ -5,16 +5,23 @@ import { Rute } from '../models/rute';
 import { Router } from '@angular/router';
 import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
+<<<<<<< HEAD
 import { NavbarService } from '../nav-meny/nav-meny.service';
+=======
+import { BillettModal } from '../modals/billett.modal';
+>>>>>>> slettBillett før ferd/rute/osv. ferdig og funker
 
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør
   templateUrl: './ruter.component.html',
-  //styleUrls: ['./app.ruter.css'],
+  //styleUrls: ['./ruter.css'],
 })
 export class RuterComponent implements OnInit {
   alleRuter: Array<Rute> = [];
   laster: boolean = false;
+
+  //Id fra rute, ferd, båt eller bestilling
+  dataPassToChild: number = 0;
 
   constructor(
     private _http: HttpClient,
@@ -67,7 +74,26 @@ export class RuterComponent implements OnInit {
               keyboard: false,
             });
             let textBody: string = res.error;
+            //Endre modal slik at man får opp en knapp som fører til en ny modal som viser alle linkede billetter i en ny modal
             modalRef.componentInstance.updateBody(textBody);
+            //Modal for å vise billetter knyttet til rute hvis bruker klikker "Vis billetter"
+            modalRef.result.then((retur) => {
+              console.log('Lukket med:' + retur);
+              if (retur == 'Vis') {
+                const modalRef = this.modalService.open(BillettModal, {
+                  backdrop: 'static',
+                  keyboard: false,
+                  size: 'lg',
+                });
+                let textBody: string =
+                  'Billetter tilknyttet rute med id ' +
+                  id +
+                  '\nmå slettes før ruten kan slettes';
+                modalRef.componentInstance.updateBody(textBody);
+                (<BillettModal>modalRef.componentInstance).dataToTakeAsInput =
+                  id;
+              }
+            });
           }
         );
       }
