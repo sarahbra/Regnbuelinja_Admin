@@ -4,7 +4,7 @@ import { Billett } from '../models/billett';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BestillingUbetaltModal } from './bestillingUbetalt.modal';
+import { SlettBillettErrorModal } from './slett-billett-error.modal';
 
 //Dette er en modal som lister de billettene som er knyttet til en rute, ferd, båt eller bestilling
 //billettene som er linket må slettes FØR man kan slette de nevnte entitetene.
@@ -51,18 +51,23 @@ export class BillettModal implements OnInit {
   }
 
   slettBillett(id: number) {
-    this._http.delete('/api/admin/billett/' + id).subscribe((ok) => {
-      this.hentAlle();
-    }),
-      //Dersom billetten ikke kan slettes er det fordi den er ubetalt -> modal vises med info og lukk knapp. Admin må håndtere betaling først som ikke er den del av vår løsning
-      (err: string) => {
-        const modalRef = this.modalService.open(BestillingUbetaltModal, {
+    this._http.delete('/api/admin/billett/' + id).subscribe(
+      (ok) => {
+        this.hentAlle();
+      },
+      //Dersom billetten ikke kan slettes er det fordi ankomsttid ikke har vært samtidig som at billetten er betalt->
+      //modal vises med info om at billett ikke kan slettes og lukk en knapp. Dersom billett skal slettes må dette løses med kunde kun dersom den er betalt.
+      //Vi har valgt å ha denne sperren fordi det virker litt rart å kunne slette billetter som kunder har betalt for uten en slags sperre
+      (res) => {
+        const modalRef = this.modalService.open(SlettBillettErrorModal, {
           backdrop: 'static',
           keyboard: false,
         });
-        let textBody: string = err;
+        let textBody: string =
+          'Billett kan ikke ikke slettes fordi den er betalt og reisen er ikke gjennomført';
         modalRef.componentInstance.updateBody(textBody);
-      };
+      }
+    );
     this._router.navigate(['/ruter']);
   }
 }

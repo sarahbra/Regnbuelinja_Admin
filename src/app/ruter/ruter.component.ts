@@ -71,7 +71,6 @@ export class RuterComponent implements OnInit {
               keyboard: false,
             });
             let textBody: string = res.error;
-            //Endre modal slik at man får opp en knapp som fører til en ny modal som viser alle linkede billetter i en ny modal
             modalRef.componentInstance.updateBody(textBody);
             //Modal for å vise billetter knyttet til rute hvis bruker klikker "Vis billetter"
             modalRef.result.then((retur) => {

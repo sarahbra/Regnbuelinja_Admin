@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  templateUrl: 'bestillingUbetalt.modal.html',
+  templateUrl: 'slett-billett-error.modal.html',
 })
-export class BestillingUbetaltModal {
+export class SlettBillettErrorModal {
   body: string;
   updateBody(input: string) {
     this.body = input;
