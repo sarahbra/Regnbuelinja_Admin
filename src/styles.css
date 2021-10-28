@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-
+.modal-xlg {
+  width: 1200px;
+}
 /* .form-signin {
     width: 100%;
     max-width: 330px;
@@ -25,7 +27,6 @@
     border-top-right-radius: 0;
   }
    */
-
 
 /* .container-login {
     position: absolute;

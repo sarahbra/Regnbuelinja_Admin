@@ -13,7 +13,11 @@ import { BaaterComponent } from './baater/baater.component';
 import { BestillingerComponent } from './bestillinger/bestillinger.component';
 import { LoginComponent } from './login/login.component';
 import { SlettModal } from './modals/slett.modal';
+<<<<<<< HEAD
 import { NavbarService } from './nav-meny/nav-meny.service';
+=======
+import { BillettModal } from './modals/billett.modal';
+>>>>>>> slettBillett før ferd/rute/osv. ferdig og funker
 
 @NgModule({
   declarations: [
@@ -25,8 +29,12 @@ import { NavbarService } from './nav-meny/nav-meny.service';
     BestillingerComponent,
     LoginComponent,
     SlettModal,
+<<<<<<< HEAD
 
 
+=======
+    BillettModal,
+>>>>>>> slettBillett før ferd/rute/osv. ferdig og funker
   ],
 
   imports: [
@@ -39,6 +47,6 @@ import { NavbarService } from './nav-meny/nav-meny.service';
   ],
   providers: [NavbarService],
   bootstrap: [AppComponent],
-  entryComponents: [SlettModal]
+  entryComponents: [SlettModal],
 })
 export class AppModule { }
