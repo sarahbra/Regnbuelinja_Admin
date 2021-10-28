@@ -5,11 +5,8 @@ import { Rute } from '../models/rute';
 import { Router } from '@angular/router';
 import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
-<<<<<<< HEAD
 import { NavbarService } from '../nav-meny/nav-meny.service';
-=======
 import { BillettModal } from '../modals/billett.modal';
->>>>>>> slettBillett før ferd/rute/osv. ferdig og funker
 
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør
@@ -28,7 +25,7 @@ export class RuterComponent implements OnInit {
     private _router: Router,
     private modalService: NgbModal,
     public nav: NavbarService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.nav.show();
@@ -46,9 +43,9 @@ export class RuterComponent implements OnInit {
     );
   }
 
-  endreRute(id: number) { }
+  endreRute(id: number) {}
 
-  leggTilRute() { }
+  leggTilRute() {}
 
   visModalOgSlett(id: number) {
     console.log(id);

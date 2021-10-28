@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { NavMenyComponent } from './nav-meny/nav-meny.component';
 import { RuterComponent } from './ruter/ruter.component';
 import { FerderComponent } from './ferder/ferder.component';
@@ -13,12 +12,8 @@ import { BaaterComponent } from './baater/baater.component';
 import { BestillingerComponent } from './bestillinger/bestillinger.component';
 import { LoginComponent } from './login/login.component';
 import { SlettModal } from './modals/slett.modal';
-<<<<<<< HEAD
 import { NavbarService } from './nav-meny/nav-meny.service';
-=======
 import { BillettModal } from './modals/billett.modal';
->>>>>>> slettBillett før ferd/rute/osv. ferdig og funker
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,12 +24,7 @@ import { BillettModal } from './modals/billett.modal';
     BestillingerComponent,
     LoginComponent,
     SlettModal,
-<<<<<<< HEAD
-
-
-=======
     BillettModal,
->>>>>>> slettBillett før ferd/rute/osv. ferdig og funker
   ],
 
   imports: [
@@ -43,10 +33,9 @@ import { BillettModal } from './modals/billett.modal';
     NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
-
   ],
   providers: [NavbarService],
   bootstrap: [AppComponent],
   entryComponents: [SlettModal],
 })
-export class AppModule { }
+export class AppModule {}
