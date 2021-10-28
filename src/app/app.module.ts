@@ -13,6 +13,7 @@ import { BaaterComponent } from './baater/baater.component';
 import { BestillingerComponent } from './bestillinger/bestillinger.component';
 import { LoginComponent } from './login/login.component';
 import { SlettModal } from './modals/slett.modal';
+import { NavbarService } from './nav-meny/nav-meny.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { SlettModal } from './modals/slett.modal';
     BaaterComponent,
     BestillingerComponent,
     LoginComponent,
-    SlettModal
+    SlettModal,
+
+
   ],
 
   imports: [
@@ -32,9 +35,10 @@ import { SlettModal } from './modals/slett.modal';
     NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
+
   ],
-  providers: [],
+  providers: [NavbarService],
   bootstrap: [AppComponent],
   entryComponents: [SlettModal]
 })
-export class AppModule {}
+export class AppModule { }

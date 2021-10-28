@@ -5,6 +5,7 @@ import { Rute } from '../models/rute';
 import { Router } from '@angular/router';
 import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
+import { NavbarService } from '../nav-meny/nav-meny.service';
 
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør
@@ -18,10 +19,12 @@ export class RuterComponent implements OnInit {
   constructor(
     private _http: HttpClient,
     private _router: Router,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+    public nav: NavbarService
+  ) { }
 
   ngOnInit() {
+    this.nav.show();
     this.laster = true;
     this.hentAlleRuter();
   }
@@ -36,9 +39,9 @@ export class RuterComponent implements OnInit {
     );
   }
 
-  endreRute(id: number) {}
+  endreRute(id: number) { }
 
-  leggTilRute() {}
+  leggTilRute() { }
 
   visModalOgSlett(id: number) {
     console.log(id);
