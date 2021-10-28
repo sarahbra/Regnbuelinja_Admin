@@ -14,6 +14,10 @@ import { LoginComponent } from './login/login.component';
 import { SlettModal } from './modals/slett.modal';
 import { NavbarService } from './nav-meny/nav-meny.service';
 import { BillettModal } from './modals/billett.modal';
+import { KundeComponent } from './kunder/kunde.component';
+import { BillettComponent } from './billetter/billett.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +29,9 @@ import { BillettModal } from './modals/billett.modal';
     LoginComponent,
     SlettModal,
     BillettModal,
+    KundeComponent,
+    BillettComponent
+    
   ],
 
   imports: [
@@ -34,8 +41,9 @@ import { BillettModal } from './modals/billett.modal';
     HttpClientModule,
     ReactiveFormsModule,
   ],
+
   providers: [NavbarService],
   bootstrap: [AppComponent],
   entryComponents: [SlettModal],
 })
-export class AppModule {}
+export class AppModule { }

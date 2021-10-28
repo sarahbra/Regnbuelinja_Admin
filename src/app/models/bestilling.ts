@@ -1,7 +1,6 @@
-import { Billett } from './billett';
-
 export interface Bestilling {
   id: number;
+  kId: number;
   totalpris: number;
-  billettliste: Billett[];
+  betalt: boolean;
 }

@@ -20,9 +20,7 @@ export class BestillingerComponent implements OnInit {
   }
 
   hentAlleBestillinger() {
-    this.http
-      //Endre til nytt endepunkt som henter alle ferder uten ruteid.
-      .get<Bestilling[]>('/api/Bestilling/HentAlleBestillinger')
+    this.http.get<Bestilling[]>('/api/admin/bestillinger')
       .subscribe(
         (bestillinger) => {
           this.alleBestillinger = bestillinger;
