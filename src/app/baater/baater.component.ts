@@ -17,7 +17,7 @@ export class BaaterComponent implements OnInit {
     private _http: HttpClient,
     private _router: Router,
     private modalService: NgbModal
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.laster = true;
@@ -34,7 +34,6 @@ export class BaaterComponent implements OnInit {
       (error) => console.log(error)
     );
   }
-
 
   visModalOgSlett(id: number) {
     console.log(id);
@@ -68,8 +67,9 @@ export class BaaterComponent implements OnInit {
     });
   }
 
-  slettBaat(id: number) { }
+  endreBaat(id: number) {}
 
-  leggTilBaat() { }
+  slettBaat(id: number) {}
+
+  leggTilBaat() {}
 }
-
