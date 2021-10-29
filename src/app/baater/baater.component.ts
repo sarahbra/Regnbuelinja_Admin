@@ -68,7 +68,7 @@ export class BaaterComponent implements OnInit {
   }
 
   henteEnBaat(id: number){
-    this._http.get<Baat>("api/admin/baat" + id)
+    this._http.get<Baat>("api/admin/baat/" + id)
     .subscribe(
       baat=>{
         this.skjema.patchValue({id: baat.id})
@@ -87,7 +87,7 @@ export class BaaterComponent implements OnInit {
     endretBaat.id = this.skjema.value.id;
     endretBaat.navn = this.skjema.value.navn;
 
-    this._http.put("api/admin/baat", endretBaat)
+    this._http.put("api/admin/baat/" + endretBaat.id, endretBaat)  //Droppe id i backend? Får http parsing errror selv om endring er vellykket...
       .subscribe(
         baat => {
           this.hentAlleBaater();
