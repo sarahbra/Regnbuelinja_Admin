@@ -16,7 +16,7 @@ import { NavbarService } from './nav-meny/nav-meny.service';
 import { BillettModal } from './modals/billett.modal';
 import { KundeComponent } from './kunder/kunde.component';
 import { BillettComponent } from './billetter/billett.component';
-
+import { LeggTilModal } from './modals/legg_til.modal';
 
 @NgModule({
   declarations: [
@@ -30,8 +30,8 @@ import { BillettComponent } from './billetter/billett.component';
     SlettModal,
     BillettModal,
     KundeComponent,
-    BillettComponent
-    
+    BillettComponent,
+    LeggTilModal    
   ],
 
   imports: [
@@ -44,6 +44,6 @@ import { BillettComponent } from './billetter/billett.component';
 
   providers: [NavbarService],
   bootstrap: [AppComponent],
-  entryComponents: [SlettModal],
+  entryComponents: [SlettModal, LeggTilModal],
 })
 export class AppModule { }
