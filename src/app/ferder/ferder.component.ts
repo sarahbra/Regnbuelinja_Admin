@@ -6,6 +6,7 @@ import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
 import { Router } from '@angular/router';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { BillettModal } from '../modals/billett.modal';
 
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør ingenting
@@ -21,10 +22,10 @@ export class FerderComponent implements OnInit {
     private _router: Router,
     private modalService: NgbModal,
     public nav: NavbarService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.nav.show()
+    this.nav.show();
     this.laster = true;
     this.hentAlleFerder();
   }
@@ -43,7 +44,7 @@ export class FerderComponent implements OnInit {
       );
   }
 
-  endreFerd(id: number) { }
+  endreFerd(id: number) {}
 
   visModalOgSlett(id: number) {
     console.log(id);
@@ -52,7 +53,7 @@ export class FerderComponent implements OnInit {
       keyboard: false,
     });
 
-    let textBody: string = 'Vil du slette Ferd ' + id + '?';
+    let textBody: string = 'Vil du slette ferd ' + id + '?';
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
@@ -69,6 +70,25 @@ export class FerderComponent implements OnInit {
             });
             let textBody: string = res.error;
             modalRef.componentInstance.updateBody(textBody);
+            //Modal for å vise billetter knyttet til ferd hvis bruker klikker "Vis billetter"
+            modalRef.result.then((retur) => {
+              console.log('Lukket med:' + retur);
+              if (retur == 'Vis') {
+                const modalRef = this.modalService.open(BillettModal, {
+                  backdrop: 'static',
+                  keyboard: false,
+                  size: 'lg',
+                });
+                let textBody: string =
+                  'Billetter tilknyttet ferd med id ' +
+                  id +
+                  '\nmå slettes før ferden kan slettes';
+                modalRef.componentInstance.updateBody(textBody);
+                (<BillettModal>modalRef.componentInstance).idAsInput = id;
+                (<BillettModal>modalRef.componentInstance).endepunktAsInput =
+                  'ferd';
+              }
+            });
           }
         );
       }
@@ -76,5 +96,5 @@ export class FerderComponent implements OnInit {
     });
   }
 
-  leggTilFerd() { }
+  leggTilFerd() {}
 }
