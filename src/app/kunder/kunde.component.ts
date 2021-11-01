@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { Kunde } from '../models/kunde';
 import { NavbarService } from '../nav-meny/nav-meny.service';
 import { BekreftSlettModal } from '../modals/bekreft-slett.modal';
-import { SlettErrorModal } from '../modals/slett-error.modal';
+import { AlertAvhengigheterFinnesModal } from '../modals/alert-avhengigheter-finnes.modal';
+import { VisAvhengigheterModal } from '../modals/vis-avhengigheter.modal';
 
 @Component({
   templateUrl: './kunde.component.html',
@@ -44,7 +45,7 @@ export class KundeComponent implements OnInit {
       keyboard: false,
     });
 
-    let textBody: string = 'Vil du slette kunde med id: ' + id + '?';
+    let textBody: string = 'Vil du slette kunde med id ' + id + '?';
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
@@ -55,12 +56,36 @@ export class KundeComponent implements OnInit {
             this.hentAlleKunder();
           },
           (res) => {
-            const modalRef = this.modalService.open(SlettErrorModal, {
-              backdrop: 'static',
-              keyboard: false,
-            });
+            const modalRef = this.modalService.open(
+              AlertAvhengigheterFinnesModal,
+              {
+                backdrop: 'static',
+                keyboard: false,
+              }
+            );
             let textBody: string = res.error;
             modalRef.componentInstance.updateBody(textBody);
+            //Modal for å vise billetter knyttet til ferd hvis bruker klikker "Vis billetter"
+            modalRef.result.then((retur) => {
+              console.log('Lukket med:' + retur);
+              if (retur == 'Vis') {
+                const modalRef = this.modalService.open(VisAvhengigheterModal, {
+                  backdrop: 'static',
+                  keyboard: false,
+                  size: 'lg',
+                });
+                let textBody: string =
+                  'Bestillinger tilknyttet kunde med id ' +
+                  id +
+                  '\nmå slettes før kunden kan slettes';
+                modalRef.componentInstance.updateBody(textBody);
+                (<VisAvhengigheterModal>modalRef.componentInstance).idAsInput =
+                  id;
+                (<VisAvhengigheterModal>(
+                  modalRef.componentInstance
+                )).endepunktAsInput = 'kunde';
+              }
+            });
           }
         );
       }

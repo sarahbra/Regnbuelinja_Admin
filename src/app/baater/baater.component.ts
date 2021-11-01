@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { BekreftSlettModal } from '../modals/bekreft-slett.modal';
 import { AlertAvhengigheterFinnesModal } from '../modals/alert-avhengigheter-finnes.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { BillettModal } from '../modals/billett.modal';
+import { VisAvhengigheterModal } from '../modals/vis-avhengigheter.modal';
 
 @Component({
   templateUrl: './baater.component.html',
@@ -70,7 +70,7 @@ export class BaaterComponent implements OnInit {
             modalRef.result.then((retur) => {
               console.log('Lukket med:' + retur);
               if (retur == 'Vis') {
-                const modalRef = this.modalService.open(BillettModal, {
+                const modalRef = this.modalService.open(VisAvhengigheterModal, {
                   backdrop: 'static',
                   keyboard: false,
                   size: 'lg',
@@ -80,9 +80,11 @@ export class BaaterComponent implements OnInit {
                   id +
                   '\nmå slettes før båten kan slettes';
                 modalRef.componentInstance.updateBody(textBody);
-                (<BillettModal>modalRef.componentInstance).idAsInput = id;
-                (<BillettModal>modalRef.componentInstance).endepunktAsInput =
-                  'baat';
+                (<VisAvhengigheterModal>modalRef.componentInstance).idAsInput =
+                  id;
+                (<VisAvhengigheterModal>(
+                  modalRef.componentInstance
+                )).endepunktAsInput = 'baat';
               }
             });
           }

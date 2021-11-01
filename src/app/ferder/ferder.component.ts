@@ -6,7 +6,7 @@ import { BekreftSlettModal } from '../modals/bekreft-slett.modal';
 import { AlertAvhengigheterFinnesModal } from '../modals/alert-avhengigheter-finnes.modal';
 import { Router } from '@angular/router';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { BillettModal } from '../modals/billett.modal';
+import { VisAvhengigheterModal } from '../modals/vis-avhengigheter.modal';
 
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør ingenting
@@ -77,7 +77,7 @@ export class FerderComponent implements OnInit {
             modalRef.result.then((retur) => {
               console.log('Lukket med:' + retur);
               if (retur == 'Vis') {
-                const modalRef = this.modalService.open(BillettModal, {
+                const modalRef = this.modalService.open(VisAvhengigheterModal, {
                   backdrop: 'static',
                   keyboard: false,
                   size: 'lg',
@@ -87,9 +87,11 @@ export class FerderComponent implements OnInit {
                   id +
                   '\nmå slettes før ferden kan slettes';
                 modalRef.componentInstance.updateBody(textBody);
-                (<BillettModal>modalRef.componentInstance).idAsInput = id;
-                (<BillettModal>modalRef.componentInstance).endepunktAsInput =
-                  'ferd';
+                (<VisAvhengigheterModal>modalRef.componentInstance).idAsInput =
+                  id;
+                (<VisAvhengigheterModal>(
+                  modalRef.componentInstance
+                )).endepunktAsInput = 'ferd';
               }
             });
           }
