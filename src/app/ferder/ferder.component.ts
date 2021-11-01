@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Ferd } from '../models/ferd';
-import { BekreftSlettModal } from '../modals/bekreft-slett.modal';
-import { AlertAvhengigheterFinnesModal } from '../modals/alert-avhengigheter-finnes.modal';
+import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
+import { AlertAvhengigheterFinnesModal } from '../modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { Router } from '@angular/router';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { VisAvhengigheterModal } from '../modals/vis-avhengigheter.modal';
+import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
 
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør ingenting
