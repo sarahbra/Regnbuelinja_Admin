@@ -7,6 +7,8 @@ import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
 import { BillettModal } from '../modals/billett.modal';
+import { FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
+
 
 @Component({
   templateUrl: './baater.component.html',
@@ -15,15 +17,28 @@ export class BaaterComponent implements OnInit {
   alleBaater: Array<Baat> = [];
   laster: boolean = false;
 
+  visListe: boolean;
+  visSkjemaRegistrere: boolean;
+  skjema: FormGroup;
+
+  validering = {
+    id: [""],
+    navn: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ]{2,30}")])] //Regex må fikses!!!
+  }
+
   constructor(
     private _http: HttpClient,
     private _router: Router,
     private modalService: NgbModal,
+    private _fb: FormBuilder,
     public nav: NavbarService
-  ) {}
+  ) {
+    this.skjema = _fb.group(this.validering)
+  }
 
   ngOnInit() {
-    this.nav.show();
+    this.nav.show()
+    this.visListe = true;
     this.laster = true;
     this.hentAlleBaater();
   }
@@ -38,6 +53,60 @@ export class BaaterComponent implements OnInit {
       (error) => console.log(error)
     );
   }
+
+  vedSubmit() {
+    if (this.visSkjemaRegistrere) {
+      this.leggTilBaat();
+    } else {
+      this.endreBaat();
+    }
+  }
+
+  tilbakeTilListe(){
+    this.visListe = true;
+    this.nav.show()
+  }
+
+  henteEnBaat(id: number){
+    this._http.get<Baat>("api/admin/baat" + id)
+    .subscribe(
+      baat=>{
+        this.skjema.patchValue({id: baat.id})
+        this.skjema.patchValue({navn: baat.navn})
+      },
+      error=> console.log(error)
+    );
+    this.visSkjemaRegistrere = false;
+    this.visListe = false;
+    this.nav.hide()
+  }
+
+
+  endreBaat() {
+    const endretBaat = new Baat();
+    endretBaat.id = this.skjema.value.id;
+    endretBaat.navn = this.skjema.value.navn;
+
+    this._http.put("api/admin/baat", endretBaat)
+      .subscribe(
+        baat => {
+          this.hentAlleBaater();
+          this.visListe = true;
+        },
+        error => console.log(error)
+      );
+  }
+
+
+
+  slettBaat(id: number) { }
+
+  leggTilBaat() { }
+
+
+
+
+
 
   visModalOgSlett(id: number) {
     console.log(id);
@@ -89,9 +158,6 @@ export class BaaterComponent implements OnInit {
     });
   }
 
-  endreBaat(id: number) {}
+ 
 
-  slettBaat(id: number) {}
-
-  leggTilBaat() {}
 }
