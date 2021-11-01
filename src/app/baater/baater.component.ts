@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Baat } from '../models/baat';
 import { Router } from '@angular/router';
-import { SlettModal } from '../modals/slett.modal';
-import { AlertModal } from '../modals/alert.modal';
+import { BekreftSlettModal } from '../modals/bekreft-slett.modal';
+import { AlertAvhengigheterFinnesModal } from '../modals/alert-avhengigheter-finnes.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { BillettModal } from '../modals/billett.modal';
+
 import { FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
 
+import { VisAvhengigheterModal } from '../modals/vis-avhengigheter.modal';
 
 @Component({
   templateUrl: './baater.component.html',
@@ -54,7 +55,7 @@ export class BaaterComponent implements OnInit {
 
   visModalOgSlett(id: number) {
     console.log(id);
-    const modalRef = this.modalService.open(SlettModal, {
+    const modalRef = this.modalService.open(BekreftSlettModal, {
       backdrop: 'static',
       keyboard: false,
     });
@@ -70,17 +71,20 @@ export class BaaterComponent implements OnInit {
             this.hentAlleBaater();
           },
           (res) => {
-            const modalRef = this.modalService.open(AlertModal, {
-              backdrop: 'static',
-              keyboard: false,
-            });
+            const modalRef = this.modalService.open(
+              AlertAvhengigheterFinnesModal,
+              {
+                backdrop: 'static',
+                keyboard: false,
+              }
+            );
             let textBody: string = res.error;
             modalRef.componentInstance.updateBody(textBody);
             //Modal for å vise billetter knyttet til båt hvis bruker klikker "Vis billetter"
             modalRef.result.then((retur) => {
               console.log('Lukket med:' + retur);
               if (retur == 'Vis') {
-                const modalRef = this.modalService.open(BillettModal, {
+                const modalRef = this.modalService.open(VisAvhengigheterModal, {
                   backdrop: 'static',
                   keyboard: false,
                   size: 'lg',
@@ -90,9 +94,11 @@ export class BaaterComponent implements OnInit {
                   id +
                   '\nmå slettes før båten kan slettes';
                 modalRef.componentInstance.updateBody(textBody);
-                (<BillettModal>modalRef.componentInstance).idAsInput = id;
-                (<BillettModal>modalRef.componentInstance).endepunktAsInput =
-                  'baat';
+                (<VisAvhengigheterModal>modalRef.componentInstance).idAsInput =
+                  id;
+                (<VisAvhengigheterModal>(
+                  modalRef.componentInstance
+                )).endepunktAsInput = 'baat';
               }
             });
           }
