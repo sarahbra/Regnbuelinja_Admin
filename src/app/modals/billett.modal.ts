@@ -21,7 +21,8 @@ export class BillettModal implements OnInit {
   }
   alleBilletter: Array<Billett> = [];
   laster: boolean;
-  @Input() dataToTakeAsInput: number;
+  @Input() idAsInput: number;
+  @Input() endepunktAsInput: string;
 
   constructor(
     private _http: HttpClient,
@@ -39,7 +40,11 @@ export class BillettModal implements OnInit {
     //Id må være ruteid eller ferdid etc. Endepunktet må endres ut fra hva som sendes inn (ferd, rute, båt)
     this._http
       .get<Billett[]>(
-        '/api/admin/rute/' + this.dataToTakeAsInput + '/billetter'
+        '/api/admin/' +
+          this.endepunktAsInput +
+          '/' +
+          this.idAsInput +
+          '/billetter'
       )
       .subscribe(
         (billetter) => {
@@ -64,10 +69,9 @@ export class BillettModal implements OnInit {
           keyboard: false,
         });
         let textBody: string =
-          'Billett kan ikke ikke slettes fordi den er betalt og reisen er ikke gjennomført';
+          'Billetten kan ikke ikke slettes fordi den er betalt og reisen er frem i tid';
         modalRef.componentInstance.updateBody(textBody);
       }
     );
-    this._router.navigate(['/ruter']);
   }
 }

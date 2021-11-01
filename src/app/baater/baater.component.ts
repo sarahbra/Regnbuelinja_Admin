@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { BillettModal } from '../modals/billett.modal';
 
 @Component({
   templateUrl: './baater.component.html',
@@ -19,10 +20,10 @@ export class BaaterComponent implements OnInit {
     private _router: Router,
     private modalService: NgbModal,
     public nav: NavbarService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.nav.show()
+    this.nav.show();
     this.laster = true;
     this.hentAlleBaater();
   }
@@ -45,7 +46,7 @@ export class BaaterComponent implements OnInit {
       keyboard: false,
     });
 
-    let textBody: string = 'Vil du slette Båt ' + id + '?';
+    let textBody: string = 'Vil du slette båt ' + id + '?';
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
@@ -55,7 +56,6 @@ export class BaaterComponent implements OnInit {
           () => {
             this.hentAlleBaater();
           },
-          //Lage en kulere alert dialog?
           (res) => {
             const modalRef = this.modalService.open(AlertModal, {
               backdrop: 'static',
@@ -63,6 +63,25 @@ export class BaaterComponent implements OnInit {
             });
             let textBody: string = res.error;
             modalRef.componentInstance.updateBody(textBody);
+            //Modal for å vise billetter knyttet til båt hvis bruker klikker "Vis billetter"
+            modalRef.result.then((retur) => {
+              console.log('Lukket med:' + retur);
+              if (retur == 'Vis') {
+                const modalRef = this.modalService.open(BillettModal, {
+                  backdrop: 'static',
+                  keyboard: false,
+                  size: 'lg',
+                });
+                let textBody: string =
+                  'Billetter tilknyttet båt med id ' +
+                  id +
+                  '\nmå slettes før båten kan slettes';
+                modalRef.componentInstance.updateBody(textBody);
+                (<BillettModal>modalRef.componentInstance).idAsInput = id;
+                (<BillettModal>modalRef.componentInstance).endepunktAsInput =
+                  'baat';
+              }
+            });
           }
         );
       }
@@ -70,9 +89,9 @@ export class BaaterComponent implements OnInit {
     });
   }
 
-  endreBaat(id: number) { }
+  endreBaat(id: number) {}
 
-  slettBaat(id: number) { }
+  slettBaat(id: number) {}
 
-  leggTilBaat() { }
+  leggTilBaat() {}
 }

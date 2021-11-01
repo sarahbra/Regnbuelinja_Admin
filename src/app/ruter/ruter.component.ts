@@ -86,8 +86,9 @@ export class RuterComponent implements OnInit {
                   id +
                   '\nmå slettes før ruten kan slettes';
                 modalRef.componentInstance.updateBody(textBody);
-                (<BillettModal>modalRef.componentInstance).dataToTakeAsInput =
-                  id;
+                (<BillettModal>modalRef.componentInstance).idAsInput = id;
+                (<BillettModal>modalRef.componentInstance).endepunktAsInput =
+                  'rute';
               }
             });
           }
