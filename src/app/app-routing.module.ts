@@ -7,7 +7,7 @@ import { FerderComponent } from './ferder/ferder.component';
 import { BestillingerComponent } from './bestillinger/bestillinger.component';
 import { KundeComponent } from './kunder/kunde.component';
 import { BillettComponent } from './billetter/billett.component';
-//import { EndreComponent } from './baaterEndre/endre.component';
+import { EndreComponent } from './endre/endre.component';
 
 const routes: Routes = [
   { path: 'ruter', component: RuterComponent },
@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'kunder', component: KundeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'billetter', component: BillettComponent },
-  //{ path: 'endre', component: EndreComponent },
+  { path: 'endre/:id', component: EndreComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }, //Dette er default: Hvis ingenting er oppgitt
 ];
 

@@ -18,6 +18,9 @@ import { KundeComponent } from './kunder/kunde.component';
 import { BillettComponent } from './billetter/billett.component';
 import { AlertModal } from './modals/alert.modal';
 import { SlettBillettErrorModal } from './modals/slett-billett-error.modal';
+import { EndreComponent } from './endre/endre.component';
+
+
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { SlettBillettErrorModal } from './modals/slett-billett-error.modal';
     BillettComponent,
     AlertModal,
     SlettBillettErrorModal,
+    EndreComponent,
   ],
 
   imports: [

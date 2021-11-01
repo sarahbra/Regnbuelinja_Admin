@@ -1,0 +1,63 @@
+
+<div class="container" *ngIf="visEndreBaat">
+    <div class="col-md-4">
+        <form [formGroup]="skjema" (ngSubmit)="vedSubmit()">
+            
+            <input class="form-control" formControlName="id" type="hidden" />
+            
+            <div class="form-group">
+                <label>Båtnavn</label>
+                <input class="form-control" formControlName="navn" />
+                <p class="alert alert-warning" [hidden]="skjema.controls.navn.valid || (skjema.controls.navn.pristine)">
+                    Fornavn er obligatorisk.
+                </p>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" [disabled]="!skjema.valid" class="btn btn-primary">Endre</button>
+                <button class="btn btn-default" routerLink="/baater">Tilbake</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+<div class="container" *ngIf="visEndreRute">
+    <div class="col-md-4">
+        <form [formGroup]="skjema" (ngSubmit)="vedSubmit()">           
+            <input class="form-control" formControlName="id" type="hidden" />
+    
+            <div class="form-group">
+                <label>Avreise Havn</label>
+                <input class="form-control" formControlName="startpunkt" />
+                <p class="alert alert-warning" [hidden]="skjema.controls.startpunkt.valid || (skjema.controls.startpunkt.pristine)">
+                    Avreise havn er obligatorisk.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label>Ankomst Havn</label>
+                <input class="form-control" formControlName="endepunkt" />
+                <p class="alert alert-warning" [hidden]="skjema.controls.endepunkt.valid || (skjema.controls.endepunkt.pristine)">
+                    Ankomst havn er obligatorisk.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label>Pris</label>
+                <input class="form-control" formControlName="pris" />
+                <p class="alert alert-warning" [hidden]="skjema.controls.pris.valid || (skjema.controls.pris.pristine)">
+                    Pris er obligatorisk.
+                </p>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" [disabled]="!skjema.valid" class="btn btn-primary">Endre</button>
+                <button class="btn btn-default" routerLink="/ruter">Tilbake</button>
+            </div>
+        </form>
+    </div>
+</div>

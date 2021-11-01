@@ -16,13 +16,10 @@ import { FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
 export class BaaterComponent implements OnInit {
   alleBaater: Array<Baat> = [];
   laster: boolean = false;
-
-  visListe: boolean;
-  visSkjemaRegistrere: boolean;
   skjema: FormGroup;
 
   validering = {
-    id: [""],
+    id: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZæøåÆØÅ. \-]{2,20}")])],
     navn: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ]{2,30}")])] //Regex må fikses!!!
   }
 
@@ -38,10 +35,11 @@ export class BaaterComponent implements OnInit {
 
   ngOnInit() {
     this.nav.show()
-    this.visListe = true;
     this.laster = true;
     this.hentAlleBaater();
   }
+
+  leggTilBaat(){}
 
   hentAlleBaater() {
     //Endre til nytt endepunkt som henter alle båter.
@@ -53,60 +51,6 @@ export class BaaterComponent implements OnInit {
       (error) => console.log(error)
     );
   }
-
-  vedSubmit() {
-    if (this.visSkjemaRegistrere) {
-      this.leggTilBaat();
-    } else {
-      this.endreBaat();
-    }
-  }
-
-  tilbakeTilListe(){
-    this.visListe = true;
-    this.nav.show()
-  }
-
-  henteEnBaat(id: number){
-    this._http.get<Baat>("api/admin/baat/" + id)
-    .subscribe(
-      baat=>{
-        this.skjema.patchValue({id: baat.id})
-        this.skjema.patchValue({navn: baat.navn})
-      },
-      error=> console.log(error)
-    );
-    this.visSkjemaRegistrere = false;
-    this.visListe = false;
-    this.nav.hide()
-  }
-
-
-  endreBaat() {
-    const endretBaat = new Baat();
-    endretBaat.id = this.skjema.value.id;
-    endretBaat.navn = this.skjema.value.navn;
-
-    this._http.put("api/admin/baat/" + endretBaat.id, endretBaat)  //Droppe id i backend? Får http parsing errror selv om endring er vellykket...
-      .subscribe(
-        baat => {
-          this.hentAlleBaater();
-          this.visListe = true;
-        },
-        error => console.log(error)
-      );
-  }
-
-
-
-  slettBaat(id: number) { }
-
-  leggTilBaat() { }
-
-
-
-
-
 
   visModalOgSlett(id: number) {
     console.log(id);
@@ -159,5 +103,6 @@ export class BaaterComponent implements OnInit {
   }
 
  
+
 
 }

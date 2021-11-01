@@ -1,4 +1,4 @@
-<div class="container" *ngIf="visListe">
+<div class="container">
     <button class='btn btn-primary col-sm-3 mb-4' (click)="leggTilBaat()">Legg til båt</button>
 
     <div>
@@ -19,37 +19,10 @@
                         <td>{{baat.id}}</td>
                         <td>{{baat.navn}}</td>
                         <td><button class="btn btn-danger" (click)="visModalOgSlett(baat.id)">Slett</button></td>
-                        <td><button class="btn btn-success" (click)="henteEnBaat(baat.id)">Endre</button></td>
+                        <td><button class="btn btn-success" [routerLink]="['/endre/',baat.id]" [queryParams]="{cat: 'baat'}">Endre</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
-
-
-<div class="container mt-4">
-    <div class="col-md-4" *ngIf="!visListe">
-        <form [formGroup]="skjema" (ngSubmit)="vedSubmit()">
-            
-            <input class="form-control" formControlName="id" type="hidden" />
-            
-            <div class="form-group">
-                <label>Båt Navn</label>
-                <input class="form-control" formControlName="navn" />
-                <p class="alert alert-warning" [hidden]="skjema.controls.navn.valid || (skjema.controls.navn.pristine)">
-                    Båt navn er obligatorisk.
-                </p>
-            </div>
-          
-            <div class="form-group">
-                <button type="submit" *ngIf="visSkjemaRegistrere" [disabled]="!skjema.valid" class="btn btn-primary">Registrer</button>
-
-                <button type="submit" *ngIf="!visSkjemaRegistrere" [disabled]="!skjema.valid" class="btn btn-primary">Endre</button>
-
-                <button class="btn btn-default" (click)="tilbakeTilListe()">Tilbake</button>
-            </div>
-        
-        </form>
     </div>
 </div>

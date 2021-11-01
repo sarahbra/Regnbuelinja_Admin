@@ -22,7 +22,7 @@
                         <td>{{rute.endepunkt}}</td>
                         <td>{{rute.pris}}</td>
                         <td><button class="btn btn-danger" (click)="visModalOgSlett(rute.id)">Slett</button></td>
-                        <td><button class="btn btn-success" (click)="endreRute(rute.id)">Endre</button></td>
+                        <td><button class="btn btn-success" [routerLink]="['/endre/',rute.id]" [queryParams]="{cat: 'rute'}">Endre</button></td>
                     </tr>
                 </tbody>
             </table>
