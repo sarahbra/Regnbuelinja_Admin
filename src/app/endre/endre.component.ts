@@ -14,14 +14,22 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 
 export class EndreComponent implements OnInit {
-  skjema: FormGroup;
+  skjemaBaat: FormGroup;
+  skjemaRute: FormGroup;
   visEndreBaat: boolean = false;
   visEndreRute: boolean = false;
   
 
-   validering = {
+   valideringBaat = {
     id: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZæøåÆØÅ. \-]{2,20}")])],
     navn: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZæøåÆØÅ. \-]{2,20}")])]
+  } 
+
+  valideringRute = {
+    id: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZæøåÆØÅ. \-]{2,20}")])],
+    startpunkt: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZæøåÆØÅ. \-]{2,20}")])],
+    endepunkt: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZæøåÆØÅ. \-]{2,20}")])],
+    pris: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZæøåÆØÅ. \-]{2,20}")])]
   } 
 
   constructor(
@@ -32,37 +40,26 @@ export class EndreComponent implements OnInit {
     public nav: NavbarService
     
   ) { 
-    this.skjema = _fb.group(this.validering);
+    this.skjemaBaat = _fb.group(this.valideringBaat);
+    this.skjemaRute = _fb.group(this.valideringRute);
   }
 
   ngOnInit() {
-    this.nav.hide();
-    this._route.queryParams.subscribe(params => {
-      if(params.cat == "baat"){
+    this.nav.hide(); 
+    this._route.params.subscribe(params => {
+      if(params.type == "baat"){
         this.visEndreBaat = true;
         this.hentEnBaat(params.id)
       }
-      if(params.cat == "rute"){
-        this.visEndreRute = true;
-        this.henteEnRute(params.id)
-      }
-    },
-    error=>console.log(error)
-    )
-  }
-  
-/*     this._route.params.subscribe(params => {
-      if(params.cat == "baat"){
-        this.visEndreBaat = true;
-        this.hentEnBaat(params.id)
-      }
-      if(params.cat == "rute"){
+      if(params.type == "rute"){
         this.visEndreRute = true;
         this.henteEnRute(params.id)
       }
     },
     error=> console.log(error)
-    ) */
+    )
+  }
+
 
   vedSubmit() {
     this.endreBaat()
@@ -73,8 +70,8 @@ export class EndreComponent implements OnInit {
     this._http.get<Baat>("api/admin/baat/"+ id)
       .subscribe(
         baat => {
-          this.skjema.patchValue({ id: baat.id });
-          this.skjema.patchValue({ id: baat.navn });
+          this.skjemaBaat.patchValue({ id: baat.id });
+          this.skjemaBaat.patchValue({ navn: baat.navn });
         },
         error => console.error(error)
       );
@@ -82,8 +79,8 @@ export class EndreComponent implements OnInit {
 
   endreBaat(){
     const endretBaat = new Baat();
-    endretBaat.id = this.skjema.value.id;
-    endretBaat.navn = this.skjema.value.navn;
+    endretBaat.id = this.skjemaBaat.value.id;
+    endretBaat.navn = this.skjemaBaat.value.navn;
 
     this._http.put("api/admin/baat/", endretBaat).subscribe(
       retur => {
@@ -97,10 +94,10 @@ export class EndreComponent implements OnInit {
     this._http.get<Rute>("api/admin/rute/"+ id)
     .subscribe(
       rute => {
-        this.skjema.patchValue({ id: rute.id })
-        this.skjema.patchValue({ startpunkt: rute.startpunkt })
-        this.skjema.patchValue({ endepunkt: rute.endepunkt })
-        this.skjema.patchValue({ pris: rute.pris })
+        this.skjemaRute.patchValue({ id: rute.id })
+        this.skjemaRute.patchValue({ startpunkt: rute.startpunkt })
+        this.skjemaRute.patchValue({ endepunkt: rute.endepunkt })
+        this.skjemaRute.patchValue({ pris: rute.pris })
       }
     )
   }

@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'kunder', component: KundeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'billetter', component: BillettComponent },
-  { path: 'endre/:id', component: EndreComponent },
+  { path: 'endre/:id/:type', component: EndreComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }, //Dette er default: Hvis ingenting er oppgitt
 ];
 

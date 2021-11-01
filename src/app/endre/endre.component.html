@@ -1,20 +1,20 @@
 
 <div class="container" *ngIf="visEndreBaat">
     <div class="col-md-4">
-        <form [formGroup]="skjema" (ngSubmit)="vedSubmit()">
+        <form [formGroup]="skjemaBaat" (ngSubmit)="vedSubmit()">
             
             <input class="form-control" formControlName="id" type="hidden" />
             
             <div class="form-group">
                 <label>Båtnavn</label>
                 <input class="form-control" formControlName="navn" />
-                <p class="alert alert-warning" [hidden]="skjema.controls.navn.valid || (skjema.controls.navn.pristine)">
-                    Fornavn er obligatorisk.
+                <p class="alert alert-warning" [hidden]="skjemaBaat.controls.navn.valid || (skjemaBaat.controls.navn.pristine)">
+                    Båtnavn er obligatorisk.
                 </p>
             </div>
             
             <div class="form-group">
-                <button type="submit" [disabled]="!skjema.valid" class="btn btn-primary">Endre</button>
+                <button type="submit" [disabled]="!skjemaBaat.valid" class="btn btn-primary">Endre</button>
                 <button class="btn btn-default" routerLink="/baater">Tilbake</button>
             </div>
         </form>
@@ -24,40 +24,44 @@
 
 
 
-
 <div class="container" *ngIf="visEndreRute">
     <div class="col-md-4">
-        <form [formGroup]="skjema" (ngSubmit)="vedSubmit()">           
+        <form [formGroup]="skjemaRute" (ngSubmit)="vedSubmit()">
+            
             <input class="form-control" formControlName="id" type="hidden" />
-    
+            
             <div class="form-group">
-                <label>Avreise Havn</label>
+                <label>Avreisehavn</label>
                 <input class="form-control" formControlName="startpunkt" />
-                <p class="alert alert-warning" [hidden]="skjema.controls.startpunkt.valid || (skjema.controls.startpunkt.pristine)">
-                    Avreise havn er obligatorisk.
+                <p class="alert alert-warning" [hidden]="skjemaRute.controls.startpunkt.valid || (skjemaRute.controls.startpunkt.pristine)">
+                    Avreisehavn er obligatorisk
                 </p>
             </div>
 
-            <div class="form-group">
-                <label>Ankomst Havn</label>
+             <div class="form-group">
+                <label>Ankomsthavn</label>
                 <input class="form-control" formControlName="endepunkt" />
-                <p class="alert alert-warning" [hidden]="skjema.controls.endepunkt.valid || (skjema.controls.endepunkt.pristine)">
-                    Ankomst havn er obligatorisk.
+                <p class="alert alert-warning" [hidden]="skjemaRute.controls.endepunkt.valid || (skjemaRute.controls.endepunkt.pristine)">
+                    Endepunkt er obligatorisk.
                 </p>
             </div>
 
-            <div class="form-group">
+             <div class="form-group">
                 <label>Pris</label>
                 <input class="form-control" formControlName="pris" />
-                <p class="alert alert-warning" [hidden]="skjema.controls.pris.valid || (skjema.controls.pris.pristine)">
+                <p class="alert alert-warning" [hidden]="skjemaRute.controls.pris.valid || (skjemaRute.controls.pris.pristine)">
                     Pris er obligatorisk.
                 </p>
             </div>
             
             <div class="form-group">
-                <button type="submit" [disabled]="!skjema.valid" class="btn btn-primary">Endre</button>
+                <button type="submit" [disabled]="!skjemaRute.valid" class="btn btn-primary">Endre</button>
                 <button class="btn btn-default" routerLink="/ruter">Tilbake</button>
             </div>
         </form>
     </div>
 </div>
+
+
+
+
