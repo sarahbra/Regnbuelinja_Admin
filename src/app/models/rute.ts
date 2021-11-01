@@ -1,4 +1,4 @@
-export interface Rute {
+export class Rute {
   id: number;
   startpunkt: string;
   endepunkt: string;
