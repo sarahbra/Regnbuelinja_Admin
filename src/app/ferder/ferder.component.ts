@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Ferd } from '../models/ferd';
-import { SlettModal } from '../modals/slett.modal';
-import { AlertModal } from '../modals/alert.modal';
+import { BekreftSlettModal } from '../modals/bekreft-slett.modal';
+import { AlertAvhengigheterFinnesModal } from '../modals/alert-avhengigheter-finnes.modal';
 import { Router } from '@angular/router';
 import { NavbarService } from '../nav-meny/nav-meny.service';
 import { BillettModal } from '../modals/billett.modal';
@@ -48,7 +48,7 @@ export class FerderComponent implements OnInit {
 
   visModalOgSlett(id: number) {
     console.log(id);
-    const modalRef = this.modalService.open(SlettModal, {
+    const modalRef = this.modalService.open(BekreftSlettModal, {
       backdrop: 'static',
       keyboard: false,
     });
@@ -64,10 +64,13 @@ export class FerderComponent implements OnInit {
             this.hentAlleFerder();
           },
           (res) => {
-            const modalRef = this.modalService.open(AlertModal, {
-              backdrop: 'static',
-              keyboard: false,
-            });
+            const modalRef = this.modalService.open(
+              AlertAvhengigheterFinnesModal,
+              {
+                backdrop: 'static',
+                keyboard: false,
+              }
+            );
             let textBody: string = res.error;
             modalRef.componentInstance.updateBody(textBody);
             //Modal for å vise billetter knyttet til ferd hvis bruker klikker "Vis billetter"

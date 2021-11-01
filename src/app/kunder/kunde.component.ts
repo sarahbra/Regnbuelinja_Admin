@@ -4,26 +4,25 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Kunde } from '../models/kunde';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { SlettModal } from '../modals/slett.modal';
-import { AlertModal } from '../modals/alert.modal';
-
+import { BekreftSlettModal } from '../modals/bekreft-slett.modal';
+import { SlettErrorModal } from '../modals/slett-error.modal';
 
 @Component({
-  templateUrl: './kunde.component.html'
+  templateUrl: './kunde.component.html',
 })
-
 export class KundeComponent implements OnInit {
   alleKunder: Array<Kunde> = [];
-  laster: boolean
+  laster: boolean;
 
   constructor(
     private _http: HttpClient,
     private _router: Router,
     private modalService: NgbModal,
-    public nav: NavbarService) { }
+    public nav: NavbarService
+  ) {}
 
   ngOnInit() {
-    this.nav.show()
+    this.nav.show();
     this.laster = true;
     this.hentAlleKunder();
   }
@@ -38,10 +37,38 @@ export class KundeComponent implements OnInit {
     );
   }
 
-  endreKunde(id: number) { }
+  visModalOgSlett(id: number) {
+    console.log(id);
+    const modalRef = this.modalService.open(BekreftSlettModal, {
+      backdrop: 'static',
+      keyboard: false,
+    });
 
-  leggTilKunde() { }
+    let textBody: string = 'Vil du slette kunde med id: ' + id + '?';
+    modalRef.componentInstance.updateBody(textBody);
 
-  visModalOgSlett(id: number) { }
+    modalRef.result.then((retur) => {
+      console.log('Lukket med:' + retur);
+      if (retur == 'Slett') {
+        this._http.delete('/api/admin/kunde/' + id).subscribe(
+          () => {
+            this.hentAlleKunder();
+          },
+          (res) => {
+            const modalRef = this.modalService.open(SlettErrorModal, {
+              backdrop: 'static',
+              keyboard: false,
+            });
+            let textBody: string = res.error;
+            modalRef.componentInstance.updateBody(textBody);
+          }
+        );
+      }
+      this._router.navigate(['/kunder']);
+    });
+  }
 
+  endreKunde(id: number) {}
+
+  leggTilKunde() {}
 }

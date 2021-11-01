@@ -4,7 +4,7 @@ import { Billett } from '../models/billett';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SlettBillettErrorModal } from './slett-billett-error.modal';
+import { SlettErrorModal } from './slett-error.modal';
 
 //Dette er en modal som lister de billettene som er knyttet til en rute, ferd, båt eller bestilling
 //billettene som er linket må slettes FØR man kan slette de nevnte entitetene.
@@ -64,7 +64,7 @@ export class BillettModal implements OnInit {
       //modal vises med info om at billett ikke kan slettes og lukk en knapp. Dersom billett skal slettes må dette løses med kunde kun dersom den er betalt.
       //Vi har valgt å ha denne sperren fordi det virker litt rart å kunne slette billetter som kunder har betalt for uten en slags sperre
       (res) => {
-        const modalRef = this.modalService.open(SlettBillettErrorModal, {
+        const modalRef = this.modalService.open(SlettErrorModal, {
           backdrop: 'static',
           keyboard: false,
         });

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  templateUrl: 'alert.modal.html',
+  templateUrl: 'slett-error.modal.html',
 })
-export class AlertModal {
+export class SlettErrorModal {
   body: string;
   updateBody(input: string) {
     this.body = input;

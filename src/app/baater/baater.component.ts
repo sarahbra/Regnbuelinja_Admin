@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Baat } from '../models/baat';
 import { Router } from '@angular/router';
-import { SlettModal } from '../modals/slett.modal';
-import { AlertModal } from '../modals/alert.modal';
+import { BekreftSlettModal } from '../modals/bekreft-slett.modal';
+import { AlertAvhengigheterFinnesModal } from '../modals/alert-avhengigheter-finnes.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
 import { BillettModal } from '../modals/billett.modal';
 
@@ -41,7 +41,7 @@ export class BaaterComponent implements OnInit {
 
   visModalOgSlett(id: number) {
     console.log(id);
-    const modalRef = this.modalService.open(SlettModal, {
+    const modalRef = this.modalService.open(BekreftSlettModal, {
       backdrop: 'static',
       keyboard: false,
     });
@@ -57,10 +57,13 @@ export class BaaterComponent implements OnInit {
             this.hentAlleBaater();
           },
           (res) => {
-            const modalRef = this.modalService.open(AlertModal, {
-              backdrop: 'static',
-              keyboard: false,
-            });
+            const modalRef = this.modalService.open(
+              AlertAvhengigheterFinnesModal,
+              {
+                backdrop: 'static',
+                keyboard: false,
+              }
+            );
             let textBody: string = res.error;
             modalRef.componentInstance.updateBody(textBody);
             //Modal for å vise billetter knyttet til båt hvis bruker klikker "Vis billetter"

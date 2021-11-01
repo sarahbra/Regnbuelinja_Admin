@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  templateUrl: 'slett.modal.html',
+  templateUrl: 'alert-avhengigheter-finnes.modal.html',
 })
-export class SlettModal {
+export class AlertAvhengigheterFinnesModal {
   body: string;
   updateBody(input: string) {
     this.body = input;
