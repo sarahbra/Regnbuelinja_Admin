@@ -16,7 +16,8 @@ import { NavbarService } from './nav-meny/nav-meny.service';
 import { BillettModal } from './modals/billett.modal';
 import { KundeComponent } from './kunder/kunde.component';
 import { BillettComponent } from './billetter/billett.component';
-
+import { AlertModal } from './modals/alert.modal';
+import { SlettBillettErrorModal } from './modals/slett-billett-error.modal';
 
 @NgModule({
   declarations: [
@@ -30,8 +31,9 @@ import { BillettComponent } from './billetter/billett.component';
     SlettModal,
     BillettModal,
     KundeComponent,
-    BillettComponent
-    
+    BillettComponent,
+    AlertModal,
+    SlettBillettErrorModal,
   ],
 
   imports: [
@@ -46,4 +48,4 @@ import { BillettComponent } from './billetter/billett.component';
   bootstrap: [AppComponent],
   entryComponents: [SlettModal],
 })
-export class AppModule { }
+export class AppModule {}
