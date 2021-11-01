@@ -2,7 +2,7 @@
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">{{body}}</h4>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" *ngIf="visBilletter">
         <div class="container">
             <div class="col-md-12 col-sm-8">
                 <div *ngIf="laster">Laster billetter.....</div>
@@ -23,6 +23,35 @@
                             <td>{{billett.fId}}</td>
                             <td>{{billett.voksen}}</td>
                             <td><button class="btn btn-danger" (click)="slettBillett(billett.id)">Slett</button>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-body" *ngIf="!visBilletter">
+        <div class="container">
+            <div class="col-md-12 col-sm-8">
+                <div *ngIf="laster">Laster billetter.....</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Bestillings-id</th>
+                            <th>Kunde-id</th>
+                            <th>Totalpris</th>
+                            <th>Betalt</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let bestilling of alleBestillinger">
+                        <tr>
+                            <td>{{bestilling.id}}</td>
+                            <td>{{bestilling.kId}}</td>
+                            <td>{{bestilling.totalpris}}</td>
+                            <td>{{bestilling.betalt}}</td>
+                            <td><button class="btn btn-danger" (click)="slettBestilling(bestilling.id)">Slett</button>
                         </tr>
                     </tbody>
                 </table>

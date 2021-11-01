@@ -4,27 +4,24 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Billett } from '../models/billett';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { SlettModal } from '../modals/slett.modal';
-import { AlertModal } from '../modals/alert.modal';
-
+import { AlertAvhengigheterFinnesModal } from '../modals/alert-avhengigheter-finnes.modal';
 
 @Component({
-  templateUrl: './billett.component.html'
+  templateUrl: './billett.component.html',
 })
-
 export class BillettComponent implements OnInit {
   alleBilletter: Array<Billett> = [];
-  laster: boolean
-  
+  laster: boolean;
 
   constructor(
     private _http: HttpClient,
     private _router: Router,
     private modalService: NgbModal,
-    public nav: NavbarService) { }
+    public nav: NavbarService
+  ) {}
 
   ngOnInit() {
-    this.nav.show()
+    this.nav.show();
     this.laster = true;
     this.hentAllebilletter();
   }
@@ -39,10 +36,9 @@ export class BillettComponent implements OnInit {
     );
   }
 
-  endreBillett(id: number) { }
+  endreBillett(id: number) {}
 
-  leggTilBillett() { }
+  leggTilBillett() {}
 
-  visModalOgSlett(id: number) { }
-
+  visModalOgSlett(id: number) {}
 }
