@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Billett } from '../models/billett';
-import { Bestilling } from '../models/bestilling';
+import { Billett } from 'src/app/models/billett';
+import { Bestilling } from 'src/app/models/bestilling';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

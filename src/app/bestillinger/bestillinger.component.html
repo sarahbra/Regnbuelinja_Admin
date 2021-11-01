@@ -1,14 +1,14 @@
 <div class="container">
     <button class='btn btn-primary col-sm-3 mb-4' (click)="leggTilBestilling()">Legg til bestilling</button>
     <div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <h2> Alle bestillinger: </h2>
             <div *ngIf="laster">Laster bestillinger.....</div>
             <table class="table">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>KId</th>
+                        <th>Kunde-id</th>
                         <th>Totalpris</th>
                         <th>Betalt</th>
                         <th></th>
@@ -24,7 +24,7 @@
                         <td>{{bestilling.betalt}}</td>
                         <td><button class="btn btn-primary" (click)="visBilletter(bestilling.id)">Vis alle
                                 billetter</button></td>
-                        <td><button class="btn btn-danger" (click)="slettBestilling(bestilling.id)">Slett</button></td>
+                        <td><button class="btn btn-danger" (click)="visModalOgSlett(bestilling.id)">Slett</button></td>
                         <td><button class="btn btn-success" (click)="endreBestilling(bestilling.id)">Endre</button>
                         </td>
                     </tr>
