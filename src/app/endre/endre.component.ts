@@ -6,6 +6,7 @@ import { NavbarService } from '../nav-meny/nav-meny.service';
 import { Baat } from '../models/baat';
 import { Rute } from '../models/rute';
 import { Kunde } from '../models/kunde';
+import { Ferd } from '../models/ferd';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -15,6 +16,7 @@ export class EndreComponent implements OnInit {
   skjemaBaat: FormGroup;
   skjemaRute: FormGroup;
   skjemaKunde: FormGroup;
+  skjemaFerd: FormGroup;
   visEndreBaat: boolean = false;
   visEndreRute: boolean = false;
   visEndreKunde: boolean = false;
@@ -65,6 +67,14 @@ export class EndreComponent implements OnInit {
       Validators.compose([Validators.required, Validators.pattern('[0-9]{8}')]),
     ],
   };
+
+  valideringFerd = {
+    fId: [null, Validators.required],
+    bId: [null, Validators.required],
+    rId: [null, Validators.required],
+    avreiseTid: [null, Validators.required],
+    ankomstTid: [null, Validators.required]
+  }
 
   constructor(
     private _http: HttpClient,
