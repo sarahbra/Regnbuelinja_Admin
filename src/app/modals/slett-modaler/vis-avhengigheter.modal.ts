@@ -46,7 +46,6 @@ export class VisAvhengigheterModal implements OnInit {
   }
 
   hentAlleBilletter() {
-    //Id må være ruteid eller ferdid etc. Endepunktet må endres ut fra hva som sendes inn (ferd, rute, båt)
     this._http
       .get<Billett[]>(
         '/api/admin/' +
@@ -65,7 +64,6 @@ export class VisAvhengigheterModal implements OnInit {
   }
 
   hentAlleBestillinger() {
-    //Id må være ruteid eller ferdid etc. Endepunktet må endres ut fra hva som sendes inn (ferd, rute, båt)
     this._http
       .get<Bestilling[]>(
         '/api/admin/' +
