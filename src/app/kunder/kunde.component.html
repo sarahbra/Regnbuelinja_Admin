@@ -24,7 +24,8 @@
                         <td>{{kunde.epost}}</td>
                         <td>{{kunde.telefonnr}}</td>
                         <td><button class="btn btn-danger" (click)="visModalOgSlett(kunde.id)">Slett</button></td>
-                        <td><button class="btn btn-success" [routerLink]="['/endre/', kunde.id, 'kunde']">Endre</button></td>
+                        <td><button class="btn btn-success" [routerLink]="['/endre/', kunde.id, 'kunde']">Endre</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

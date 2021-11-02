@@ -71,9 +71,7 @@
 <div class="container" *ngIf="visEndreKunde">
     <div class="col-md-4">
         <form [formGroup]="skjemaKunde" (ngSubmit)="vedSubmit('kunde')">
-
             <input class="form-control" formControlName="id" type="hidden" />
-
             <div class="form-group">
                 <label>Fornavn</label>
                 <input class="form-control" formControlName="fornavn" />
@@ -99,13 +97,12 @@
             </div>
 
             <div class="form-group">
-                <label>Telefonnr</label>
+                <label>Telefonummer</label>
                 <input class="form-control" formControlName="telefonnr" />
                 <p class="alert alert-warning" [hidden]="skjemaKunde.controls.telefonnr.valid || (skjemaKunde.controls.telefonnr.pristine)">
                     Telefonnummer er obligatorisk.
                 </p>
             </div>
-
 
             <div class="form-group">
                 <button type="submit" [disabled]="!skjemaKunde.valid" class="btn btn-primary">Endre</button>
