@@ -15,9 +15,9 @@ import { SlettErrorModal } from './slett-error.modal';
   templateUrl: 'vis-avhengigheter.modal.html',
 })
 export class VisAvhengigheterModal implements OnInit {
-  body: string;
+  title: string;
   updateBody(input: string) {
-    this.body = input;
+    this.title = input;
   }
   visBilletter: boolean;
   alleBilletter: Array<Billett> = [];
