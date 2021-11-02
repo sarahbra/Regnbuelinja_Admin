@@ -6,9 +6,13 @@ import { Router } from '@angular/router';
 import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
 import { AlertAvhengigheterFinnesModal } from '../modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  FormControl,
+} from '@angular/forms';
 import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
-
 
 @Component({
   templateUrl: './baater.component.html',
@@ -19,9 +23,21 @@ export class BaaterComponent implements OnInit {
   skjema: FormGroup;
 
   validering = {
-    id: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZæøåÆØÅ. \-]{2,20}")])],
-    navn: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ]{2,30}")])] //Regex må fikses!!!
-  }
+    id: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,20}'),
+      ]),
+    ],
+    navn: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('[a-zA-ZøæåØÆÅ\\-. ]{2,30}'),
+      ]),
+    ], //Regex må fikses!!!
+  };
 
   constructor(
     private _http: HttpClient,
@@ -30,16 +46,16 @@ export class BaaterComponent implements OnInit {
     private _fb: FormBuilder,
     public nav: NavbarService
   ) {
-    this.skjema = _fb.group(this.validering)
+    this.skjema = _fb.group(this.validering);
   }
 
   ngOnInit() {
-    this.nav.show()
+    this.nav.show();
     this.laster = true;
     this.hentAlleBaater();
   }
 
-  leggTilBaat(){}
+  leggTilBaat() {}
 
   hentAlleBaater() {
     //Endre til nytt endepunkt som henter alle båter.
@@ -109,8 +125,4 @@ export class BaaterComponent implements OnInit {
       this._router.navigate(['/baater']);
     });
   }
-
- 
-
-
 }
