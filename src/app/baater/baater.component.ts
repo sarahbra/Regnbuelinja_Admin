@@ -6,12 +6,6 @@ import { Router } from '@angular/router';
 import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
 import { AlertAvhengigheterFinnesModal } from '../modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import {
-  FormGroup,
-  Validators,
-  FormBuilder,
-  FormControl,
-} from '@angular/forms';
 import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
 
 @Component({
@@ -20,34 +14,18 @@ import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter
 export class BaaterComponent implements OnInit {
   alleBaater: Array<Baat> = [];
   laster: boolean = false;
-  skjema: FormGroup;
-
-  validering = {
-    id: [
-      null,
-      Validators.compose([
-        Validators.required,
-        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,20}'),
-      ]),
-    ],
-    navn: [
-      null,
-      Validators.compose([
-        Validators.required,
-        Validators.pattern('[a-zA-ZøæåØÆÅ\\-. ]{2,30}'),
-      ]),
-    ], //Regex må fikses!!!
-  };
+  errorMessage: string;
+  //Usikker på om dette er måten å skrive ut feilmelding fra server på.
+  updateBody(input: string) {
+    this.errorMessage = input;
+  }
 
   constructor(
     private _http: HttpClient,
     private _router: Router,
     private modalService: NgbModal,
-    private _fb: FormBuilder,
     public nav: NavbarService
-  ) {
-    this.skjema = _fb.group(this.validering);
-  }
+  ) {}
 
   ngOnInit() {
     this.nav.show();
@@ -64,12 +42,15 @@ export class BaaterComponent implements OnInit {
         this.alleBaater = baater;
         this.laster = false;
       },
-      (error) => console.log(error)
+      (res) => {
+        this.laster = false;
+        this.updateBody(res.error);
+        console.log(this.errorMessage);
+      }
     );
   }
 
   visModalOgSlett(id: number) {
-    console.log(id);
     const modalRef = this.modalService.open(BekreftSlettModal, {
       backdrop: 'static',
       keyboard: false,
@@ -82,7 +63,6 @@ export class BaaterComponent implements OnInit {
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
-      console.log('Lukket med:' + retur);
       if (retur == 'Slett') {
         this._http.delete('/api/admin/baat/' + id).subscribe(
           () => {
@@ -100,7 +80,6 @@ export class BaaterComponent implements OnInit {
             modalRef.componentInstance.updateBody(textBody);
             //Modal for å vise billetter knyttet til båt hvis bruker klikker "Vis billetter"
             modalRef.result.then((retur) => {
-              console.log('Lukket med:' + retur);
               if (retur == 'Vis') {
                 const modalRef = this.modalService.open(VisAvhengigheterModal, {
                   backdrop: 'static',

@@ -41,7 +41,6 @@ export class BestillingerComponent implements OnInit {
   endreBestilling(id: number) {}
 
   visModalOgSlett(id: number) {
-    console.log(id);
     const modalRef = this.modalService.open(BekreftSlettModal, {
       backdrop: 'static',
       keyboard: false,
@@ -50,7 +49,6 @@ export class BestillingerComponent implements OnInit {
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
-      console.log('Lukket med:' + retur);
       if (retur == 'Slett') {
         this._http.delete('/api/admin/bestilling/' + id).subscribe(
           () => {
