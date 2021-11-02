@@ -131,39 +131,45 @@
 
             <div class="form-group">
                 <label>bId</label>
-                <input class="form-control" formControlName="bId" />
-                <p class="alert alert-warning" [hidden]="skjemaFerd.controls.bId.valid || (skjemaFerd.controls.bId.pristine)">
-                    er obligatorisk.
-                </p>
+                <select class="form-control" formControlName="bId">
+                    <option *ngFor="let baat of alleBaater" [ngValue]="baat.id">{{baat.navn}}</option>
+                </select>
             </div>
+            <p class="alert alert-warning " [hidden]="skjemaFerd.controls.bId.valid || skjemaFerd.controls.bId.hasError('required') ">
+                er obligatorisk.
+            </p>
+
 
             <div class="form-group">
                 <label>rId</label>
-                <input class="form-control" formControlName="rId" />
-                <p class="alert alert-warning" [hidden]="skjemaFerd.controls.rId.valid || (skjemaFerd.controls.rId.pristine)">
-                    er obligatorisk.
-                </p>
+                <select class="form-control" formControlName="rId">
+                    <option *ngFor="let rute of alleRuter" [ngValue]="rute.id">{{rute.startpunkt +'-'+rute.endepunkt}}</option>
+                </select>
             </div>
+            <p class="alert alert-warning " [hidden]="skjemaFerd.controls.rId.valid || skjemaFerd.controls.rId.hasError('required') ">
+                er obligatorisk.
+            </p>
+
 
             <div class="form-group">
                 <label>Avreise Tid</label>
-                <input class="form-control" formControlName="avreiseTid" />
-                <p class="alert alert-warning" [hidden]="skjemaFerd.controls.avreiseTid.valid || (skjemaFerd.controls.avreiseTid.pristine)">
+                <input class="form-control " formControlName="avreiseTid" />
+                <p class="alert alert-warning " [hidden]="skjemaFerd.controls.avreiseTid.valid || (skjemaFerd.controls.avreiseTid.pristine) ">
                     er obligatorisk.
                 </p>
             </div>
 
             <div class="form-group">
                 <label>Ankomst Tid</label>
-                <input class="form-control" formControlName="ankomstTid" />
-                <p class="alert alert-warning" [hidden]="skjemaFerd.controls.ankomstTid.valid || (skjemaFerd.controls.ankomstTid.pristine)">
+                <input class="form-control " formControlName="ankomstTid" />
+                <p class="alert alert-warning " [hidden]="skjemaFerd.controls.ankomstTid.valid || (skjemaFerd.controls.ankomstTid.pristine) ">
                     er obligatorisk.
                 </p>
             </div>
 
             <div class="form-group">
-                <button type="submit" [disabled]="!skjemaFerd.valid" class="btn btn-primary">Endre</button>
-                <button class="btn btn-default" routerLink="/kunder">Tilbake</button>
+                <button type="submit " [disabled]="!skjemaFerd.valid " class="btn btn-primary ">Endre</button>
+                <button class="btn btn-default " routerLink="/kunder ">Tilbake</button>
             </div>
         </form>
     </div>

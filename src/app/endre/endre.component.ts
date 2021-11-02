@@ -23,6 +23,8 @@ export class EndreComponent implements OnInit {
   visEndreRute: boolean = false;
   visEndreKunde: boolean = false;
   visEndreFerd: boolean = false;
+  alleBaater: Array<Baat> = [];
+  alleRuter: Array<Rute> = [];
 
   valideringBaat = {
     id: [null, Validators.required],
@@ -140,6 +142,8 @@ export class EndreComponent implements OnInit {
     }
   }
 
+
+
   hentEnBaat(id: number) {
     this._http.get<Baat>('/api/admin/baat/' + id).subscribe(
       (baat) => {
@@ -165,6 +169,7 @@ export class EndreComponent implements OnInit {
         console.log(error);
       }
     );
+ 
   }
 
   hentEnRute(id: number) {
@@ -225,8 +230,11 @@ export class EndreComponent implements OnInit {
     );
   }
 
-  hentEnFerd(id: number) {
-    this._http.get<Ferd>('/api/admin/ferd/' + id).subscribe(
+  hentEnFerd(fId: number) {
+    this.hentAlleBaater()
+    this.hentAlleRuter()
+
+    this._http.get<Ferd>('/api/admin/ferd/' + fId).subscribe(
       (ferd) => {
         this.skjemaFerd.patchValue({ fId: ferd.fId });
         this.skjemaFerd.patchValue({ bId: ferd.bId });
@@ -252,6 +260,26 @@ export class EndreComponent implements OnInit {
       },
       (error) => console.log(error)
     )
+    
+  }
+
+
+  hentAlleBaater() {
+    this._http.get<Baat[]>('/api/admin/baater').subscribe(
+      (baater) => {
+        this.alleBaater = baater;
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  hentAlleRuter() {
+    this._http.get<Rute[]>('/api/admin/ruter').subscribe(
+      (rutene) => {
+        this.alleRuter = rutene;
+      },
+      (error) => console.log(error)
+    );
   }
 
 
