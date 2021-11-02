@@ -10,7 +10,7 @@
                         <th>Id</th>
                         <th>Ferd-id</th>
                         <th>Bestillings-id</th>
-                        <th>Voksen</th>
+                        <th>Voksen/barn</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -20,7 +20,7 @@
                         <td>{{billett.id}}</td>
                         <td>{{billett.fId}}</td>
                         <td>{{billett.bId}}</td>
-                        <td>{{billett.voksen == true ? "Ja" : "Nei"}}</td>
+                        <td>{{billett.voksen == true ? "Voksen" : "Barn"}}</td>
                         <td><button class="btn btn-danger" (click)="visModalOgSlett(billett.id)">Slett</button></td>
                         <td><button class="btn btn-success" (click)="endreBillett(billett.id)">Endre</button></td>
                     </tr>

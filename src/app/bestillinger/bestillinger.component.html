@@ -11,8 +11,8 @@
                         <th>Id</th>
                         <th>Kunde-id</th>
                         <th>Totalpris</th>
-                        <th>Betalt</th>
-                        <th></th>
+                        <th>Status for betaling</th>
+                        <th>Billetter</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -21,8 +21,8 @@
                     <tr>
                         <td>{{bestilling.id}}</td>
                         <td>{{bestilling.kId}}</td>
-                        <td>{{bestilling.totalpris}}</td>
-                        <td>{{bestilling.betalt}}</td>
+                        <td>{{bestilling.totalpris}} NOK</td>
+                        <td>{{bestilling.betalt == true ? "Betalt": "Ikke betalt"}}</td>
                         <td><button class="btn btn-primary" style="white-space: nowrap"
                                 (click)="visBilletter(bestilling.id)">Vis
                                 billetter</button></td>
