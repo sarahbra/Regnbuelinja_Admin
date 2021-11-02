@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Billett } from '../models/billett';
-import { Bestilling } from '../models/bestilling';
+import { Billett } from 'src/app/models/billett';
+import { Bestilling } from 'src/app/models/bestilling';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,9 +15,9 @@ import { SlettErrorModal } from './slett-error.modal';
   templateUrl: 'vis-avhengigheter.modal.html',
 })
 export class VisAvhengigheterModal implements OnInit {
-  body: string;
+  title: string;
   updateBody(input: string) {
-    this.body = input;
+    this.title = input;
   }
   visBilletter: boolean;
   alleBilletter: Array<Billett> = [];
@@ -46,7 +46,6 @@ export class VisAvhengigheterModal implements OnInit {
   }
 
   hentAlleBilletter() {
-    //Id må være ruteid eller ferdid etc. Endepunktet må endres ut fra hva som sendes inn (ferd, rute, båt)
     this._http
       .get<Billett[]>(
         '/api/admin/' +
@@ -65,7 +64,6 @@ export class VisAvhengigheterModal implements OnInit {
   }
 
   hentAlleBestillinger() {
-    //Id må være ruteid eller ferdid etc. Endepunktet må endres ut fra hva som sendes inn (ferd, rute, båt)
     this._http
       .get<Bestilling[]>(
         '/api/admin/' +

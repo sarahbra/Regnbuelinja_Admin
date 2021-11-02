@@ -3,13 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Baat } from '../models/baat';
 import { Router } from '@angular/router';
-import { BekreftSlettModal } from '../modals/bekreft-slett.modal';
-import { AlertAvhengigheterFinnesModal } from '../modals/alert-avhengigheter-finnes.modal';
+import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
+import { AlertAvhengigheterFinnesModal } from '../modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-
 import { FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
+import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
 
-import { VisAvhengigheterModal } from '../modals/vis-avhengigheter.modal';
 
 @Component({
   templateUrl: './baater.component.html',
@@ -60,7 +59,10 @@ export class BaaterComponent implements OnInit {
       keyboard: false,
     });
 
-    let textBody: string = 'Vil du slette båt ' + id + '?';
+    let textBody: string =
+      'Vil du slette båt med id ' +
+      id +
+      '? Ved sletting vil alle ferder med denne båten også bli slettet!';
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {

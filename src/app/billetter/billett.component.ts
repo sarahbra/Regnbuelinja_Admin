@@ -4,10 +4,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Billett } from '../models/billett';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { AlertAvhengigheterFinnesModal } from '../modals/alert-avhengigheter-finnes.modal';
-import { BekreftSlettModal } from '../modals/bekreft-slett.modal';
-import { VisAvhengigheterModal } from '../modals/vis-avhengigheter.modal';
-import { SlettErrorModal } from '../modals/slett-error.modal';
+import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
+import { SlettErrorModal } from '../modals/slett-modaler/slett-error.modal';
 
 @Component({
   templateUrl: './billett.component.html',

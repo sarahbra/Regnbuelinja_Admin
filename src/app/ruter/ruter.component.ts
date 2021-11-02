@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Rute } from '../models/rute';
 import { Router } from '@angular/router';
-import { BekreftSlettModal } from '../modals/bekreft-slett.modal';
-import { AlertAvhengigheterFinnesModal } from '../modals/alert-avhengigheter-finnes.modal';
+import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
+import { AlertAvhengigheterFinnesModal } from '../modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { VisAvhengigheterModal } from '../modals/vis-avhengigheter.modal';
+import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
 
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør
@@ -16,9 +16,6 @@ import { VisAvhengigheterModal } from '../modals/vis-avhengigheter.modal';
 export class RuterComponent implements OnInit {
   alleRuter: Array<Rute> = [];
   laster: boolean = false;
-
-  //Id fra rute, ferd, båt eller bestilling
-  dataPassToChild: number = 0;
 
   constructor(
     private _http: HttpClient,
@@ -54,7 +51,10 @@ export class RuterComponent implements OnInit {
       keyboard: false,
     });
 
-    let textBody: string = 'Vil du slette Rute ' + id + '?';
+    let textBody: string =
+      'Vil du slette rute med id ' +
+      id +
+      '? Ved sletting vil alle ferder med denne ruten også bli slettet!';
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {

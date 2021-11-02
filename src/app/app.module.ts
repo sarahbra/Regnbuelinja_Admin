@@ -12,14 +12,15 @@ import { FerderComponent } from './ferder/ferder.component';
 import { BaaterComponent } from './baater/baater.component';
 import { BestillingerComponent } from './bestillinger/bestillinger.component';
 import { LoginComponent } from './login/login.component';
-import { BekreftSlettModal } from './modals/bekreft-slett.modal';
+import { BekreftSlettModal } from './modals/slett-modaler/bekreft-slett.modal';
 import { NavbarService } from './nav-meny/nav-meny.service';
-import { VisAvhengigheterModal } from './modals/vis-avhengigheter.modal';
+import { VisAvhengigheterModal } from './modals/slett-modaler/vis-avhengigheter.modal';
 import { KundeComponent } from './kunder/kunde.component';
 import { BillettComponent } from './billetter/billett.component';
-import { AlertAvhengigheterFinnesModal } from './modals/alert-avhengigheter-finnes.modal';
-import { SlettErrorModal } from './modals/slett-error.modal';
+import { AlertAvhengigheterFinnesModal } from './modals/slett-modaler/alert-avhengigheter-finnes.modal';
+import { SlettErrorModal } from './modals/slett-modaler/slett-error.modal';
 import { EndreComponent } from './endre/endre.component';
+import { VisBilletterForBestilling } from './modals/vis-billetter-for-bestilling.modal';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EndreComponent } from './endre/endre.component';
     BillettComponent,
     AlertAvhengigheterFinnesModal,
     SlettErrorModal,
-    EndreComponent
+    EndreComponent,
+    VisBilletterForBestilling,
   ],
 
   imports: [
