@@ -39,7 +39,6 @@ export class KundeComponent implements OnInit {
   }
 
   visModalOgSlett(id: number) {
-    console.log(id);
     const modalRef = this.modalService.open(BekreftSlettModal, {
       backdrop: 'static',
       keyboard: false,
@@ -49,7 +48,6 @@ export class KundeComponent implements OnInit {
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
-      console.log('Lukket med:' + retur);
       if (retur == 'Slett') {
         this._http.delete('/api/admin/kunde/' + id).subscribe(
           () => {
@@ -67,7 +65,6 @@ export class KundeComponent implements OnInit {
             modalRef.componentInstance.updateBody(textBody);
             //Modal for å vise billetter knyttet til ferd hvis bruker klikker "Vis billetter"
             modalRef.result.then((retur) => {
-              console.log('Lukket med:' + retur);
               if (retur == 'Vis') {
                 const modalRef = this.modalService.open(VisAvhengigheterModal, {
                   backdrop: 'static',

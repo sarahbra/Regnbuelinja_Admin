@@ -42,7 +42,6 @@ export class BillettComponent implements OnInit {
   leggTilBillett() {}
 
   visModalOgSlett(id: number) {
-    console.log(id);
     const modalRef = this.modalService.open(BekreftSlettModal, {
       backdrop: 'static',
       keyboard: false,
@@ -51,7 +50,6 @@ export class BillettComponent implements OnInit {
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
-      console.log('Lukket med:' + retur);
       if (retur == 'Slett') {
         this._http.delete('/api/admin/billett/' + id).subscribe(
           () => {

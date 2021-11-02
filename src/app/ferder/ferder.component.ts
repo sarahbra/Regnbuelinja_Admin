@@ -37,7 +37,6 @@ export class FerderComponent implements OnInit {
       .subscribe(
         (ferder) => {
           this.alleFerder = ferder;
-          console.log(this.alleFerder);
           this.laster = false;
         },
         (error) => console.log(error)
@@ -47,7 +46,6 @@ export class FerderComponent implements OnInit {
   endreFerd(id: number) {}
 
   visModalOgSlett(id: number) {
-    console.log(id);
     const modalRef = this.modalService.open(BekreftSlettModal, {
       backdrop: 'static',
       keyboard: false,
@@ -57,7 +55,6 @@ export class FerderComponent implements OnInit {
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
-      console.log('Lukket med:' + retur);
       if (retur == 'Slett') {
         this._http.delete('/api/admin/ferd/' + id).subscribe(
           () => {
@@ -75,7 +72,6 @@ export class FerderComponent implements OnInit {
             modalRef.componentInstance.updateBody(textBody);
             //Modal for å vise billetter knyttet til ferd hvis bruker klikker "Vis billetter"
             modalRef.result.then((retur) => {
-              console.log('Lukket med:' + retur);
               if (retur == 'Vis') {
                 const modalRef = this.modalService.open(VisAvhengigheterModal, {
                   backdrop: 'static',
