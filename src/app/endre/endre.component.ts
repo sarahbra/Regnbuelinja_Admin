@@ -6,6 +6,7 @@ import { NavbarService } from '../nav-meny/nav-meny.service';
 import { Baat } from '../models/baat';
 import { Rute } from '../models/rute';
 import { Kunde } from '../models/kunde';
+import { Ferd } from '../models/ferd';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { KundeComponent } from '../kunder/kunde.component';
 
@@ -18,6 +19,7 @@ export class EndreComponent implements OnInit {
   skjemaBaat: FormGroup;
   skjemaRute: FormGroup;
   skjemaKunde: FormGroup;
+  skjemaFerd: FormGroup;
   visEndreBaat: boolean = false;
   visEndreRute: boolean = false;
   visEndreKunde: boolean = false;
@@ -43,6 +45,14 @@ export class EndreComponent implements OnInit {
     telefonnr: [null, Validators.compose([Validators.required, Validators.pattern("[0-9]{8}")])]
   }
 
+  valideringFerd = {
+    fId: [null, Validators.required],
+    bId: [null, Validators.required],
+    rId: [null, Validators.required],
+    avreiseTid: [null, Validators.required],
+    ankomstTid: [null, Validators.required]
+  }
+
   constructor(
     private _http: HttpClient,
     private _router: Router,
@@ -54,7 +64,6 @@ export class EndreComponent implements OnInit {
     this.skjemaBaat = _fb.group(this.valideringBaat);
     this.skjemaRute = _fb.group(this.valideringRute);
     this.skjemaKunde = _fb.group(this.valideringKunde);
-
   }
 
   ngOnInit() {
@@ -63,12 +72,10 @@ export class EndreComponent implements OnInit {
       if (params.type == "baat") {
         this.visEndreBaat = true;
         this.hentEnBaat(params.id)
-      }
-      if (params.type == "rute") {
+      }else if (params.type == "rute") {
         this.visEndreRute = true;
         this.henteEnRute(params.id)
-      }
-      if (params.type = "kunde") {
+      }else {
         this.visEndreKunde = true;
         this.henteEnKunde(params.id)
       }
