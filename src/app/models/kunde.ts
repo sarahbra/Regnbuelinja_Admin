@@ -1,4 +1,4 @@
-export interface Kunde {
+export class Kunde {
     id: number;
     fornavn: string;
     etternavn: string;

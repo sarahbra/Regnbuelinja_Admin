@@ -19,6 +19,7 @@ import { KundeComponent } from './kunder/kunde.component';
 import { BillettComponent } from './billetter/billett.component';
 import { AlertAvhengigheterFinnesModal } from './modals/alert-avhengigheter-finnes.modal';
 import { SlettErrorModal } from './modals/slett-error.modal';
+import { EndreComponent } from './endre/endre.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SlettErrorModal } from './modals/slett-error.modal';
     BillettComponent,
     AlertAvhengigheterFinnesModal,
     SlettErrorModal,
+    EndreComponent
   ],
 
   imports: [
@@ -43,6 +45,7 @@ import { SlettErrorModal } from './modals/slett-error.modal';
     NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
+    
   ],
 
   providers: [
@@ -56,7 +59,8 @@ import { SlettErrorModal } from './modals/slett-error.modal';
   bootstrap: [AppComponent],
   entryComponents: [BekreftSlettModal],
 })
-export class AppModule {}
+
+export class AppModule { }
 
 function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();
