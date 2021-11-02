@@ -96,22 +96,26 @@ export class EndreComponent implements OnInit {
     this.nav.hide();
     this._route.params.subscribe(
       (params) => {
-        //Endre til switch case
-        if (params.type == 'baat') {
-          this.visEndreBaat = true;
-          this.hentEnBaat(params.id);
-        }
-        if (params.type == 'rute') {
-          this.visEndreRute = true;
-          this.hentEnRute(params.id);
-        }
-        if (params.type == 'kunde') {
-          this.visEndreKunde = true;
-          this.hentEnKunde(params.id);
-        }
-        if (params.type == 'ferd') {
-          this.visEndreFerd = true;
-          this.hentEnFerd(params.id);
+        switch (params.type) {
+          case 'baat':
+            this.visEndreBaat = true;
+            this.hentEnBaat(params.id);
+            break;
+          case 'rute':
+            this.visEndreRute = true;
+            this.hentEnRute(params.id);
+            break;
+          case 'kunde':
+            this.visEndreKunde = true;
+            this.hentEnKunde(params.id);
+            break;
+          case 'ferd':
+            this.visEndreFerd = true;
+            this.hentEnFerd(params.id);
+            break;
+          default:
+            console.log(params.type)
+            break;
         }
       },
       (error) => {
@@ -121,17 +125,18 @@ export class EndreComponent implements OnInit {
   }
 
   vedSubmit(type: string) {
-    if (type == 'baat') {
-      this.endreBaat();
-    }
-    if (type == 'rute') {
-      this.endreRute();
-    }
-    if (type == 'kunde') {
-      this.endreKunde();
-    }
-    if (type == 'ferd') {
-      this.endreFerd();
+    switch (type) {
+      case 'baat': this.endreBaat();
+        break;
+      case 'rute': this.endreRute();
+        break;
+      case 'kunde': this.endreKunde();
+        break;
+      case 'ferd': this.endreFerd();
+        break;
+      default:
+        console.log(type)
+        break;
     }
   }
 
