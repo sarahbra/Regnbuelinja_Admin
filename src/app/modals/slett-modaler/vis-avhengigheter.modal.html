@@ -21,7 +21,7 @@
                             <td>{{billett.id}}</td>
                             <td>{{billett.bId}}</td>
                             <td>{{billett.fId}}</td>
-                            <td>{{billett.voksen}}</td>
+                            <td>{{billett.voksen == true ? "Voksen" : "Barn"}}</td>
                             <td><button class="btn btn-danger" (click)="slettBillett(billett.id)">Slett</button>
                         </tr>
                     </tbody>
@@ -50,7 +50,7 @@
                             <td>{{bestilling.id}}</td>
                             <td>{{bestilling.kId}}</td>
                             <td>{{bestilling.totalpris}}</td>
-                            <td>{{bestilling.betalt}}</td>
+                            <td>{{bestilling.betalt == true? "Betalt": "Ikke betalt"}}</td>
                             <td><button class="btn btn-danger" (click)="slettBestilling(bestilling.id)">Slett</button>
                         </tr>
                     </tbody>
