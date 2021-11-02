@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
 import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
 import { AlertAvhengigheterFinnesModal } from '../modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
 import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
-import { NewLineKind } from 'typescript';
+
 
 @Component({
   templateUrl: './baater.component.html',
@@ -15,19 +16,30 @@ import { NewLineKind } from 'typescript';
 export class BaaterComponent implements OnInit {
   alleBaater: Array<Baat> = [];
   laster: boolean = false;
+  skjema: FormGroup;
+
+  validering = {
+    id: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZæøåÆØÅ. \-]{2,20}")])],
+    navn: [null, Validators.compose([Validators.required, Validators.pattern("[a-zA-ZøæåØÆÅ\\-. ]{2,30}")])] //Regex må fikses!!!
+  }
 
   constructor(
     private _http: HttpClient,
     private _router: Router,
     private modalService: NgbModal,
+    private _fb: FormBuilder,
     public nav: NavbarService
-  ) {}
+  ) {
+    this.skjema = _fb.group(this.validering)
+  }
 
   ngOnInit() {
-    this.nav.show();
+    this.nav.show()
     this.laster = true;
     this.hentAlleBaater();
   }
+
+  leggTilBaat(){}
 
   hentAlleBaater() {
     //Endre til nytt endepunkt som henter alle båter.
@@ -98,9 +110,7 @@ export class BaaterComponent implements OnInit {
     });
   }
 
-  endreBaat(id: number) {}
+ 
 
-  slettBaat(id: number) {}
 
-  leggTilBaat() {}
 }
