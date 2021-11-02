@@ -9,9 +9,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: 'vis-billetter-for-bestilling.modal.html',
 })
 export class VisBilletterForBestilling implements OnInit {
-  body: string;
+  title: string;
   updateBody(input: string) {
-    this.body = input;
+    this.title = input;
   }
   alleBilletter: Array<Billett> = [];
   laster: boolean;
@@ -48,8 +48,8 @@ export class VisBilletterForBestilling implements OnInit {
         },
         (res) => {
           //Dersom det ikke finnes billetter vises tekst fra server i tittelen på denne modalen
-          let textBody: string = res.error;
-          this.body = textBody;
+          let title: string = res.error;
+          this.title = title;
         }
       );
   }

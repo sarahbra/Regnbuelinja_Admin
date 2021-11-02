@@ -76,8 +76,8 @@ export class BestillingerComponent implements OnInit {
       keyboard: false,
       size: 'lg',
     });
-    let textBody: string = 'Billetter for bestilling';
-    modalRef.componentInstance.updateBody(textBody);
+    let title: string = 'Billetter for bestilling';
+    modalRef.componentInstance.updateBody(title);
     //Bestillings-id sendes som input til modal:
     (<VisBilletterForBestilling>modalRef.componentInstance).idAsInput = id;
   }

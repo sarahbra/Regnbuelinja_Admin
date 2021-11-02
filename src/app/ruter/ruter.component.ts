@@ -17,9 +17,6 @@ export class RuterComponent implements OnInit {
   alleRuter: Array<Rute> = [];
   laster: boolean = false;
 
-  //Id fra rute, ferd, båt eller bestilling
-  dataPassToChild: number = 0;
-
   constructor(
     private _http: HttpClient,
     private _router: Router,
@@ -54,7 +51,10 @@ export class RuterComponent implements OnInit {
       keyboard: false,
     });
 
-    let textBody: string = 'Vil du slette Rute ' + id + '?';
+    let textBody: string =
+      'Vil du slette rute med id ' +
+      id +
+      '? Ved sletting vil alle ferder med denne ruten også bli slettet!';
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
