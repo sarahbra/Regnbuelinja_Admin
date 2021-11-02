@@ -19,6 +19,7 @@ import { KundeComponent } from './kunder/kunde.component';
 import { BillettComponent } from './billetter/billett.component';
 import { AlertAvhengigheterFinnesModal } from './modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { SlettErrorModal } from './modals/slett-modaler/slett-error.modal';
+import { VisBilletterForBestilling } from './modals/vis-billetter-for-bestilling.modal';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SlettErrorModal } from './modals/slett-modaler/slett-error.modal';
     BillettComponent,
     AlertAvhengigheterFinnesModal,
     SlettErrorModal,
+    VisBilletterForBestilling,
   ],
 
   imports: [

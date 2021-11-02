@@ -6,6 +6,7 @@ import { Bestilling } from '../models/bestilling';
 import { NavbarService } from '../nav-meny/nav-meny.service';
 import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
 import { SlettErrorModal } from '../modals/slett-modaler/slett-error.modal';
+import { VisBilletterForBestilling } from '../modals/vis-billetter-for-bestilling.modal';
 
 @Component({
   templateUrl: './bestillinger.component.html',
@@ -69,7 +70,17 @@ export class BestillingerComponent implements OnInit {
     });
   }
 
-  visBilletter(id: number) {}
+  visBilletter(id: number) {
+    const modalRef = this.modalService.open(VisBilletterForBestilling, {
+      backdrop: 'static',
+      keyboard: false,
+      size: 'lg',
+    });
+    let textBody: string = 'Billetter for bestilling';
+    modalRef.componentInstance.updateBody(textBody);
+    //Bestillings-id sendes som input til modal:
+    (<VisBilletterForBestilling>modalRef.componentInstance).idAsInput = id;
+  }
 
   leggTilBestilling() {}
 }

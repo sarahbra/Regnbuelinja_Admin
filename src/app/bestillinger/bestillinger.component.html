@@ -1,7 +1,8 @@
 <div class="container">
-    <button class='btn btn-primary col-sm-3 mb-4' (click)="leggTilBestilling()">Legg til bestilling</button>
+    <button class='btn btn-primary col-sm-3 mb-4  style="white-space: nowrap"' (click)="leggTilBestilling()">Legg til
+        bestilling</button>
     <div>
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <h2> Alle bestillinger: </h2>
             <div *ngIf="laster">Laster bestillinger.....</div>
             <table class="table">
@@ -22,7 +23,8 @@
                         <td>{{bestilling.kId}}</td>
                         <td>{{bestilling.totalpris}}</td>
                         <td>{{bestilling.betalt}}</td>
-                        <td><button class="btn btn-primary" (click)="visBilletter(bestilling.id)">Vis alle
+                        <td><button class="btn btn-primary" style="white-space: nowrap"
+                                (click)="visBilletter(bestilling.id)">Vis
                                 billetter</button></td>
                         <td><button class="btn btn-danger" (click)="visModalOgSlett(bestilling.id)">Slett</button></td>
                         <td><button class="btn btn-success" (click)="endreBestilling(bestilling.id)">Endre</button>
