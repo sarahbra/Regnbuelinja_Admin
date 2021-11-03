@@ -13,8 +13,7 @@ export class LeggTilBestillingModal {
     betalt: any;
 
     allForms = {
-      kIdForm: [null],
-      totalprisForm: [null, Validators.compose([Validators.required, Validators.pattern('^-?[0-9]\\d*(\\.\\d*)?$')])]
+      kIdForm: [null]
     }
 
     constructor(public modal: NgbActiveModal, private http: HttpClient){ }
@@ -27,9 +26,8 @@ export class LeggTilBestillingModal {
   
     vedSubmit() {
       const kId = this.forms.value.fIdForm;
-      const totalpris = this.forms.value.totalprisForm;
-      
-      const bestilling = new Bestilling(kId, totalpris, this.betalt.checked);
+            
+      const bestilling = new Bestilling(kId, 0, this.betalt.checked);
       
       this.http.post('/api/admin/bestillinger', bestilling).subscribe(
         (ok) => {
@@ -45,5 +43,4 @@ export class LeggTilBestillingModal {
 
       this.modal.close("Vellykket");
     }
-
 }
