@@ -31,50 +31,37 @@ export class EndreComponent implements OnInit {
   isoDato: string = '';
 
   valideringBaat = {
-    id: [null, Validators.required],
+    id: [null],
     navn: [
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,20}'),
+        Validators.pattern('[a-zA-ZæøåÆØÅ -]{2,30}'),
       ]),
     ],
   };
 
   valideringRute = {
-    id: [null, Validators.required],
-    startpunkt: [
-      null,
-      Validators.compose([
-        Validators.required,
-        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,20}'),
-      ]),
-    ],
-    endepunkt: [
-      null,
-      Validators.compose([
-        Validators.required,
-        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,20}'),
-      ]),
-    ],
-    //Sjekke at pris er over 0
-    pris: [null, Validators.required],
+    id: [null],
+    startpunkt: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}')])],
+    endepunkt: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}')])], 
+    pris: [null, Validators.compose([Validators.required, Validators.pattern('[1-9][0-9]{0,}')])], 
   };
 
   valideringKunde = {
-    id: [null, Validators.required],
+    id: [null],
     fornavn: [
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,30}'),
+        Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}'),
       ]),
     ],
     etternavn: [
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,30}'),
+        Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}'),
       ]),
     ],
     epost: [
@@ -86,7 +73,8 @@ export class EndreComponent implements OnInit {
     ],
     telefonnr: [
       null,
-      Validators.compose([Validators.required, Validators.pattern('[0-9]{8}')]),
+      Validators.compose([Validators.required, 
+      Validators.pattern('[0-9]{8}')]),
     ],
   };
 
