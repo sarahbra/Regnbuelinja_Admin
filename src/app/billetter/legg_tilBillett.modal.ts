@@ -13,8 +13,8 @@ export class LeggTilBillettModal {
     voksen: any;
 
     allForms = {
-      fIdForm: [null],
-      bIdForm: [null],
+      fIdForm: [null, Validators.compose([Validators.required, Validators.pattern(/^\d+$/)])],
+      bIdForm: [null, Validators.compose([Validators.required, Validators.pattern(/^\d+$/)])]
     }
 
     constructor(public modal: NgbActiveModal, private http: HttpClient){ }
@@ -32,7 +32,9 @@ export class LeggTilBillettModal {
       
       this.http.post('/api/admin/billetter', billett).subscribe(
         (ok) => {
-          if (!ok){
+          if (ok){
+            this.modal.close("Vellykket");
+          } else {
             this.modal.close("Mislykket");
           }
         },
@@ -41,8 +43,6 @@ export class LeggTilBillettModal {
           console.log(error)
         }
       );
-
-      this.modal.close("Vellykket");
     }
 
 }

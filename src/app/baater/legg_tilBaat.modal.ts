@@ -24,11 +24,12 @@ export class LeggTilBaatModal {
     vedSubmit() {
       const navn = this.forms.value.navnForm;
       const baat = new Baat(navn);
-      //const rute = null;
 
       this.http.post('/api/admin/baater', baat).subscribe(
         (ok) => {
-          if (!ok){
+          if (ok){
+            this.modal.close("Vellykket");
+          } else{
             this.modal.close("Mislykket");
           }
         },
@@ -38,6 +39,5 @@ export class LeggTilBaatModal {
         }
       );
 
-      this.modal.close("Vellykket");
     }
 }

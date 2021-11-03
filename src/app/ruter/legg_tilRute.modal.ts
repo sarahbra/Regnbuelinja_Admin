@@ -32,9 +32,11 @@ export class LeggTilRuteModal {
 
       this.http.post('/api/admin/ruter', rute).subscribe(
         (ok) => {
-          if (!ok){
+          if (ok)
+          this.modal.close("Vellykket");
+          else 
             this.modal.close("Mislykket");
-          }
+          
         },
         (error) => {
           this.modal.close("Mislykket");
@@ -42,6 +44,6 @@ export class LeggTilRuteModal {
         }
       );
 
-      this.modal.close("Vellykket");
+      
     }
 }

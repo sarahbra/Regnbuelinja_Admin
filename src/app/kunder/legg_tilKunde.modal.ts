@@ -14,10 +14,10 @@ export class LeggTilKundeModal {
     allForms = {
       fornavnForm: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZøæåØÆÅ\\-. ]{2,30}')])],
       etternavnForm: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZøæåØÆÅ\\-. ]{2,30}')])],
-      epostForm: [null],
-      telefonForm: [null, Validators.compose([Validators.required, Validators.pattern('^-?[0-9]\\d*(\\.\\d*)?$')])]
+      epostForm: [null, Validators.compose([Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)])],
+      telefonForm: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]{8}$')])]  // '^-?[0-9]\\d*(\\.\\d*)?$'
     }
-
+    
     constructor(public modal: NgbActiveModal, private http: HttpClient){ }
 
     ngOnInit() {
@@ -35,7 +35,10 @@ export class LeggTilKundeModal {
 
       this.http.post('/api/admin/kunder', kunde).subscribe(
         (ok) => {
-          if (!ok){
+          if (ok){
+            this.modal.close("Vellykket");
+          }
+          else{
             this.modal.close("Mislykket");
           }
         },
@@ -44,7 +47,5 @@ export class LeggTilKundeModal {
           console.log(error)
         }
       );
-
-      this.modal.close("Vellykket");
     }
 }
