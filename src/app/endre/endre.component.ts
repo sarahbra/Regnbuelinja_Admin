@@ -59,8 +59,8 @@ export class EndreComponent implements OnInit {
         Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,20}'),
       ]),
     ],
-    //Fortsett HER! Det er noe galt med JSON og pris
-    pris: [null, Validators.required], //må endres
+    //Sjekke at pris er over 0
+    pris: [null, Validators.required],
   };
 
   valideringKunde = {
