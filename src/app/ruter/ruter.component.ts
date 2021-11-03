@@ -45,11 +45,12 @@ export class RuterComponent implements OnInit {
 
   leggTilRute() {
     const modalRef = this.modalService.open(LeggTilRuteModal, {
-      backdrop: 'static', keyboard: false
+      backdrop: 'static',
+      keyboard: false,
     });
 
     modalRef.result.then((retur) => {
-      if (retur == "Vellykket")
+      if (retur == 'Vellykket') console.log("I'm getting hit with a broom");
       this.hentAlleRuter();
     });
   }
@@ -68,7 +69,6 @@ export class RuterComponent implements OnInit {
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
-      
       if (retur == 'Slett') {
         this._http.delete('/api/admin/rute/' + id).subscribe(
           () => {
@@ -87,7 +87,6 @@ export class RuterComponent implements OnInit {
             modalRef.componentInstance.updateBody(textBody);
             //Modal for å vise billetter knyttet til rute hvis bruker klikker "Vis billetter"
             modalRef.result.then((retur) => {
-              
               if (retur == 'Vis') {
                 const modalRef = this.modalService.open(VisAvhengigheterModal, {
                   backdrop: 'static',
