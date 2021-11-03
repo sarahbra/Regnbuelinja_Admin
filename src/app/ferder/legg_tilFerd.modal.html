@@ -6,6 +6,7 @@
     <div class="modal-body">
         <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
 
+<!--          
           <div class="form-group row">
             <div class="col-sm-4">
               <input type="number" formControlName="bIdForm" class="form-control" placeholder="Båt ID" autofocus />
@@ -28,6 +29,28 @@
                 En ID kan kun bestå av positive tall
               </small>
             </div>
+          </div>
+-->
+          <div class="form-group">
+            <label>Båt navn (bId)</label>
+            <select class="form-control " formControlName="bIdForm">
+                <option *ngFor="let baat of alleBaater" [ngValue]="baat.id">{{baat.navn}}</option>
+            </select>
+            <p class="alert alert-warning " [hidden]="forms.controls.bIdForm.valid || forms.controls.bIdForm.hasError('required')">
+              er obligatorisk.
+            </p>
+          </div>
+         
+
+
+          <div class="form-group">
+            <label>Rute (rId)</label>
+            <select class="form-control" formControlName="rIdForm">
+                <option *ngFor="let rute of alleRuter " [ngValue]="rute.id">{{rute.startpunkt + ' - ' + rute.endepunkt}}</option>
+            </select>
+            <p class="alert alert-warning" [hidden]="forms.controls.rIdForm.valid || forms.controls.rIdForm.hasError('required')">
+              er obligatorisk.
+            </p>
           </div>
 
           <div class="form-group row">
