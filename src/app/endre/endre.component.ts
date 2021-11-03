@@ -78,12 +78,14 @@ export class EndreComponent implements OnInit {
     ],
   };
 
+
+
   valideringFerd = {
-    fId: [null, Validators.required],
+    fId: [null],
     bId: [null, Validators.required],
     rId: [null, Validators.required],
-    avreiseTid: [null, Validators.required],
-    ankomstTid: [null, Validators.required],
+    avreiseTid: [null, Validators.compose([Validators.required, Validators.pattern(/^([1-9]|([012][0-9])|(3[01])).([0]{0,1}[1-9]|1[012]).\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$/)])],
+    ankomstTid: [null, Validators.compose([Validators.required, Validators.pattern(/^([1-9]|([012][0-9])|(3[01])).([0]{0,1}[1-9]|1[012]).\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$/)])]
   };
 
   constructor(
@@ -245,12 +247,8 @@ export class EndreComponent implements OnInit {
         this.skjemaFerd.patchValue({ fId: ferd.fId });
         this.skjemaFerd.patchValue({ bId: ferd.bId });
         this.skjemaFerd.patchValue({ rId: ferd.rId });
-        this.skjemaFerd.patchValue({
-          avreiseTid: formatDate(ferd.avreiseTid, 'dd/MM/yyyy HH:mm', 'en-US'),
-        });
-        this.skjemaFerd.patchValue({
-          ankomstTid: formatDate(ferd.ankomstTid, 'dd/MM/yyyy HH:mm', 'en-US'),
-        });
+        this.skjemaFerd.patchValue({avreiseTid: formatDate(ferd.avreiseTid, 'dd/MM/yyyy HH:mm', 'en-US')});
+        this.skjemaFerd.patchValue({ankomstTid: formatDate(ferd.ankomstTid, 'dd/MM/yyyy HH:mm', 'en-US')});
       },
       (error) => console.log(error)
     );
