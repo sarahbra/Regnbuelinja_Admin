@@ -298,7 +298,9 @@ export class EndreComponent implements OnInit {
 
     this._http.get<Bestilling>('/api/admin/bestilling/' + id).subscribe(
       (bestilling) => {
+        this.skjemaBestilling.patchValue({ id: bestilling.id });
         this.skjemaBestilling.patchValue({ kId: bestilling.kId });
+        this.skjemaBestilling.patchValue({ totaltpris: bestilling.totalpris });
         this.skjemaBestilling.patchValue({
           betalt: bestilling.betalt.toString(),
         });
@@ -307,7 +309,22 @@ export class EndreComponent implements OnInit {
     );
   }
 
-  endreBestilling() {}
+  endreBestilling() {
+    const id = this.skjemaBestilling.value.id;
+    const kId = this.skjemaBestilling.value.kId;
+    const totalpris = this.skjemaBestilling.value.totalpris;
+    const betalt = this.skjemaBestilling.value.betalt == 'false' ? false : true;
+
+    const endretBestilling = new Bestilling(kId, totalpris, betalt);
+    endretBestilling.id = id;
+
+    this._http.put('/api/admin/bestilling/' + id, endretBestilling).subscribe(
+      (retur) => {
+        this._router.navigate(['/bestillinger']);
+      },
+      (error) => console.log(error)
+    );
+  }
 
   formaterDato(datoString: string) {
     //Splitter til to deler. Del 1 = dato, del 2 = tid

@@ -192,6 +192,10 @@
     <div class="col-md-8">
         <h3 class="mb-4">Endre bestilling med id {{this.bestillingsId}}</h3>
         <form [formGroup]="skjemaBestilling" (ngSubmit)="vedSubmit('bestilling')">
+
+            <input class="form-control" formControlName="id" type="hidden" />
+            <input class="form-control" formControlName="totalpris" type="hidden" />
+
             <div class="form-group">
                 <label>Kunde</label>
                 <select class="form-control" formControlName="kId">
