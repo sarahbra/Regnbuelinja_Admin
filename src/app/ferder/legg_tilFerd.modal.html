@@ -8,7 +8,13 @@
 
           <div class="form-group row">
             <div class="col-sm-4">
-              <input type="number" formControlName="bIdForm" class="form-control" placeholder="Bestilling ID" autofocus />
+              <input type="number" formControlName="bIdForm" class="form-control" placeholder="Båt ID" autofocus />
+            </div>
+            <div>
+              <small class="alert alert-warning"
+                [hidden]="forms.controls.bIdForm.valid || forms.controls.bIdForm.pristine">
+                En ID kan kun bestå av positive tall
+              </small>
             </div>
           </div>
             
@@ -16,28 +22,58 @@
             <div class="col-sm-4">
               <input type="number" formControlName="rIdForm" class="form-control" placeholder="Rute ID" autofocus />
             </div>
+            <div>
+              <small class="alert alert-warning"
+                [hidden]="forms.controls.rIdForm.valid || forms.controls.rIdForm.pristine">
+                En ID kan kun bestå av positive tall
+              </small>
+            </div>
           </div>
 
           <div class="form-group row">
             <div class="col-sm-4">
-              <input type="text" formControlName="avreiseTidForm" class="form-control" placeholder="dd/MM/yyyy HH:mm (Avreise tid)" autofocus />
+              <input type="text" formControlName="avreiseDatoForm" class="form-control" placeholder="Avreise dato" autofocus />
             </div>
             <div>
               <small class="alert alert-warning"
-                [hidden]="forms.controls.avreiseTidForm.valid || forms.controls.avreiseTidForm.pristine">
-                Avreise tiden må kun bestå av bokstaver
+                [hidden]="forms.controls.avreiseDatoForm.valid || forms.controls.avreiseDatoForm.pristine">
+                Behold dato formatet: dd/MM/yyyy
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <input type="text" formControlName="avreiseKlokkeslettForm" class="form-control" placeholder="Avreise tid" autofocus />
+            </div>
+            <div>
+              <small class="alert alert-warning"
+                [hidden]="forms.controls.avreiseKlokkeslettForm.valid || forms.controls.avreiseKlokkeslettForm.pristine">
+                Avreise tiden må ha følgende formatet: HH:mm
               </small>
             </div>
           </div>
           
           <div class="form-group row">
             <div class="col-sm-4">
-              <input type="text" formControlName="ankomstTidForm" class="form-control" placeholder="dd/MM/yyyy HH:mm (Ankomst tid)" autofocus />
+              <input type="text" formControlName="ankomstDatoForm" class="form-control" placeholder="Ankomst dato" autofocus />
             </div>
             <div>
               <small class="alert alert-warning"
-                [hidden]="forms.controls.avreiseTidForm.valid || forms.controls.avreiseTidForm.pristine">
-                Ankomst tiden må kun bestå av bokstaver
+                [hidden]="forms.controls.ankomstDatoForm.valid || forms.controls.ankomstDatoForm.pristine">
+                Behold dato formatet: dd/MM/yyyy (Må være etter førrige datoen)
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <input type="text" formControlName="ankomstKlokkeslettForm" class="form-control" placeholder="Ankomst tid" autofocus />
+            </div>
+            <div>
+              <small class="alert alert-warning"
+                [hidden]="forms.controls.ankomstKlokkeslettForm.valid || forms.controls.ankomstKlokkeslettForm.pristine">
+                Ankomst tiden må ha følgende formatet: HH:mm
               </small>
             </div>
           </div>

@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Baat } from '../models/baat';
 import { Rute } from '../models/rute';
 import { Kunde } from '../models/kunde';
 import { Ferd } from '../models/ferd';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 @Component({
   templateUrl: './endre.component.html',
@@ -20,39 +21,47 @@ export class EndreComponent implements OnInit {
   visEndreBaat: boolean = false;
   visEndreRute: boolean = false;
   visEndreKunde: boolean = false;
+  visEndreFerd: boolean = false;
+  alleBaater: Array<Baat> = [];
+  alleRuter: Array<Rute> = [];
+  dateArray: Array<string> = [];
+  datoSplittet: Array<string> = [];
+  tidSplittet: Array<string> = [];
+  dato: Date;
+  isoDato: string = '';
 
   valideringBaat = {
-    id: [null, Validators.required],
+    id: [null],
     navn: [
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,20}'),
+        Validators.pattern('[a-zA-ZæøåÆØÅ -]{2,30}'),
       ]),
     ],
   };
 
   valideringRute = {
-    id: [null, Validators.required],
-    startpunkt: [null, Validators.required], //må endres
-    endepunkt: [null, Validators.required], //må endres
-    pris: [null, Validators.required], //må endres
+    id: [null],
+    startpunkt: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}')])],
+    endepunkt: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}')])], 
+    pris: [null, Validators.compose([Validators.required, Validators.pattern('[1-9][0-9]{0,}')])], 
   };
 
   valideringKunde = {
-    id: [null, Validators.required],
+    id: [null],
     fornavn: [
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,30}'),
+        Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}'),
       ]),
     ],
     etternavn: [
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,30}'),
+        Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}'),
       ]),
     ],
     epost: [
@@ -64,7 +73,8 @@ export class EndreComponent implements OnInit {
     ],
     telefonnr: [
       null,
-      Validators.compose([Validators.required, Validators.pattern('[0-9]{8}')]),
+      Validators.compose([Validators.required, 
+      Validators.pattern('[0-9]{8}')]),
     ],
   };
 
@@ -73,8 +83,8 @@ export class EndreComponent implements OnInit {
     bId: [null, Validators.required],
     rId: [null, Validators.required],
     avreiseTid: [null, Validators.required],
-    ankomstTid: [null, Validators.required]
-  }
+    ankomstTid: [null, Validators.required],
+  };
 
   constructor(
     private _http: HttpClient,
@@ -86,24 +96,33 @@ export class EndreComponent implements OnInit {
     this.skjemaBaat = _fb.group(this.valideringBaat);
     this.skjemaRute = _fb.group(this.valideringRute);
     this.skjemaKunde = _fb.group(this.valideringKunde);
+    this.skjemaFerd = _fb.group(this.valideringFerd);
   }
 
   ngOnInit() {
     this.nav.hide();
     this._route.params.subscribe(
       (params) => {
-        //Endre til switch case
-        if (params.type == 'baat') {
-          this.visEndreBaat = true;
-          this.hentEnBaat(params.id);
-        }
-        if (params.type == 'rute') {
-          this.visEndreRute = true;
-          this.hentEnRute(params.id);
-        }
-        if (params.type == 'kunde') {
-          this.visEndreKunde = true;
-          this.hentEnKunde(params.id);
+        switch (params.type) {
+          case 'baat':
+            this.visEndreBaat = true;
+            this.hentEnBaat(params.id);
+            break;
+          case 'rute':
+            this.visEndreRute = true;
+            this.hentEnRute(params.id);
+            break;
+          case 'kunde':
+            this.visEndreKunde = true;
+            this.hentEnKunde(params.id);
+            break;
+          case 'ferd':
+            this.visEndreFerd = true;
+            this.hentEnFerd(params.id);
+            break;
+          default:
+            console.log(params.type);
+            break;
         }
       },
       (error) => {
@@ -113,14 +132,22 @@ export class EndreComponent implements OnInit {
   }
 
   vedSubmit(type: string) {
-    if (type == 'baat') {
-      this.endreBaat();
-    }
-    if (type == 'rute') {
-      this.endreRute();
-    }
-    if (type == 'kunde') {
-      this.endreKunde();
+    switch (type) {
+      case 'baat':
+        this.endreBaat();
+        break;
+      case 'rute':
+        this.endreRute();
+        break;
+      case 'kunde':
+        this.endreKunde();
+        break;
+      case 'ferd':
+        this.endreFerd();
+        break;
+      default:
+        console.log(type);
+        break;
     }
   }
 
@@ -167,7 +194,7 @@ export class EndreComponent implements OnInit {
     const pris = parseFloat(this.skjemaRute.value.pris);
 
     const endretRute = new Rute(startpunkt, endepunkt, pris);
-    endretRute.id = id;    
+    endretRute.id = id;
     this._http.put('/api/admin/rute/' + id, endretRute).subscribe(
       (retur) => {
         this._router.navigate(['/ruter']);
@@ -204,6 +231,87 @@ export class EndreComponent implements OnInit {
     this._http.put('/api/admin/kunde/' + id, endretKunde).subscribe(
       (retur) => {
         this._router.navigate(['/kunder']);
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  hentEnFerd(fId: number) {
+    this.hentAlleBaater();
+    this.hentAlleRuter();
+
+    this._http.get<Ferd>('/api/admin/ferd/' + fId).subscribe(
+      (ferd) => {
+        this.skjemaFerd.patchValue({ fId: ferd.fId });
+        this.skjemaFerd.patchValue({ bId: ferd.bId });
+        this.skjemaFerd.patchValue({ rId: ferd.rId });
+        this.skjemaFerd.patchValue({
+          avreiseTid: formatDate(ferd.avreiseTid, 'dd/MM/yyyy HH:mm', 'en-US'),
+        });
+        this.skjemaFerd.patchValue({
+          ankomstTid: formatDate(ferd.ankomstTid, 'dd/MM/yyyy HH:mm', 'en-US'),
+        });
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  endreFerd() {
+    const fId = this.skjemaFerd.value.fId;
+    const bId = this.skjemaFerd.value.bId;
+    const rId = this.skjemaFerd.value.rId;
+    const avreiseTid = this.formaterDato(this.skjemaFerd.value.avreiseTid);
+    const ankomstTid = this.formaterDato(this.skjemaFerd.value.ankomstTid);
+
+    const endretFerd = new Ferd(bId, rId, avreiseTid, ankomstTid);
+    endretFerd.fId = fId;
+
+    this._http.put('/api/admin/ferd/' + fId, endretFerd).subscribe(
+      (retur) => {
+        this._router.navigate(['/ferder']);
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  formaterDato(datoString: string) {
+    //Splitter til to deler. Del 1 = dato, del 2 = tid
+    this.dateArray = datoString.split(' ', 2);
+
+    //Splitter dato i tre deleer ved "/"
+    this.datoSplittet = this.dateArray[0].split('/', 3);
+
+    //Splitter tid i to deler ved ":"
+    this.tidSplittet = this.dateArray[1].split(':', 2);
+
+    //Lager ny dato med dato
+    this.dato = new Date(
+      parseInt(this.datoSplittet[2]),
+      parseInt(this.datoSplittet[1]) - 1,
+      parseInt(this.datoSplittet[0])
+    );
+
+    //Legger til tid
+    this.dato.setHours(parseInt(this.tidSplittet[0]));
+    this.dato.setMinutes(parseInt(this.tidSplittet[1]));
+
+    //konvertere til isoString
+    return (this.isoDato = this.dato.toISOString());
+  }
+
+  hentAlleBaater() {
+    this._http.get<Baat[]>('/api/admin/baater').subscribe(
+      (baater) => {
+        this.alleBaater = baater;
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  hentAlleRuter() {
+    this._http.get<Rute[]>('/api/admin/ruter').subscribe(
+      (rutene) => {
+        this.alleRuter = rutene;
       },
       (error) => console.log(error)
     );

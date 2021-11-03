@@ -35,7 +35,6 @@ export class BaaterComponent implements OnInit {
   }
 
   hentAlleBaater() {
-    //Endre til nytt endepunkt som henter alle båter.
     this._http.get<Baat[]>('/api/admin/baater').subscribe(
       (baater) => {
         this.alleBaater = baater;
@@ -104,19 +103,19 @@ export class BaaterComponent implements OnInit {
     });
   }
 
-  endreBaat(id: number) { }
+  endreBaat(id: number) {}
 
-  slettBaat(id: number) { }
+  slettBaat(id: number) {}
 
   leggTilBaat() {
     const modalRef = this.modalService.open(LeggTilBaatModal, {
-      backdrop: 'static', keyboard: false
+      backdrop: 'static',
+      keyboard: false,
     });
 
     modalRef.result.then((retur) => {
-      if (retur == "Vellykket")
-      console.log("I'm getting hit with a broom");
+      if (retur == 'Vellykket') console.log("I'm getting hit with a broom");
       this.hentAlleBaater();
     });
-   }
+  }
 }

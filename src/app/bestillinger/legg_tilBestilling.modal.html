@@ -8,10 +8,16 @@
 
           <div class="form-group row">
             <div class="col-sm-4">
-              <input type="number" formControlName="kIdForm" class="form-control" placeholder="Kunde ID" autofocus />
+              <input type="number" formControlName="kIdForm" class="form-control" placeholder="Kunde ID" />
+            </div>
+            <div>
+              <small class="alert alert-warning"
+                [hidden]="forms.controls.kIdForm.valid || forms.controls.kIdForm.pristine">
+                En ID kan kun bestå av positive tall
+              </small>
             </div>
           </div>
-    
+            
           <div class="form-group row">
               <div class="col-sm-4">
                 Betalt:

@@ -1,20 +1,32 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Ny Kunde</h4>
+        <h4 class="modal-title" id="modal-basic-title">Ny Billett</h4>
     </div>
 
-    <div class="modal-body">
-        <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
+  <div class="modal-body">
+    <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
 
           <div class="form-group row">
             <div class="col-sm-4">
               <input type="number" formControlName="fIdForm" class="form-control" placeholder="Ferd ID" autofocus />
             </div>
+            <div>
+              <small class="alert alert-warning"
+                [hidden]="forms.controls.fIdForm.valid || forms.controls.fIdForm.pristine">
+                En ID kan kun bestå av positive tall
+              </small>
+            </div>
           </div>
             
           <div class="form-group row">
             <div class="col-sm-4">
-              <input type="number" formControlName="bIdForm" class="form-control" placeholder="Båt ID" autofocus />
+              <input type="number" formControlName="bIdForm" class="form-control" placeholder="Bestilling ID" autofocus />
+            </div>
+            <div>
+              <small class="alert alert-warning"
+                [hidden]="forms.controls.bIdForm.valid || forms.controls.bIdForm.pristine">
+                En ID kan kun bestå av positive tall
+              </small>
             </div>
           </div>
     
@@ -25,11 +37,11 @@
               </div>
           </div>
 
-          <div class="modal-footer">      
-            <button type="button" class="btn btn-default" (click)="modal.close('Lukk')">Lukk</button>
-            <button type="submit" class="btn btn-success" [disabled]="!forms.valid">Lagre</button>
-          </div>
-            
-        </form>
-    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modal.close('Lukk')">Lukk</button>
+        <button type="submit" class="btn btn-success" [disabled]="!forms.valid">Lagre</button>
+      </div>
+
+    </form>
+  </div>
 </div>
