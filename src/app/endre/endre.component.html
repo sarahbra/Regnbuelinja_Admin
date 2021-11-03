@@ -133,7 +133,7 @@
 
             <div class="form-group">
                 <label>Båt navn (bId)</label>
-                <select class="form-control " formControlName="bId">
+                <select class="form-control" formControlName="bId">
                     <option *ngFor="let baat of alleBaater" [ngValue]="baat.id">{{baat.navn}}</option>
                 </select>
                 <p class="alert alert-warning"
