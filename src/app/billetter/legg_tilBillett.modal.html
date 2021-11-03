@@ -7,17 +7,7 @@
     <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
 
           <div class="form-group">
-            <label>Ferd (fId) (En bestilling kan kun ha 1-2 ferder. Dvs. kun 1-2 ferder kan bli valgt med en bestilling)</label>
-            <select class="form-control " formControlName="fIdForm">
-                <option *ngFor="let ferd of alleFerder" [ngValue]="ferd.fId">{{ferd.fId}}</option>
-            </select>
-            <p class="alert alert-warning " [hidden]="forms.controls.fIdForm.valid || forms.controls.fIdForm.hasError('required')">
-              Obligatorisk
-            </p>
-          </div>
-
-          <div class="form-group">
-            <label>Bestilling (bId)</label>
+            Bestilling (bId)
             <select class="form-control" formControlName="bIdForm">
                 <option *ngFor="let bestilling of alleBestillinger " [ngValue]="bestilling.id">{{bestilling.id}}</option>
             </select>
@@ -26,9 +16,21 @@
             </p>
           </div>
 
+          <div class="form-group">
+            Ferd (fId)
+            <select class="form-control " formControlName="fIdForm">
+                <option *ngFor="let ferd of alleFerder" [ngValue]="ferd.fId">{{ferd.fId}}</option>
+            </select>
+            <p class="alert alert-warning " [hidden]="forms.controls.fIdForm.valid || forms.controls.fIdForm.hasError('required')">
+              Obligatorisk
+            </p>
+          </div>
+
+    
+
           <div class="form-group row">
               <div class="col-sm-4">
-                Voksen:
+                Voksen: 
                 <input type="checkbox" id="voksen" class="btn-check"/>
               </div>
           </div>
