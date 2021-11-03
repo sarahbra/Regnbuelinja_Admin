@@ -143,7 +143,7 @@
             <div class="form-group">
                 <label>rId</label>
                 <select class="form-control" formControlName="rId">
-                    <option *ngFor="let rute of alleRuter" [ngValue]="rute.id">{{rute.startpunkt +'-'+rute.endepunkt}}</option>
+                    <option *ngFor="let rute of alleRuter" [ngValue]="rute.id">{{rute.startpunkt + ' - ' + rute.endepunkt}}</option>
                 </select>
             </div>
             <p class="alert alert-warning " [hidden]="skjemaFerd.controls.rId.valid || skjemaFerd.controls.rId.hasError('required') ">
