@@ -1,0 +1,41 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Ny Bestilling</h4>
+    </div>
+
+    <div class="modal-body">
+        <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <input type="number" formControlName="kIdForm" class="form-control" placeholder="Kunde ID" autofocus />
+            </div>
+          </div>
+            
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <input type="text" formControlName="totalprisForm" class="form-control" placeholder="Total pris" />
+            </div>
+            <div>
+              <small class="alert alert-warning"
+                [hidden]="forms.controls.totalprisForm.valid || forms.controls.totalprisForm.pristine">
+                Total prisen må kun bestå av tall
+              </small>
+            </div>
+          </div>
+    
+          <div class="form-group row">
+              <div class="col-sm-4">
+                Betalt:
+                <input type="checkbox" id="betalt" class="btn-check"/>
+              </div>
+          </div>
+
+          <div class="modal-footer">      
+            <button type="button" class="btn btn-default" (click)="modal.close('Lukk')">Lukk</button>
+            <button type="submit" class="btn btn-success" [disabled]="!forms.valid">Lagre</button>
+          </div>
+            
+        </form>
+    </div>
+</div>

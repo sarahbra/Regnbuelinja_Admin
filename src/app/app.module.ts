@@ -17,6 +17,12 @@ import { NavbarService } from './nav-meny/nav-meny.service';
 import { VisAvhengigheterModal } from './modals/slett-modaler/vis-avhengigheter.modal';
 import { KundeComponent } from './kunder/kunde.component';
 import { BillettComponent } from './billetter/billett.component';
+import { LeggTilRuteModal } from './ruter/legg_tilRute.modal';
+import { LeggTilBaatModal } from './baater/legg_tilBaat.modal';
+import { LeggTilFerdModal } from './ferder/legg_tilFerd.modal';
+import { LeggTilKundeModal } from './kunder/legg_tilKunde.modal';
+import { LeggTilBillettModal } from './billetter/legg_tilBillett.modal';
+import { LeggTilBestillingModal } from './bestillinger/legg_tilBestilling.modal';
 import { AlertAvhengigheterFinnesModal } from './modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { SlettErrorModal } from './modals/slett-modaler/slett-error.modal';
 import { EndreComponent } from './endre/endre.component';
@@ -35,6 +41,12 @@ import { VisBilletterForBestilling } from './modals/vis-billetter-for-bestilling
     VisAvhengigheterModal,
     KundeComponent,
     BillettComponent,
+    LeggTilRuteModal,
+    LeggTilBaatModal,
+    LeggTilFerdModal,
+    LeggTilKundeModal,
+    LeggTilBillettModal,
+    LeggTilBestillingModal,
     AlertAvhengigheterFinnesModal,
     SlettErrorModal,
     EndreComponent,
@@ -59,7 +71,8 @@ import { VisBilletterForBestilling } from './modals/vis-billetter-for-bestilling
     },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [BekreftSlettModal],
+  entryComponents: [BekreftSlettModal, LeggTilRuteModal, LeggTilBaatModal, 
+    LeggTilFerdModal, LeggTilKundeModal, LeggTilBillettModal, LeggTilBestillingModal], 
 })
 
 export class AppModule { }

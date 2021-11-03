@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
 import { AlertAvhengigheterFinnesModal } from '../modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { LeggTilBaatModal } from './legg_tilBaat.modal';
 import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
 
 @Component({
@@ -32,8 +33,6 @@ export class BaaterComponent implements OnInit {
     this.laster = true;
     this.hentAlleBaater();
   }
-
-  leggTilBaat() {}
 
   hentAlleBaater() {
     //Endre til nytt endepunkt som henter alle båter.
@@ -104,4 +103,20 @@ export class BaaterComponent implements OnInit {
       this._router.navigate(['/baater']);
     });
   }
+
+  endreBaat(id: number) { }
+
+  slettBaat(id: number) { }
+
+  leggTilBaat() {
+    const modalRef = this.modalService.open(LeggTilBaatModal, {
+      backdrop: 'static', keyboard: false
+    });
+
+    modalRef.result.then((retur) => {
+      if (retur == "Vellykket")
+      console.log("I'm getting hit with a broom");
+      this.hentAlleBaater();
+    });
+   }
 }

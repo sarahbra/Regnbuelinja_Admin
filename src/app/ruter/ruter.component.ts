@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
 import { AlertAvhengigheterFinnesModal } from '../modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { LeggTilRuteModal } from './legg_tilRute.modal';
 import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
 
 @Component({
@@ -42,7 +43,16 @@ export class RuterComponent implements OnInit {
 
   endreRute(id: number) {}
 
-  leggTilRute() {}
+  leggTilRute() {
+    const modalRef = this.modalService.open(LeggTilRuteModal, {
+      backdrop: 'static', keyboard: false
+    });
+
+    modalRef.result.then((retur) => {
+      if (retur == "Vellykket")
+      this.hentAlleRuter();
+    });
+  }
 
   visModalOgSlett(id: number) {
     console.log(id);
@@ -58,7 +68,7 @@ export class RuterComponent implements OnInit {
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
-      console.log('Lukket med:' + retur);
+      
       if (retur == 'Slett') {
         this._http.delete('/api/admin/rute/' + id).subscribe(
           () => {
@@ -77,7 +87,7 @@ export class RuterComponent implements OnInit {
             modalRef.componentInstance.updateBody(textBody);
             //Modal for å vise billetter knyttet til rute hvis bruker klikker "Vis billetter"
             modalRef.result.then((retur) => {
-              console.log('Lukket med:' + retur);
+              
               if (retur == 'Vis') {
                 const modalRef = this.modalService.open(VisAvhengigheterModal, {
                   backdrop: 'static',

@@ -14,9 +14,8 @@ export class LoginComponent implements OnInit {
 
 
   validering = {
-    brukernavn: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZøæåØÆÅ\\-. ]{2,30}')],),
-    ],
-    passord: [null, Validators.compose([Validators.required, Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-ZæøåÆØÅ])([a-zA-ZæøåÆØÅ0-9]+){6,}$')])],
+    brukernavn: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZøæåØÆÅ\\-. ]{2,30}')])],
+    passord: [null, Validators.compose([Validators.required, Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-ZæøåÆØÅ])([a-zA-ZæøåÆØÅ0-9]+){6,}$')])]
   };
 
   constructor(private http: HttpClient, private fb: FormBuilder, private router: Router, public nav: NavbarService) {

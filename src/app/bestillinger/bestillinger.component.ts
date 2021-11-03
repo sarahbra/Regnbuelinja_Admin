@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Bestilling } from '../models/bestilling';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { LeggTilBestillingModal } from './legg_tilBestilling.modal';
 import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
 import { SlettErrorModal } from '../modals/slett-modaler/slett-error.modal';
 import { VisBilletterForBestilling } from '../modals/vis-billetter-for-bestilling.modal';
@@ -80,5 +81,14 @@ export class BestillingerComponent implements OnInit {
     (<VisBilletterForBestilling>modalRef.componentInstance).idAsInput = id;
   }
 
-  leggTilBestilling() {}
+  leggTilBestilling() { 
+    const modalRef = this.modalService.open(LeggTilBestillingModal, {
+      backdrop: 'static', keyboard: false
+    });
+
+    modalRef.result.then((retur) => {
+      if (retur == "Vellykket")
+      this.hentAlleBestillinger();
+    });
+  }
 }

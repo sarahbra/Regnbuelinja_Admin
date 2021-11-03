@@ -1,0 +1,52 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Ny Ferd</h4>
+    </div>
+
+    <div class="modal-body">
+        <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <input type="number" formControlName="bIdForm" class="form-control" placeholder="Bestilling ID" autofocus />
+            </div>
+          </div>
+            
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <input type="number" formControlName="rIdForm" class="form-control" placeholder="Rute ID" autofocus />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <input type="text" formControlName="avreiseTidForm" class="form-control" placeholder="dd/MM/yyyy HH:mm (Avreise tid)" autofocus />
+            </div>
+            <div>
+              <small class="alert alert-warning"
+                [hidden]="forms.controls.avreiseTidForm.valid || forms.controls.avreiseTidForm.pristine">
+                Avreise tiden må kun bestå av bokstaver
+              </small>
+            </div>
+          </div>
+          
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <input type="text" formControlName="ankomstTidForm" class="form-control" placeholder="dd/MM/yyyy HH:mm (Ankomst tid)" autofocus />
+            </div>
+            <div>
+              <small class="alert alert-warning"
+                [hidden]="forms.controls.avreiseTidForm.valid || forms.controls.avreiseTidForm.pristine">
+                Ankomst tiden må kun bestå av bokstaver
+              </small>
+            </div>
+          </div>
+
+          <div class="modal-footer">      
+            <button type="button" class="btn btn-default" (click)="modal.close('Lukk')">Lukk</button>
+            <button type="submit" class="btn btn-success" [disabled]="!forms.valid">Lagre</button>
+          </div>
+            
+        </form>
+    </div>
+</div>

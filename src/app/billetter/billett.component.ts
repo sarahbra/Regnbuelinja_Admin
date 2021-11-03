@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Billett } from '../models/billett';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { LeggTilBillettModal } from './legg_tilBillett.modal';
 import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
 import { SlettErrorModal } from '../modals/slett-modaler/slett-error.modal';
 
@@ -39,7 +40,17 @@ export class BillettComponent implements OnInit {
 
   endreBillett(id: number) {}
 
-  leggTilBillett() {}
+  leggTilBillett() { 
+    const modalRef = this.modalService.open(LeggTilBillettModal, {
+      backdrop: 'static', keyboard: false
+    });
+
+    modalRef.result.then((retur) => {
+      if (retur == "Vellykket")
+      this.hentAllebilletter();
+    });
+  
+  }
 
   visModalOgSlett(id: number) {
     const modalRef = this.modalService.open(BekreftSlettModal, {

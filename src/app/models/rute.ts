@@ -3,4 +3,10 @@ export class Rute {
   startpunkt: string;
   endepunkt: string;
   pris: number;
+
+  constructor(startpunkt: string, endepunkt: string, pris: number) {
+    this.startpunkt = startpunkt;
+    this.endepunkt = endepunkt;
+    this.pris = pris;
+  }
 }

@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Kunde } from '../models/kunde';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { LeggTilKundeModal } from './legg_tilKunde.modal';
 import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
 import { AlertAvhengigheterFinnesModal } from '../modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
@@ -37,6 +38,18 @@ export class KundeComponent implements OnInit {
       (error) => console.log(error)
     );
   }
+
+  leggTilKunde() {
+    const modalRef = this.modalService.open(LeggTilKundeModal, {
+      backdrop: 'static', keyboard: false
+    });
+
+    modalRef.result.then((retur) => {
+      if (retur == "Vellykket")
+      this.hentAlleKunder();
+    });
+  
+   }
 
   visModalOgSlett(id: number) {
     const modalRef = this.modalService.open(BekreftSlettModal, {
@@ -91,6 +104,4 @@ export class KundeComponent implements OnInit {
   }
 
   endreKunde(id: number) {}
-
-  leggTilKunde() {}
 }
