@@ -9,11 +9,11 @@ import { NavbarService } from '../nav-meny/nav-meny.service';
 import { LeggTilFerdModal } from './legg_tilFerd.modal';
 import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
 
+
 @Component({
-  //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør ingenting
   templateUrl: './ferder.component.html',
-  //styleUrls: ['./app.ruter.css'],
 })
+
 export class FerderComponent implements OnInit {
   alleFerder: Array<Ferd> = [];
   laster: boolean = false;
@@ -31,10 +31,9 @@ export class FerderComponent implements OnInit {
     this.hentAlleFerder();
   }
 
+
   hentAlleFerder() {
-    this._http
-      //Endre til nytt endepunkt som henter alle ferder uten ruteid.
-      .get<Ferd[]>('/api/admin/ferder')
+    this._http.get<Ferd[]>('/api/admin/ferder')
       .subscribe(
         (ferder) => {
           this.alleFerder = ferder;
@@ -44,7 +43,6 @@ export class FerderComponent implements OnInit {
       );
   }
 
-  endreFerd(id: number) {}
 
   visModalOgSlett(id: number) {
     const modalRef = this.modalService.open(BekreftSlettModal, {

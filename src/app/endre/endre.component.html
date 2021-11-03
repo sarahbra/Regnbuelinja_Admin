@@ -114,8 +114,8 @@
 <!--Endre Ferd-->
 <div class="container" *ngIf="visEndreFerd">
     <div class="col-md-4">
-        <form [formGroup]="skjemaFerd" (ngSubmit)="vedSubmit( 'ferd')">
-            <input class="form-control" formControlName="fId " type="hidden" />
+        <form [formGroup]="skjemaFerd" (ngSubmit)="vedSubmit('ferd')">
+            <input class="form-control" formControlName="fId" type="hidden" />
 
 
             <div class="form-group">
@@ -125,7 +125,7 @@
                 </select>
             </div>
             <p class="alert alert-warning " [hidden]="skjemaFerd.controls.bId.valid || skjemaFerd.controls.bId.hasError('required')">
-                er obligatorisk.
+                obligatorisk.
             </p>
 
 
@@ -136,7 +136,7 @@
                 </select>
             </div>
             <p class="alert alert-warning" [hidden]="skjemaFerd.controls.rId.valid || skjemaFerd.controls.rId.hasError('required')">
-                er obligatorisk.
+                obligatorisk.
             </p>
 
 
@@ -144,7 +144,7 @@
                 <label>Avreise Tid</label>
                 <input class="form-control" formControlName="avreiseTid" />
                 <p class="alert alert-warning " [hidden]="skjemaFerd.controls.avreiseTid.valid || skjemaFerd.controls.avreiseTid.pristine">
-                    er obligatorisk.
+                    - dd/mm/yyyy hh:mm <br> - Ugyldig dato eller tid
                 </p>
             </div>
 
@@ -152,7 +152,7 @@
                 <label>Ankomst Tid</label>
                 <input class="form-control" formControlName="ankomstTid" />
                 <p class="alert alert-warning" [hidden]="skjemaFerd.controls.ankomstTid.valid || skjemaFerd.controls.ankomstTid.pristine">
-                    er obligatorisk.
+                    - dd/mm/yyyy hh:mm <br> - Ugyldig dato eller tid
                 </p>
             </div>
 
