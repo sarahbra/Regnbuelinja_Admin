@@ -16,7 +16,12 @@ import { NavbarService } from './nav-meny/nav-meny.service';
 import { BillettModal } from './modals/billett.modal';
 import { KundeComponent } from './kunder/kunde.component';
 import { BillettComponent } from './billetter/billett.component';
-import { LeggTilModal } from './modals/legg_til.modal';
+import { LeggTilRuteModal } from './ruter/legg_tilRute.modal';
+import { LeggTilBaatModal } from './baater/legg_tilBaat.modal';
+import { LeggTilFerdModal } from './ferder/legg_tilFerd.modal';
+import { LeggTilKundeModal } from './kunder/legg_tilKunde.modal';
+import { LeggTilBillettModal } from './billetter/legg_tilBillett.modal';
+import { LeggTilBestillingModal } from './bestillinger/legg_tilBestilling.modal';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,12 @@ import { LeggTilModal } from './modals/legg_til.modal';
     BillettModal,
     KundeComponent,
     BillettComponent,
-    LeggTilModal    
+    LeggTilRuteModal,
+    LeggTilBaatModal,
+    LeggTilFerdModal,
+    LeggTilKundeModal,
+    LeggTilBillettModal,
+    LeggTilBestillingModal
   ],
 
   imports: [
@@ -44,6 +54,7 @@ import { LeggTilModal } from './modals/legg_til.modal';
 
   providers: [NavbarService],
   bootstrap: [AppComponent],
-  entryComponents: [SlettModal, LeggTilModal],
+  entryComponents: [SlettModal, LeggTilRuteModal, LeggTilBaatModal, 
+    LeggTilFerdModal, LeggTilKundeModal, LeggTilBillettModal, LeggTilBestillingModal], 
 })
 export class AppModule { }

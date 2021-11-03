@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { LeggTilBaatModal } from './legg_tilBaat.modal';
 
 @Component({
   templateUrl: './baater.component.html',
@@ -74,5 +75,15 @@ export class BaaterComponent implements OnInit {
 
   slettBaat(id: number) { }
 
-  leggTilBaat() { }
+  leggTilBaat() {
+    const modalRef = this.modalService.open(LeggTilBaatModal, {
+      backdrop: 'static', keyboard: false
+    });
+
+    modalRef.result.then((retur) => {
+      if (retur == "Vellykket")
+      console.log("I'm getting hit with a broom");
+      this.hentAlleBaater();
+    });
+   }
 }

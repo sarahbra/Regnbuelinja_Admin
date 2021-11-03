@@ -6,6 +6,7 @@ import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
 import { Router } from '@angular/router';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { LeggTilFerdModal } from './legg_tilFerd.modal';
 
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør ingenting
@@ -76,5 +77,16 @@ export class FerderComponent implements OnInit {
     });
   }
 
-  leggTilFerd() { }
+  leggTilFerd() { 
+  
+    const modalRef = this.modalService.open(LeggTilFerdModal, {
+      backdrop: 'static', keyboard: false
+    });
+
+    modalRef.result.then((retur) => {
+      if (retur == "Vellykket")
+      this.hentAlleFerder();
+    });
+  
+  }
 }

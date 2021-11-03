@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Bestilling } from '../models/bestilling';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { LeggTilBestillingModal } from './legg_tilBestilling.modal';
 
 @Component({
   templateUrl: './bestillinger.component.html',
@@ -36,5 +37,14 @@ export class BestillingerComponent implements OnInit {
 
   visBilletter(id: number) { }
 
-  leggTilBestilling() { }
+  leggTilBestilling() { 
+    const modalRef = this.modalService.open(LeggTilBestillingModal, {
+      backdrop: 'static', keyboard: false
+    });
+
+    modalRef.result.then((retur) => {
+      if (retur == "Vellykket")
+      this.hentAlleBestillinger();
+    });
+  }
 }

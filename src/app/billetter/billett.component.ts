@@ -6,7 +6,7 @@ import { Billett } from '../models/billett';
 import { NavbarService } from '../nav-meny/nav-meny.service';
 import { SlettModal } from '../modals/slett.modal';
 import { AlertModal } from '../modals/alert.modal';
-
+import { LeggTilBillettModal } from './legg_tilBillett.modal';
 
 @Component({
   templateUrl: './billett.component.html'
@@ -41,7 +41,17 @@ export class BillettComponent implements OnInit {
 
   endreBillett(id: number) { }
 
-  leggTilBillett() { }
+  leggTilBillett() { 
+    const modalRef = this.modalService.open(LeggTilBillettModal, {
+      backdrop: 'static', keyboard: false
+    });
+
+    modalRef.result.then((retur) => {
+      if (retur == "Vellykket")
+      this.hentAllebilletter();
+    });
+  
+  }
 
   visModalOgSlett(id: number) { }
 
