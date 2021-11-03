@@ -45,8 +45,21 @@ export class EndreComponent implements OnInit {
 
   valideringRute = {
     id: [null, Validators.required],
-    startpunkt: [null, Validators.required], //må endres
-    endepunkt: [null, Validators.required], //må endres
+    startpunkt: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,20}'),
+      ]),
+    ],
+    endepunkt: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('[a-zA-ZæøåÆØÅ. -]{2,20}'),
+      ]),
+    ],
+    //Fortsett HER! Det er noe galt med JSON og pris
     pris: [null, Validators.required], //må endres
   };
 
@@ -84,8 +97,8 @@ export class EndreComponent implements OnInit {
     bId: [null, Validators.required],
     rId: [null, Validators.required],
     avreiseTid: [null, Validators.required],
-    ankomstTid: [null, Validators.required]
-  }
+    ankomstTid: [null, Validators.required],
+  };
 
   constructor(
     private _http: HttpClient,
