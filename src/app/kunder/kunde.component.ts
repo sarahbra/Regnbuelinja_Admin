@@ -4,26 +4,27 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Kunde } from '../models/kunde';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { SlettModal } from '../modals/slett.modal';
-import { AlertModal } from '../modals/alert.modal';
 import { LeggTilKundeModal } from './legg_tilKunde.modal';
+import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
+import { AlertAvhengigheterFinnesModal } from '../modals/slett-modaler/alert-avhengigheter-finnes.modal';
+import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
 
 @Component({
-  templateUrl: './kunde.component.html'
+  templateUrl: './kunde.component.html',
 })
-
 export class KundeComponent implements OnInit {
   alleKunder: Array<Kunde> = [];
-  laster: boolean
+  laster: boolean;
 
   constructor(
     private _http: HttpClient,
     private _router: Router,
     private modalService: NgbModal,
-    public nav: NavbarService) { }
+    public nav: NavbarService
+  ) {}
 
   ngOnInit() {
-    this.nav.show()
+    this.nav.show();
     this.laster = true;
     this.hentAlleKunder();
   }
@@ -38,8 +39,6 @@ export class KundeComponent implements OnInit {
     );
   }
 
-  endreKunde(id: number) { }
-
   leggTilKunde() {
     const modalRef = this.modalService.open(LeggTilKundeModal, {
       backdrop: 'static', keyboard: false
@@ -52,6 +51,57 @@ export class KundeComponent implements OnInit {
   
    }
 
-  visModalOgSlett(id: number) { }
+  visModalOgSlett(id: number) {
+    const modalRef = this.modalService.open(BekreftSlettModal, {
+      backdrop: 'static',
+      keyboard: false,
+    });
 
+    let textBody: string = 'Vil du slette kunde med id ' + id + '?';
+    modalRef.componentInstance.updateBody(textBody);
+
+    modalRef.result.then((retur) => {
+      if (retur == 'Slett') {
+        this._http.delete('/api/admin/kunde/' + id).subscribe(
+          () => {
+            this.hentAlleKunder();
+          },
+          (res) => {
+            const modalRef = this.modalService.open(
+              AlertAvhengigheterFinnesModal,
+              {
+                backdrop: 'static',
+                keyboard: false,
+              }
+            );
+            let textBody: string = res.error;
+            modalRef.componentInstance.updateBody(textBody);
+            //Modal for å vise billetter knyttet til ferd hvis bruker klikker "Vis billetter"
+            modalRef.result.then((retur) => {
+              if (retur == 'Vis') {
+                const modalRef = this.modalService.open(VisAvhengigheterModal, {
+                  backdrop: 'static',
+                  keyboard: false,
+                  size: 'lg',
+                });
+                let textBody: string =
+                  'Bestillinger tilknyttet kunde med id ' +
+                  id +
+                  '\nmå slettes før kunden kan slettes';
+                modalRef.componentInstance.updateBody(textBody);
+                (<VisAvhengigheterModal>modalRef.componentInstance).idAsInput =
+                  id;
+                (<VisAvhengigheterModal>(
+                  modalRef.componentInstance
+                )).endepunktAsInput = 'kunde';
+              }
+            });
+          }
+        );
+      }
+      this._router.navigate(['/kunder']);
+    });
+  }
+
+  endreKunde(id: number) {}
 }

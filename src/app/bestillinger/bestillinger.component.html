@@ -1,17 +1,18 @@
 <div class="container">
-    <button class='btn btn-primary col-sm-3 mb-4' (click)="leggTilBestilling()">Legg til bestilling</button>
+    <button class='btn btn-primary col-sm-3 mb-4  style="white-space: nowrap"' (click)="leggTilBestilling()">Legg til
+        bestilling</button>
     <div>
-        <div class="col-md-6">
+        <div class="col-sm-12">
             <h2> Alle bestillinger: </h2>
             <div *ngIf="laster">Laster bestillinger.....</div>
             <table class="table">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>KId</th>
+                        <th>Kunde-id</th>
                         <th>Totalpris</th>
-                        <th>Betalt</th>
-                        <th></th>
+                        <th>Status for betaling</th>
+                        <th>Billetter</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -20,11 +21,12 @@
                     <tr>
                         <td>{{bestilling.id}}</td>
                         <td>{{bestilling.kId}}</td>
-                        <td>{{bestilling.totalpris}}</td>
-                        <td>{{bestilling.betalt}}</td>
-                        <td><button class="btn btn-primary" (click)="visBilletter(bestilling.id)">Vis alle
+                        <td>{{bestilling.totalpris}} NOK</td>
+                        <td>{{bestilling.betalt == true ? "Betalt": "Ikke betalt"}}</td>
+                        <td><button class="btn btn-primary" style="white-space: nowrap"
+                                (click)="visBilletter(bestilling.id)">Vis
                                 billetter</button></td>
-                        <td><button class="btn btn-danger" (click)="slettBestilling(bestilling.id)">Slett</button></td>
+                        <td><button class="btn btn-danger" (click)="visModalOgSlett(bestilling.id)">Slett</button></td>
                         <td><button class="btn btn-success" (click)="endreBestilling(bestilling.id)">Endre</button>
                         </td>
                     </tr>

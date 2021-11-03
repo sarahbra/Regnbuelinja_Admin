@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Rute } from '../models/rute';
 import { Router } from '@angular/router';
-import { SlettModal } from '../modals/slett.modal';
-import { AlertModal } from '../modals/alert.modal';
+import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
+import { AlertAvhengigheterFinnesModal } from '../modals/slett-modaler/alert-avhengigheter-finnes.modal';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { BillettModal } from '../modals/billett.modal';
 import { LeggTilRuteModal } from './legg_tilRute.modal';
+import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
 
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør
@@ -17,9 +17,6 @@ import { LeggTilRuteModal } from './legg_tilRute.modal';
 export class RuterComponent implements OnInit {
   alleRuter: Array<Rute> = [];
   laster: boolean = false;
-
-  //Id fra rute, ferd, båt eller bestilling
-  dataPassToChild: number = 0;
 
   constructor(
     private _http: HttpClient,
@@ -58,13 +55,16 @@ export class RuterComponent implements OnInit {
   }
 
   visModalOgSlett(id: number) {
-    
-    const modalRef = this.modalService.open(SlettModal, {
+    console.log(id);
+    const modalRef = this.modalService.open(BekreftSlettModal, {
       backdrop: 'static',
       keyboard: false,
     });
 
-    let textBody: string = 'Vil du slette Rute ' + id + '?';
+    let textBody: string =
+      'Vil du slette rute med id ' +
+      id +
+      '? Ved sletting vil alle ferder med denne ruten også bli slettet!';
     modalRef.componentInstance.updateBody(textBody);
 
     modalRef.result.then((retur) => {
@@ -76,17 +76,20 @@ export class RuterComponent implements OnInit {
           },
           //Lage en kulere alert dialog?
           (res) => {
-            const modalRef = this.modalService.open(AlertModal, {
-              backdrop: 'static',
-              keyboard: false,
-            });
+            const modalRef = this.modalService.open(
+              AlertAvhengigheterFinnesModal,
+              {
+                backdrop: 'static',
+                keyboard: false,
+              }
+            );
             let textBody: string = res.error;
             modalRef.componentInstance.updateBody(textBody);
             //Modal for å vise billetter knyttet til rute hvis bruker klikker "Vis billetter"
             modalRef.result.then((retur) => {
               
               if (retur == 'Vis') {
-                const modalRef = this.modalService.open(BillettModal, {
+                const modalRef = this.modalService.open(VisAvhengigheterModal, {
                   backdrop: 'static',
                   keyboard: false,
                   size: 'lg',
@@ -96,8 +99,11 @@ export class RuterComponent implements OnInit {
                   id +
                   '\nmå slettes før ruten kan slettes';
                 modalRef.componentInstance.updateBody(textBody);
-                (<BillettModal>modalRef.componentInstance).dataToTakeAsInput =
+                (<VisAvhengigheterModal>modalRef.componentInstance).idAsInput =
                   id;
+                (<VisAvhengigheterModal>(
+                  modalRef.componentInstance
+                )).endepunktAsInput = 'rute';
               }
             });
           }

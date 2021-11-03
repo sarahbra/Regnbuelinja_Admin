@@ -4,27 +4,26 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Billett } from '../models/billett';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { SlettModal } from '../modals/slett.modal';
-import { AlertModal } from '../modals/alert.modal';
 import { LeggTilBillettModal } from './legg_tilBillett.modal';
+import { BekreftSlettModal } from '../modals/slett-modaler/bekreft-slett.modal';
+import { SlettErrorModal } from '../modals/slett-modaler/slett-error.modal';
 
 @Component({
-  templateUrl: './billett.component.html'
+  templateUrl: './billett.component.html',
 })
-
 export class BillettComponent implements OnInit {
   alleBilletter: Array<Billett> = [];
-  laster: boolean
-  
+  laster: boolean;
 
   constructor(
     private _http: HttpClient,
     private _router: Router,
     private modalService: NgbModal,
-    public nav: NavbarService) { }
+    public nav: NavbarService
+  ) {}
 
   ngOnInit() {
-    this.nav.show()
+    this.nav.show();
     this.laster = true;
     this.hentAllebilletter();
   }
@@ -39,7 +38,7 @@ export class BillettComponent implements OnInit {
     );
   }
 
-  endreBillett(id: number) { }
+  endreBillett(id: number) {}
 
   leggTilBillett() { 
     const modalRef = this.modalService.open(LeggTilBillettModal, {
@@ -53,6 +52,31 @@ export class BillettComponent implements OnInit {
   
   }
 
-  visModalOgSlett(id: number) { }
+  visModalOgSlett(id: number) {
+    const modalRef = this.modalService.open(BekreftSlettModal, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+    let textBody: string = 'Vil du slette billett med ' + id + '?';
+    modalRef.componentInstance.updateBody(textBody);
 
+    modalRef.result.then((retur) => {
+      if (retur == 'Slett') {
+        this._http.delete('/api/admin/billett/' + id).subscribe(
+          () => {
+            this.hentAllebilletter();
+          },
+          (res) => {
+            const modalRef = this.modalService.open(SlettErrorModal, {
+              backdrop: 'static',
+              keyboard: false,
+            });
+            let textBody: string = res.error;
+            modalRef.componentInstance.updateBody(textBody);
+          }
+        );
+      }
+      this._router.navigate(['/billetter']);
+    });
+  }
 }

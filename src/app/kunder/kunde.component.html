@@ -1,5 +1,5 @@
 <div class="container">
-    <button class='btn btn-primary col-sm-3 mb-4 ' (click)="leggTilKunde()">Legg til rute</button>
+    <button class='btn btn-primary col-sm-3 mb-4 ' (click)="leggTilKunde()">Legg til kunde</button>
     <div>
         <div class="col-md-12">
             <h2 class="mb-4"> Alle kunder: </h2>
@@ -12,6 +12,8 @@
                         <th>Etternavn</th>
                         <th>Epost</th>
                         <th>Telefonnr</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let kunde of alleKunder">
@@ -22,7 +24,8 @@
                         <td>{{kunde.epost}}</td>
                         <td>{{kunde.telefonnr}}</td>
                         <td><button class="btn btn-danger" (click)="visModalOgSlett(kunde.id)">Slett</button></td>
-                        <td><button class="btn btn-success" (click)="endreKunde(kunde.id)">Endre</button></td>
+                        <td><button class="btn btn-success" [routerLink]="['/endre/', kunde.id, 'kunde']">Endre</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
