@@ -8,6 +8,7 @@ import { Baat } from '../models/baat';
 import { Rute } from '../models/rute';
 import { Kunde } from '../models/kunde';
 import { Ferd } from '../models/ferd';
+import { formatDate } from '@angular/common';
 
 
 
@@ -25,6 +26,11 @@ export class EndreComponent implements OnInit {
   visEndreFerd: boolean = false;
   alleBaater: Array<Baat> = [];
   alleRuter: Array<Rute> = [];
+  dateArray: Array<string> = [];
+  datoSplittet: Array<string> = [];
+  tidSplittet: Array<string> = [];
+  dato: Date;
+  isoDato: string = "";
 
   valideringBaat = {
     id: [null, Validators.required],
@@ -169,7 +175,7 @@ export class EndreComponent implements OnInit {
         console.log(error);
       }
     );
- 
+
   }
 
   hentEnRute(id: number) {
@@ -239,11 +245,33 @@ export class EndreComponent implements OnInit {
         this.skjemaFerd.patchValue({ fId: ferd.fId });
         this.skjemaFerd.patchValue({ bId: ferd.bId });
         this.skjemaFerd.patchValue({ rId: ferd.rId });
-        this.skjemaFerd.patchValue({ avreiseTid: ferd.avreiseTid });
-        this.skjemaFerd.patchValue({ ankomstTid: ferd.ankomstTid });
+        this.skjemaFerd.patchValue({ avreiseTid: formatDate(ferd.avreiseTid, 'dd/MM/yyyy HH:mm', 'en-US') });
+        this.skjemaFerd.patchValue({ ankomstTid: formatDate(ferd.ankomstTid, 'dd/MM/yyyy HH:mm', 'en-US') });
       },
       (error) => console.log(error)
     );
+  }
+
+  formaterDato(datoString: string) {
+    //Splitter til to deler. Del 1 = dato, del 2 = tid
+    this.dateArray = datoString.split(" ", 2);
+
+    //Splitter dato i tre deleer ved "/"
+    this.datoSplittet = this.dateArray[0].split("/", 3);
+
+    //Splitter tid i to deler ved ":"
+    this.tidSplittet = this.dateArray[1].split(":", 2);
+
+    //Lager ny dato med dato
+    this.dato = new Date(parseInt(this.datoSplittet[2]), parseInt(this.datoSplittet[1]) - 1, parseInt(this.datoSplittet[0]));
+
+    //Legger til tid
+    this.dato.setHours(parseInt(this.tidSplittet[0]));
+    this.dato.setMinutes(parseInt(this.tidSplittet[1]));
+
+    //konvertere til isoString
+    return this.isoDato = this.dato.toISOString();
+
   }
 
   endreFerd() {
@@ -251,16 +279,17 @@ export class EndreComponent implements OnInit {
     endretFerd.fId = this.skjemaFerd.value.fId;
     endretFerd.bId = this.skjemaFerd.value.bId;
     endretFerd.rId = this.skjemaFerd.value.rId;
-    endretFerd.avreiseTid = this.skjemaFerd.value.avreiseTid;
-    endretFerd.ankomstTid = this.skjemaFerd.value.ankomstTid;
+    //Må sende inn ISO-string til server
+    endretFerd.avreiseTid = this.formaterDato(this.skjemaFerd.value.avreiseTid);
+    endretFerd.ankomstTid = this.formaterDato(this.skjemaFerd.value.ankomstTid);
 
-    this._http.put('/api/admin/ferd' + endretFerd.fId, endretFerd).subscribe(
+    this._http.put('/api/admin/ferd/' + endretFerd.fId, endretFerd).subscribe(
       (retur) => {
         this._router.navigate(['/ferder']);
       },
       (error) => console.log(error)
     )
-    
+
   }
 
 
