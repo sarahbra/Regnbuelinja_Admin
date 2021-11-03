@@ -3,8 +3,8 @@
         <h4 class="modal-title" id="modal-basic-title">Ny Billett</h4>
     </div>
 
-    <div class="modal-body">
-        <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
+  <div class="modal-body">
+    <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
 
           <div class="form-group row">
             <div class="col-sm-4">
@@ -37,11 +37,24 @@
               </div>
           </div>
 
-          <div class="modal-footer">      
-            <button type="button" class="btn btn-default" (click)="modal.close('Lukk')">Lukk</button>
-            <button type="submit" class="btn btn-success" [disabled]="!forms.valid">Lagre</button>
-          </div>
-            
-        </form>
-    </div>
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <input type="number" formControlName="bIdForm" class="form-control" placeholder="Båt ID" autofocus />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-4">
+          Voksen:
+          <input type="checkbox" id="voksen" class="btn-check" />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modal.close('Lukk')">Lukk</button>
+        <button type="submit" class="btn btn-success" [disabled]="!forms.valid">Lagre</button>
+      </div>
+
+    </form>
+  </div>
 </div>
