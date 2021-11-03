@@ -40,7 +40,9 @@ export class LeggTilBaatModal {
 
     this.http.post('/api/admin/baater', baat).subscribe(
       (ok) => {
-        if (!ok) {
+        if (ok) {
+          this.modal.close('Vellykket');
+        } else {
           this.modal.close('Mislykket');
         }
       },
@@ -49,7 +51,5 @@ export class LeggTilBaatModal {
         console.log(error);
       }
     );
-
-    this.modal.close('Vellykket');
   }
 }

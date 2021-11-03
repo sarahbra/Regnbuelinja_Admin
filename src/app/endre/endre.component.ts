@@ -10,8 +10,6 @@ import { Kunde } from '../models/kunde';
 import { Ferd } from '../models/ferd';
 import { formatDate } from '@angular/common';
 
-
-
 @Component({
   templateUrl: './endre.component.html',
 })
@@ -30,7 +28,7 @@ export class EndreComponent implements OnInit {
   datoSplittet: Array<string> = [];
   tidSplittet: Array<string> = [];
   dato: Date;
-  isoDato: string = "";
+  isoDato: string = '';
 
   valideringBaat = {
     id: [null, Validators.required],
@@ -135,7 +133,7 @@ export class EndreComponent implements OnInit {
             this.hentEnFerd(params.id);
             break;
           default:
-            console.log(params.type)
+            console.log(params.type);
             break;
         }
       },
@@ -147,21 +145,23 @@ export class EndreComponent implements OnInit {
 
   vedSubmit(type: string) {
     switch (type) {
-      case 'baat': this.endreBaat();
+      case 'baat':
+        this.endreBaat();
         break;
-      case 'rute': this.endreRute();
+      case 'rute':
+        this.endreRute();
         break;
-      case 'kunde': this.endreKunde();
+      case 'kunde':
+        this.endreKunde();
         break;
-      case 'ferd': this.endreFerd();
+      case 'ferd':
+        this.endreFerd();
         break;
       default:
-        console.log(type)
+        console.log(type);
         break;
     }
   }
-
-
 
   hentEnBaat(id: number) {
     this._http.get<Baat>('/api/admin/baat/' + id).subscribe(
@@ -188,7 +188,6 @@ export class EndreComponent implements OnInit {
         console.log(error);
       }
     );
-
   }
 
   hentEnRute(id: number) {
@@ -250,16 +249,20 @@ export class EndreComponent implements OnInit {
   }
 
   hentEnFerd(fId: number) {
-    this.hentAlleBaater()
-    this.hentAlleRuter()
+    this.hentAlleBaater();
+    this.hentAlleRuter();
 
     this._http.get<Ferd>('/api/admin/ferd/' + fId).subscribe(
       (ferd) => {
         this.skjemaFerd.patchValue({ fId: ferd.fId });
         this.skjemaFerd.patchValue({ bId: ferd.bId });
         this.skjemaFerd.patchValue({ rId: ferd.rId });
-        this.skjemaFerd.patchValue({ avreiseTid: formatDate(ferd.avreiseTid, 'dd/MM/yyyy HH:mm', 'en-US') });
-        this.skjemaFerd.patchValue({ ankomstTid: formatDate(ferd.ankomstTid, 'dd/MM/yyyy HH:mm', 'en-US') });
+        this.skjemaFerd.patchValue({
+          avreiseTid: formatDate(ferd.avreiseTid, 'dd/MM/yyyy HH:mm', 'en-US'),
+        });
+        this.skjemaFerd.patchValue({
+          ankomstTid: formatDate(ferd.ankomstTid, 'dd/MM/yyyy HH:mm', 'en-US'),
+        });
       },
       (error) => console.log(error)
     );
@@ -272,43 +275,41 @@ export class EndreComponent implements OnInit {
     const avreiseTid = this.formaterDato(this.skjemaFerd.value.avreiseTid);
     const ankomstTid = this.formaterDato(this.skjemaFerd.value.ankomstTid);
 
-    const endretFerd = new Ferd(bId, rId, avreiseTid, ankomstTid)
+    const endretFerd = new Ferd(bId, rId, avreiseTid, ankomstTid);
     endretFerd.fId = fId;
-
 
     this._http.put('/api/admin/ferd/' + fId, endretFerd).subscribe(
       (retur) => {
         this._router.navigate(['/ferder']);
       },
       (error) => console.log(error)
-    )
-
+    );
   }
 
   formaterDato(datoString: string) {
     //Splitter til to deler. Del 1 = dato, del 2 = tid
-    this.dateArray = datoString.split(" ", 2);
+    this.dateArray = datoString.split(' ', 2);
 
     //Splitter dato i tre deleer ved "/"
-    this.datoSplittet = this.dateArray[0].split("/", 3);
+    this.datoSplittet = this.dateArray[0].split('/', 3);
 
     //Splitter tid i to deler ved ":"
-    this.tidSplittet = this.dateArray[1].split(":", 2);
+    this.tidSplittet = this.dateArray[1].split(':', 2);
 
     //Lager ny dato med dato
-    this.dato = new Date(parseInt(this.datoSplittet[2]), parseInt(this.datoSplittet[1]) - 1, parseInt(this.datoSplittet[0]));
+    this.dato = new Date(
+      parseInt(this.datoSplittet[2]),
+      parseInt(this.datoSplittet[1]) - 1,
+      parseInt(this.datoSplittet[0])
+    );
 
     //Legger til tid
     this.dato.setHours(parseInt(this.tidSplittet[0]));
     this.dato.setMinutes(parseInt(this.tidSplittet[1]));
 
     //konvertere til isoString
-    return this.isoDato = this.dato.toISOString();
-
+    return (this.isoDato = this.dato.toISOString());
   }
-
-
-
 
   hentAlleBaater() {
     this._http.get<Baat[]>('/api/admin/baater').subscribe(
@@ -327,7 +328,4 @@ export class EndreComponent implements OnInit {
       (error) => console.log(error)
     );
   }
-
-
-
 }
