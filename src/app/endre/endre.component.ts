@@ -194,7 +194,7 @@ export class EndreComponent implements OnInit {
     const pris = parseFloat(this.skjemaRute.value.pris);
 
     const endretRute = new Rute(startpunkt, endepunkt, pris);
-    endretRute.id = id;    
+    endretRute.id = id;
     this._http.put('/api/admin/rute/' + id, endretRute).subscribe(
       (retur) => {
         this._router.navigate(['/ruter']);
@@ -252,6 +252,26 @@ export class EndreComponent implements OnInit {
     );
   }
 
+  endreFerd() {
+    const fId = this.skjemaFerd.value.fId;
+    const bId = this.skjemaFerd.value.bId;
+    const rId = this.skjemaFerd.value.rId;
+    const avreiseTid = this.formaterDato(this.skjemaFerd.value.avreiseTid);
+    const ankomstTid = this.formaterDato(this.skjemaFerd.value.ankomstTid);
+
+    const endretFerd = new Ferd(bId, rId, avreiseTid, ankomstTid)
+    endretFerd.fId = fId;
+
+
+    this._http.put('/api/admin/ferd/' + fId, endretFerd).subscribe(
+      (retur) => {
+        this._router.navigate(['/ferder']);
+      },
+      (error) => console.log(error)
+    )
+
+  }
+
   formaterDato(datoString: string) {
     //Splitter til to deler. Del 1 = dato, del 2 = tid
     this.dateArray = datoString.split(" ", 2);
@@ -274,23 +294,7 @@ export class EndreComponent implements OnInit {
 
   }
 
-  endreFerd() {
-    const endretFerd = new Ferd()
-    endretFerd.fId = this.skjemaFerd.value.fId;
-    endretFerd.bId = this.skjemaFerd.value.bId;
-    endretFerd.rId = this.skjemaFerd.value.rId;
-    //Må sende inn ISO-string til server
-    endretFerd.avreiseTid = this.formaterDato(this.skjemaFerd.value.avreiseTid);
-    endretFerd.ankomstTid = this.formaterDato(this.skjemaFerd.value.ankomstTid);
 
-    this._http.put('/api/admin/ferd/' + endretFerd.fId, endretFerd).subscribe(
-      (retur) => {
-        this._router.navigate(['/ferder']);
-      },
-      (error) => console.log(error)
-    )
-
-  }
 
 
   hentAlleBaater() {
