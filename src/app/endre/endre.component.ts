@@ -29,7 +29,15 @@ export class EndreComponent implements OnInit {
   alleRuter: Array<Rute> = [];
   alleBestillinger: Array<Bestilling> = [];
   alleKunder: Array<Kunde> = [];
+
+  //Idér for å printe ut på endreSiden
   bestillingsId: number;
+  ruteId: number;
+  ferdId: number;
+  baatId: number;
+  kundeId: number;
+  billettId: number;
+
   //Formater dato
   dateArray: Array<string> = [];
   datoSplittet: Array<string> = [];
@@ -50,9 +58,27 @@ export class EndreComponent implements OnInit {
 
   valideringRute = {
     id: [null],
-    startpunkt: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}')])],
-    endepunkt: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}')])], 
-    pris: [null, Validators.compose([Validators.required, Validators.pattern('[1-9][0-9]{0,}')])], 
+    startpunkt: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}'),
+      ]),
+    ],
+    endepunkt: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}'),
+      ]),
+    ],
+    pris: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('[1-9][0-9]{0,}'),
+      ]),
+    ],
   };
 
   valideringKunde = {
@@ -80,19 +106,32 @@ export class EndreComponent implements OnInit {
     ],
     telefonnr: [
       null,
-      Validators.compose([Validators.required, 
-      Validators.pattern('[0-9]{8}')]),
+      Validators.compose([Validators.required, Validators.pattern('[0-9]{8}')]),
     ],
   };
-
-
 
   valideringFerd = {
     fId: [null],
     bId: [null, Validators.required],
     rId: [null, Validators.required],
-    avreiseTid: [null, Validators.compose([Validators.required, Validators.pattern(/^([1-9]|([012][0-9])|(3[01])).([0]{0,1}[1-9]|1[012]).\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$/)])],
-    ankomstTid: [null, Validators.compose([Validators.required, Validators.pattern(/^([1-9]|([012][0-9])|(3[01])).([0]{0,1}[1-9]|1[012]).\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$/)])]
+    avreiseTid: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern(
+          /^([1-9]|([012][0-9])|(3[01])).([0]{0,1}[1-9]|1[012]).\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$/
+        ),
+      ]),
+    ],
+    ankomstTid: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern(
+          /^([1-9]|([012][0-9])|(3[01])).([0]{0,1}[1-9]|1[012]).\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$/
+        ),
+      ]),
+    ],
   };
 
   valideringBestilling = {
@@ -122,22 +161,27 @@ export class EndreComponent implements OnInit {
           case 'baat':
             this.visEndreBaat = true;
             this.hentEnBaat(params.id);
+            this.baatId = params.id;
             break;
           case 'rute':
             this.visEndreRute = true;
             this.hentEnRute(params.id);
+            this.ruteId = params.id;
             break;
           case 'kunde':
             this.visEndreKunde = true;
             this.hentEnKunde(params.id);
+            this.kundeId = params.id;
             break;
           case 'ferd':
             this.visEndreFerd = true;
             this.hentEnFerd(params.id);
+            this.ferdId = params.id;
             break;
           case 'bestilling':
             this.visEndreBestilling = true;
             this.hentEnBestilling(params.id);
+            this.bestillingsId = params.id;
             break;
           default:
             console.log(params.type);
@@ -267,8 +311,12 @@ export class EndreComponent implements OnInit {
         this.skjemaFerd.patchValue({ fId: ferd.fId });
         this.skjemaFerd.patchValue({ bId: ferd.bId });
         this.skjemaFerd.patchValue({ rId: ferd.rId });
-        this.skjemaFerd.patchValue({avreiseTid: formatDate(ferd.avreiseTid, 'dd/MM/yyyy HH:mm', 'en-US')});
-        this.skjemaFerd.patchValue({ankomstTid: formatDate(ferd.ankomstTid, 'dd/MM/yyyy HH:mm', 'en-US')});
+        this.skjemaFerd.patchValue({
+          avreiseTid: formatDate(ferd.avreiseTid, 'dd/MM/yyyy HH:mm', 'en-US'),
+        });
+        this.skjemaFerd.patchValue({
+          ankomstTid: formatDate(ferd.ankomstTid, 'dd/MM/yyyy HH:mm', 'en-US'),
+        });
       },
       (error) => console.log(error)
     );
@@ -293,7 +341,6 @@ export class EndreComponent implements OnInit {
   }
 
   hentEnBestilling(id: number) {
-    this.bestillingsId = id;
     this.hentAlleKunder();
 
     this._http.get<Bestilling>('/api/admin/bestilling/' + id).subscribe(

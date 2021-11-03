@@ -1,7 +1,8 @@
 <!--Endre Båt-->
 
 <div class="container mt-4" *ngIf="visEndreBaat">
-    <div class="col-md-4">
+    <div class="col-md-8">
+        <h3 class="mb-4">Endre båt med id {{this.baatId}}</h3>
         <form [formGroup]="skjemaBaat" (ngSubmit)="vedSubmit('baat')">
 
             <input class="form-control" formControlName="id" type="hidden" />
@@ -18,7 +19,7 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" [disabled]="!skjemaBaat.valid" class="btn btn-primary">Endre</button>
+                <button type="submit" [disabled]="!skjemaBaat.valid" class="btn btn-success btn-lg">Endre</button>
                 <button class="btn btn-default" routerLink="/baater">Tilbake</button>
             </div>
         </form>
@@ -29,7 +30,8 @@
 <!--Endre Rute-->
 
 <div class="container mt-4" *ngIf="visEndreRute">
-    <div class="col-md-4">
+    <div class="col-md-8">
+        <h3 class="mb-4">Endre rute med id {{this.ruteId}}</h3>
         <form [formGroup]="skjemaRute" (ngSubmit)="vedSubmit('rute')">
 
             <input class="form-control" formControlName="id" type="hidden" />
@@ -61,7 +63,7 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" [disabled]="!skjemaRute.valid" class="btn btn-primary">Endre</button>
+                <button type="submit" [disabled]="!skjemaRute.valid" class="btn btn-success btn-lg">Endre</button>
                 <button class="btn btn-default" routerLink="/ruter">Tilbake</button>
             </div>
         </form>
@@ -71,7 +73,8 @@
 
 <!--Endre Kunde-->
 <div class="container mt-4" *ngIf="visEndreKunde">
-    <div class="col-md-4">
+    <div class="col-md-8">
+        <h3 class="mb-4">Endre kunde med id {{this.kundeId}}</h3>
         <form [formGroup]="skjemaKunde" (ngSubmit)="vedSubmit('kunde')">
             <input class="form-control" formControlName="id" type="hidden" />
 
@@ -112,7 +115,7 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" [disabled]="!skjemaKunde.valid" class="btn btn-primary">Endre</button>
+                <button type="submit" [disabled]="!skjemaKunde.valid" class="btn btn-success btn-lg">Endre</button>
                 <button class="btn btn-default " routerLink="/kunder">Tilbake</button>
             </div>
         </form>
@@ -122,7 +125,8 @@
 
 <!--Endre Ferd-->
 <div class="container mt-4" *ngIf="visEndreFerd">
-    <div class="col-md-4">
+    <div class="col-md-8">
+        <h3 class="mb-4">Endre ferd med id {{this.ferdId}}</h3>
         <form [formGroup]="skjemaFerd" (ngSubmit)="vedSubmit('ferd')">
             <input class="form-control" formControlName="fId" type="hidden" />
 
@@ -137,8 +141,6 @@
                     er obligatorisk.
                 </p>
             </div>
-
-
 
             <div class="form-group">
                 <label>Rute (rId)</label>
@@ -171,7 +173,7 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" [disabled]="!skjemaFerd.valid" class="btn btn-primary">Endre</button>
+                <button type="submit" [disabled]="!skjemaFerd.valid" class="btn btn-success btn-lg">Endre</button>
                 <button class="btn btn-default" routerLink="/kunder">Tilbake</button>
             </div>
         </form>
@@ -206,8 +208,8 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Endre</button>
-                <button class="btn btn-default" routerLink="/bestilling">Tilbake</button>
+                <button type="submit" class="btn btn-success btn-lg ">Endre</button>
+                <button class="btn btn-default" routerLink="/bestillinger">Tilbake</button>
             </div>
         </form>
     </div>
