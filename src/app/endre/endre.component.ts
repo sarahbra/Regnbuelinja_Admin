@@ -137,11 +137,11 @@ export class EndreComponent implements OnInit {
   }
 
   endreBaat() {
-    const endretBaat = new Baat();
-    endretBaat.id = this.skjemaBaat.value.id;
-    endretBaat.navn = this.skjemaBaat.value.navn;
-
-    this._http.put('/api/admin/baat/' + endretBaat.id, endretBaat).subscribe(
+    const id = this.skjemaBaat.value.id;
+    const navn = this.skjemaBaat.value.navn;
+    const endretBaat = new Baat(navn);
+    endretBaat.id = id;
+    this._http.put('/api/admin/baat/' + id, endretBaat).subscribe(
       (retur) => {
         this._router.navigate(['/baater']);
       },
@@ -161,13 +161,14 @@ export class EndreComponent implements OnInit {
   }
 
   endreRute() {
-    const endretRute = new Rute();
-    endretRute.id = this.skjemaRute.value.id;
-    endretRute.startpunkt = this.skjemaRute.value.startpunkt;
-    endretRute.endepunkt = this.skjemaRute.value.endepunkt;
-    endretRute.pris = this.skjemaRute.value.pris;
+    const id = this.skjemaRute.value.id;
+    const startpunkt = this.skjemaRute.value.startpunkt;
+    const endepunkt = this.skjemaRute.value.endepunkt;
+    const pris = parseFloat(this.skjemaRute.value.pris);
 
-    this._http.put('/api/admin/rute/' + endretRute.id, endretRute).subscribe(
+    const endretRute = new Rute(startpunkt, endepunkt, pris);
+    endretRute.id = id;    
+    this._http.put('/api/admin/rute/' + id, endretRute).subscribe(
       (retur) => {
         this._router.navigate(['/ruter']);
       },
@@ -191,14 +192,16 @@ export class EndreComponent implements OnInit {
   }
 
   endreKunde() {
-    const endretKunde = new Kunde();
-    endretKunde.id = this.skjemaKunde.value.id;
-    endretKunde.fornavn = this.skjemaKunde.value.fornavn;
-    endretKunde.etternavn = this.skjemaKunde.value.etternavn;
-    endretKunde.epost = this.skjemaKunde.value.epost;
-    endretKunde.telefonnr = this.skjemaKunde.value.telefonnr;
+    const id = this.skjemaKunde.value.id;
+    const fornavn = this.skjemaKunde.value.fornavn;
+    const etternavn = this.skjemaKunde.value.etternavn;
+    const epost = this.skjemaKunde.value.epost;
+    const telefonnr = this.skjemaKunde.value.telefonnr;
 
-    this._http.put('/api/admin/kunde/' + endretKunde.id, endretKunde).subscribe(
+    const endretKunde = new Kunde(fornavn, etternavn, epost, telefonnr);
+    endretKunde.id = id;
+
+    this._http.put('/api/admin/kunde/' + id, endretKunde).subscribe(
       (retur) => {
         this._router.navigate(['/kunder']);
       },
