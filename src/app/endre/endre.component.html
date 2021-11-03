@@ -9,8 +9,7 @@
             <div class="form-group">
                 <label>Båtnavn</label>
                 <input class="form-control" formControlName="navn" />
-                <p class="alert alert-warning"
-                    [hidden]="skjemaBaat.controls.navn.valid || skjemaRute.controls.startpunkt.pristine && skjemaBaat.controls.navn.touched">
+                <p class="alert alert-warning" [hidden]="skjemaBaat.controls.navn.valid || skjemaRute.controls.startpunkt.pristine && skjemaBaat.controls.navn.touched">
                     Kan være mellom 2-20 bokstaver
                 </p>
                 <p class="alert alert-warning" [hidden]="!skjemaBaat.controls.navn.hasError('required')">
@@ -38,8 +37,7 @@
             <div class="form-group">
                 <label>Avreisehavn</label>
                 <input class="form-control" formControlName="startpunkt" />
-                <p class="alert alert-warning"
-                    [hidden]="skjemaRute.controls.startpunkt.valid || (skjemaRute.controls.startpunkt.pristine)">
+                <p class="alert alert-warning" [hidden]="skjemaRute.controls.startpunkt.valid || (skjemaRute.controls.startpunkt.pristine)">
                     Avreisehavn er obligatorisk
                 </p>
             </div>
@@ -47,8 +45,7 @@
             <div class="form-group">
                 <label>Ankomsthavn</label>
                 <input class="form-control" formControlName="endepunkt" />
-                <p class="alert alert-warning"
-                    [hidden]="skjemaRute.controls.endepunkt.valid || (skjemaRute.controls.endepunkt.pristine)">
+                <p class="alert alert-warning" [hidden]="skjemaRute.controls.endepunkt.valid || (skjemaRute.controls.endepunkt.pristine)">
                     Endepunkt er obligatorisk.
                 </p>
             </div>
@@ -56,8 +53,7 @@
             <div class="form-group">
                 <label>Pris</label>
                 <input class="form-control" formControlName="pris" />
-                <p class="alert alert-warning"
-                    [hidden]="skjemaRute.controls.pris.valid || (skjemaRute.controls.pris.pristine)">
+                <p class="alert alert-warning" [hidden]="skjemaRute.controls.pris.valid || (skjemaRute.controls.pris.pristine)">
                     Pris er obligatorisk.
                 </p>
             </div>
@@ -76,11 +72,11 @@
     <div class="col-md-4">
         <form [formGroup]="skjemaKunde" (ngSubmit)="vedSubmit('kunde')">
             <input class="form-control" formControlName="id" type="hidden" />
+
             <div class="form-group">
                 <label>Fornavn</label>
                 <input class="form-control" formControlName="fornavn" />
-                <p class="alert alert-warning"
-                    [hidden]="skjemaKunde.controls.fornavn.valid || (skjemaKunde.controls.fornavn.pristine)">
+                <p class="alert alert-warning" [hidden]="skjemaKunde.controls.fornavn.valid || (skjemaKunde.controls.fornavn.pristine)">
                     Fornavn er obligatorisk
                 </p>
             </div>
@@ -88,8 +84,7 @@
             <div class="form-group">
                 <label>Etternavn</label>
                 <input class="form-control" formControlName="etternavn" />
-                <p class="alert alert-warning"
-                    [hidden]="skjemaKunde.controls.etternavn.valid || (skjemaKunde.controls.etternavn.pristine)">
+                <p class="alert alert-warning" [hidden]="skjemaKunde.controls.etternavn.valid || (skjemaKunde.controls.etternavn.pristine)">
                     Etternavn er obligatorisk.
                 </p>
             </div>
@@ -97,8 +92,7 @@
             <div class="form-group">
                 <label>Epost</label>
                 <input class="form-control" formControlName="epost" />
-                <p class="alert alert-warning"
-                    [hidden]="skjemaKunde.controls.epost.valid || (skjemaKunde.controls.epost.pristine)">
+                <p class="alert alert-warning" [hidden]="skjemaKunde.controls.epost.valid || (skjemaKunde.controls.epost.pristine)">
                     Epost er obligatorisk.
                 </p>
             </div>
@@ -106,8 +100,7 @@
             <div class="form-group">
                 <label>Telefonummer</label>
                 <input class="form-control" formControlName="telefonnr" />
-                <p class="alert alert-warning"
-                    [hidden]="skjemaKunde.controls.telefonnr.valid || (skjemaKunde.controls.telefonnr.pristine)">
+                <p class="alert alert-warning" [hidden]="skjemaKunde.controls.telefonnr.valid || (skjemaKunde.controls.telefonnr.pristine)">
                     Telefonnummer er obligatorisk.
                 </p>
             </div>
@@ -115,6 +108,60 @@
             <div class="form-group">
                 <button type="submit" [disabled]="!skjemaKunde.valid" class="btn btn-primary">Endre</button>
                 <button class="btn btn-default" routerLink="/kunder">Tilbake</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--Endre Ferd-->
+<div class="container" *ngIf="visEndreFerd">
+    <div class="col-md-4">
+        <form [formGroup]="skjemaFerd" (ngSubmit)="vedSubmit('ferd')">
+            <input class="form-control" formControlName="fId" type="hidden" />
+
+
+            <div class="form-group">
+                <label>bId</label>
+                <select class="form-control" formControlName="bId">
+                    <option *ngFor="let baat of alleBaater" [ngValue]="baat.id">{{baat.navn}}</option>
+                </select>
+            </div>
+            <p class="alert alert-warning " [hidden]="skjemaFerd.controls.bId.valid || skjemaFerd.controls.bId.hasError('required') ">
+                er obligatorisk.
+            </p>
+
+
+            <div class="form-group">
+                <label>rId</label>
+                <select class="form-control" formControlName="rId">
+                    <option *ngFor="let rute of alleRuter" [ngValue]="rute.id">{{rute.startpunkt + ' - ' + rute.endepunkt}}</option>
+                </select>
+            </div>
+            <p class="alert alert-warning " [hidden]="skjemaFerd.controls.rId.valid || skjemaFerd.controls.rId.hasError('required') ">
+                er obligatorisk.
+            </p>
+
+
+            <div class="form-group">
+                <label>Avreise Tid</label>
+                <input class="form-control " formControlName="avreiseTid" />
+                <p class="alert alert-warning " [hidden]="skjemaFerd.controls.avreiseTid.valid || (skjemaFerd.controls.avreiseTid.pristine) ">
+                    er obligatorisk.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label>Ankomst Tid</label>
+                <input class="form-control " formControlName="ankomstTid" />
+                <p class="alert alert-warning " [hidden]="skjemaFerd.controls.ankomstTid.valid || (skjemaFerd.controls.ankomstTid.pristine) ">
+                    er obligatorisk.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <button type="submit " [disabled]="!skjemaFerd.valid " class="btn btn-primary ">Endre</button>
+                <button class="btn btn-default " routerLink="/kunder ">Tilbake</button>
             </div>
         </form>
     </div>
