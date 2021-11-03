@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { NavbarService } from '../nav-meny/nav-meny.service';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Baat } from '../models/baat';
 import { Rute } from '../models/rute';
 import { Kunde } from '../models/kunde';
 import { Ferd } from '../models/ferd';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+
+
 
 @Component({
   templateUrl: './endre.component.html',
@@ -20,6 +22,7 @@ export class EndreComponent implements OnInit {
   visEndreBaat: boolean = false;
   visEndreRute: boolean = false;
   visEndreKunde: boolean = false;
+  visEndreFerd: boolean = false;
 
   valideringBaat = {
     id: [null, Validators.required],
@@ -86,6 +89,7 @@ export class EndreComponent implements OnInit {
     this.skjemaBaat = _fb.group(this.valideringBaat);
     this.skjemaRute = _fb.group(this.valideringRute);
     this.skjemaKunde = _fb.group(this.valideringKunde);
+    this.skjemaFerd = _fb.group(this.valideringFerd);
   }
 
   ngOnInit() {
@@ -105,6 +109,10 @@ export class EndreComponent implements OnInit {
           this.visEndreKunde = true;
           this.hentEnKunde(params.id);
         }
+        if (params.type == 'ferd') {
+          this.visEndreFerd = true;
+          this.hentEnFerd(params.id);
+        }
       },
       (error) => {
         console.log(error);
@@ -121,6 +129,9 @@ export class EndreComponent implements OnInit {
     }
     if (type == 'kunde') {
       this.endreKunde();
+    }
+    if (type == 'ferd') {
+      this.endreFerd();
     }
   }
 
@@ -208,4 +219,36 @@ export class EndreComponent implements OnInit {
       (error) => console.log(error)
     );
   }
+
+  hentEnFerd(id: number) {
+    this._http.get<Ferd>('/api/admin/ferd/' + id).subscribe(
+      (ferd) => {
+        this.skjemaFerd.patchValue({ fId: ferd.fId });
+        this.skjemaFerd.patchValue({ bId: ferd.bId });
+        this.skjemaFerd.patchValue({ rId: ferd.rId });
+        this.skjemaFerd.patchValue({ avreiseTid: ferd.avreiseTid });
+        this.skjemaFerd.patchValue({ ankomstTid: ferd.ankomstTid });
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  endreFerd() {
+    const endretFerd = new Ferd()
+    endretFerd.fId = this.skjemaFerd.value.fId;
+    endretFerd.bId = this.skjemaFerd.value.bId;
+    endretFerd.rId = this.skjemaFerd.value.rId;
+    endretFerd.avreiseTid = this.skjemaFerd.value.avreiseTid;
+    endretFerd.ankomstTid = this.skjemaFerd.value.ankomstTid;
+
+    this._http.put('/api/admin/ferd' + endretFerd.fId, endretFerd).subscribe(
+      (retur) => {
+        this._router.navigate(['/ferder']);
+      },
+      (error) => console.log(error)
+    )
+  }
+
+
+
 }

@@ -76,6 +76,7 @@
     <div class="col-md-4">
         <form [formGroup]="skjemaKunde" (ngSubmit)="vedSubmit('kunde')">
             <input class="form-control" formControlName="id" type="hidden" />
+
             <div class="form-group">
                 <label>Fornavn</label>
                 <input class="form-control" formControlName="fornavn" />
@@ -114,6 +115,54 @@
 
             <div class="form-group">
                 <button type="submit" [disabled]="!skjemaKunde.valid" class="btn btn-primary">Endre</button>
+                <button class="btn btn-default" routerLink="/kunder">Tilbake</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--Endre Ferd-->
+<div class="container" *ngIf="visEndreFerd">
+    <div class="col-md-4">
+        <form [formGroup]="skjemaFerd" (ngSubmit)="vedSubmit('ferd')">
+            <input class="form-control" formControlName="fId" type="hidden" />
+
+
+            <div class="form-group">
+                <label>bId</label>
+                <input class="form-control" formControlName="bId" />
+                <p class="alert alert-warning" [hidden]="skjemaFerd.controls.bId.valid || (skjemaFerd.controls.bId.pristine)">
+                    er obligatorisk.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label>rId</label>
+                <input class="form-control" formControlName="rId" />
+                <p class="alert alert-warning" [hidden]="skjemaFerd.controls.rId.valid || (skjemaFerd.controls.rId.pristine)">
+                    er obligatorisk.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label>Avreise Tid</label>
+                <input class="form-control" formControlName="avreiseTid" />
+                <p class="alert alert-warning" [hidden]="skjemaFerd.controls.avreiseTid.valid || (skjemaFerd.controls.avreiseTid.pristine)">
+                    er obligatorisk.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label>Ankomst Tid</label>
+                <input class="form-control" formControlName="ankomstTid" />
+                <p class="alert alert-warning" [hidden]="skjemaFerd.controls.ankomstTid.valid || (skjemaFerd.controls.ankomstTid.pristine)">
+                    er obligatorisk.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" [disabled]="!skjemaFerd.valid" class="btn btn-primary">Endre</button>
                 <button class="btn btn-default" routerLink="/kunder">Tilbake</button>
             </div>
         </form>
