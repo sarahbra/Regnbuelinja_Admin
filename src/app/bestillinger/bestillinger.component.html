@@ -27,7 +27,8 @@
                                 (click)="visBilletter(bestilling.id)">Vis
                                 billetter</button></td>
                         <td><button class="btn btn-danger" (click)="visModalOgSlett(bestilling.id)">Slett</button></td>
-                        <td><button class="btn btn-success" (click)="endreBestilling(bestilling.id)">Endre</button>
+                        <td><button *ngIf="betalt" class="btn btn-success"
+                                [routerLink]="['/endre/', bestilling.id, 'bestilling']">Endre</button>
                         </td>
                     </tr>
                 </tbody>

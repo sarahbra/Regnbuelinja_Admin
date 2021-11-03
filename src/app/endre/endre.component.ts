@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { Rute } from '../models/rute';
 import { Kunde } from '../models/kunde';
 import { Ferd } from '../models/ferd';
 import { formatDate } from '@angular/common';
+import { Bestilling } from '../models/bestilling';
 
 @Component({
   templateUrl: './endre.component.html',
@@ -18,12 +19,26 @@ export class EndreComponent implements OnInit {
   skjemaRute: FormGroup;
   skjemaKunde: FormGroup;
   skjemaFerd: FormGroup;
+  skjemaBestilling: FormGroup;
   visEndreBaat: boolean = false;
   visEndreRute: boolean = false;
   visEndreKunde: boolean = false;
   visEndreFerd: boolean = false;
+  visEndreBestilling: boolean = false;
   alleBaater: Array<Baat> = [];
   alleRuter: Array<Rute> = [];
+  alleBestillinger: Array<Bestilling> = [];
+  alleKunder: Array<Kunde> = [];
+
+  //Idér for å printe ut på endreSiden
+  bestillingsId: number;
+  ruteId: number;
+  ferdId: number;
+  baatId: number;
+  kundeId: number;
+  billettId: number;
+
+  //Formater dato
   dateArray: Array<string> = [];
   datoSplittet: Array<string> = [];
   tidSplittet: Array<string> = [];
@@ -43,9 +58,27 @@ export class EndreComponent implements OnInit {
 
   valideringRute = {
     id: [null],
-    startpunkt: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}')])],
-    endepunkt: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}')])], 
-    pris: [null, Validators.compose([Validators.required, Validators.pattern('[1-9][0-9]{0,}')])], 
+    startpunkt: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}'),
+      ]),
+    ],
+    endepunkt: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('[a-zA-ZæøåÆØÅ]{2,30}'),
+      ]),
+    ],
+    pris: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('[1-9][0-9]{0,}'),
+      ]),
+    ],
   };
 
   valideringKunde = {
@@ -73,19 +106,37 @@ export class EndreComponent implements OnInit {
     ],
     telefonnr: [
       null,
-      Validators.compose([Validators.required, 
-      Validators.pattern('[0-9]{8}')]),
+      Validators.compose([Validators.required, Validators.pattern('[0-9]{8}')]),
     ],
   };
-
-
 
   valideringFerd = {
     fId: [null],
     bId: [null, Validators.required],
     rId: [null, Validators.required],
-    avreiseTid: [null, Validators.compose([Validators.required, Validators.pattern(/^([1-9]|([012][0-9])|(3[01])).([0]{0,1}[1-9]|1[012]).\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$/)])],
-    ankomstTid: [null, Validators.compose([Validators.required, Validators.pattern(/^([1-9]|([012][0-9])|(3[01])).([0]{0,1}[1-9]|1[012]).\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$/)])]
+    avreiseTid: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern(
+          /^([1-9]|([012][0-9])|(3[01])).([0]{0,1}[1-9]|1[012]).\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$/
+        ),
+      ]),
+    ],
+    ankomstTid: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.pattern(
+          /^([1-9]|([012][0-9])|(3[01])).([0]{0,1}[1-9]|1[012]).\d\d\d\d [012]{0,1}[0-9]:[0-6][0-9]$/
+        ),
+      ]),
+    ],
+  };
+
+  valideringBestilling = {
+    kId: [null, Validators.required],
+    betalt: ['false', Validators.required],
   };
 
   constructor(
@@ -99,6 +150,7 @@ export class EndreComponent implements OnInit {
     this.skjemaRute = _fb.group(this.valideringRute);
     this.skjemaKunde = _fb.group(this.valideringKunde);
     this.skjemaFerd = _fb.group(this.valideringFerd);
+    this.skjemaBestilling = _fb.group(this.valideringBestilling);
   }
 
   ngOnInit() {
@@ -109,18 +161,27 @@ export class EndreComponent implements OnInit {
           case 'baat':
             this.visEndreBaat = true;
             this.hentEnBaat(params.id);
+            this.baatId = params.id;
             break;
           case 'rute':
             this.visEndreRute = true;
             this.hentEnRute(params.id);
+            this.ruteId = params.id;
             break;
           case 'kunde':
             this.visEndreKunde = true;
             this.hentEnKunde(params.id);
+            this.kundeId = params.id;
             break;
           case 'ferd':
             this.visEndreFerd = true;
             this.hentEnFerd(params.id);
+            this.ferdId = params.id;
+            break;
+          case 'bestilling':
+            this.visEndreBestilling = true;
+            this.hentEnBestilling(params.id);
+            this.bestillingsId = params.id;
             break;
           default:
             console.log(params.type);
@@ -146,6 +207,9 @@ export class EndreComponent implements OnInit {
         break;
       case 'ferd':
         this.endreFerd();
+        break;
+      case 'bestilling':
+        this.endreBestilling();
         break;
       default:
         console.log(type);
@@ -247,8 +311,12 @@ export class EndreComponent implements OnInit {
         this.skjemaFerd.patchValue({ fId: ferd.fId });
         this.skjemaFerd.patchValue({ bId: ferd.bId });
         this.skjemaFerd.patchValue({ rId: ferd.rId });
-        this.skjemaFerd.patchValue({avreiseTid: formatDate(ferd.avreiseTid, 'dd/MM/yyyy HH:mm', 'en-US')});
-        this.skjemaFerd.patchValue({ankomstTid: formatDate(ferd.ankomstTid, 'dd/MM/yyyy HH:mm', 'en-US')});
+        this.skjemaFerd.patchValue({
+          avreiseTid: formatDate(ferd.avreiseTid, 'dd/MM/yyyy HH:mm', 'en-US'),
+        });
+        this.skjemaFerd.patchValue({
+          ankomstTid: formatDate(ferd.ankomstTid, 'dd/MM/yyyy HH:mm', 'en-US'),
+        });
       },
       (error) => console.log(error)
     );
@@ -272,28 +340,61 @@ export class EndreComponent implements OnInit {
     );
   }
 
+  hentEnBestilling(id: number) {
+    this.hentAlleKunder();
+
+    this._http.get<Bestilling>('/api/admin/bestilling/' + id).subscribe(
+      (bestilling) => {
+        this.skjemaBestilling.patchValue({ id: bestilling.id });
+        this.skjemaBestilling.patchValue({ kId: bestilling.kId });
+        this.skjemaBestilling.patchValue({ totaltpris: bestilling.totalpris });
+        this.skjemaBestilling.patchValue({
+          betalt: bestilling.betalt.toString(),
+        });
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  endreBestilling() {
+    const id = this.skjemaBestilling.value.id;
+    const kId = this.skjemaBestilling.value.kId;
+    const totalpris = this.skjemaBestilling.value.totalpris;
+    const betalt = this.skjemaBestilling.value.betalt == 'false' ? false : true;
+
+    const endretBestilling = new Bestilling(kId, totalpris, betalt);
+    endretBestilling.id = id;
+
+    this._http.put('/api/admin/bestilling/' + id, endretBestilling).subscribe(
+      (retur) => {
+        this._router.navigate(['/bestillinger']);
+      },
+      (error) => console.log(error)
+    );
+  }
+
   formaterDato(datoString: string) {
     //Splitter til to deler. Del 1 = dato, del 2 = tid
     this.dateArray = datoString.split(' ', 2);
 
-    //Splitter dato i tre deleer ved "/"
+    //Splitter dato i tre deler ved "/"
     this.datoSplittet = this.dateArray[0].split('/', 3);
 
     //Splitter tid i to deler ved ":"
     this.tidSplittet = this.dateArray[1].split(':', 2);
 
-    //Lager ny dato med dato
+    //Lager ny dato med datostring
     this.dato = new Date(
       parseInt(this.datoSplittet[2]),
       parseInt(this.datoSplittet[1]) - 1,
       parseInt(this.datoSplittet[0])
     );
 
-    //Legger til tid
+    //Legger til tid-string
     this.dato.setHours(parseInt(this.tidSplittet[0]));
     this.dato.setMinutes(parseInt(this.tidSplittet[1]));
 
-    //konvertere til isoString
+    //konverterer hele avreisedato + tid til isoString som server må ha
     return (this.isoDato = this.dato.toISOString());
   }
 
@@ -310,6 +411,15 @@ export class EndreComponent implements OnInit {
     this._http.get<Rute[]>('/api/admin/ruter').subscribe(
       (rutene) => {
         this.alleRuter = rutene;
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  hentAlleKunder() {
+    this._http.get<Kunde[]>('/api/admin/kunder').subscribe(
+      (kunder) => {
+        this.alleKunder = kunder;
       },
       (error) => console.log(error)
     );
