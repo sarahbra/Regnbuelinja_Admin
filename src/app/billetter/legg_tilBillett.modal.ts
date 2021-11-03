@@ -8,7 +8,10 @@ import {
   Form,
 } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Ferd } from '../models/ferd';
+import { Bestilling } from '../models/bestilling';
 import { Billett } from '../models/billett';
+
 
 @Component({
   templateUrl: './legg_tilBillett.modal.html',
@@ -17,18 +20,24 @@ export class LeggTilBillettModal {
   forms: FormGroup;
   fb: FormBuilder = new FormBuilder();
   voksen: any;
+  alleFerder: Array<Ferd> = [];
+  alleBestillinger: Array<Bestilling> = [];
 
     allForms = {
-      fIdForm: [null, Validators.compose([Validators.required, Validators.pattern(/^\d+$/)])],
-      bIdForm: [null, Validators.compose([Validators.required, Validators.pattern(/^\d+$/)])]
+      //fIdForm: [null, Validators.compose([Validators.required, Validators.pattern(/^\d+$/)])],
+      //bIdForm: [null, Validators.compose([Validators.required, Validators.pattern(/^\d+$/)])]
+      fIdForm: [null, Validators.required],
+      bIdForm: [null, Validators.required]
     }
 
-  constructor(public modal: NgbActiveModal, private http: HttpClient) {}
+  constructor(public modal: NgbActiveModal, private _http: HttpClient) {}
 
   ngOnInit() {
     this.forms = this.fb.group(this.allForms);
     this.voksen = document.getElementById('voksen');
     this.voksen.checked = true;
+    this.hentAlleFerder();
+    this.hentAlleBestillinger();
   }
 
   vedSubmit() {
@@ -36,7 +45,7 @@ export class LeggTilBillettModal {
     const bId = this.forms.value.bIdForm;
     const billett = new Billett(fId, bId, this.voksen.checked);
 
-    this.http.post('/api/admin/billetter', billett).subscribe(
+    this._http.post('/api/admin/billetter', billett).subscribe(
       (ok) => {
         if (ok) {
           this.modal.close('Vellykket');
@@ -48,6 +57,24 @@ export class LeggTilBillettModal {
         this.modal.close('Mislykket');
         console.log(error);
       }
+    );
+  }
+
+  hentAlleFerder() {
+    this._http.get<Ferd[]>('/api/admin/ferder').subscribe(
+      (ferder) => {
+        this.alleFerder = ferder;
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  hentAlleBestillinger() {
+    this._http.get<Bestilling[]>('/api/admin/bestillinger').subscribe(
+      (bestillinger) => {
+        this.alleBestillinger = bestillinger;
+      },
+      (error) => console.log(error)
     );
   }
 }

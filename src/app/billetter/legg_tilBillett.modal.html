@@ -6,30 +6,26 @@
   <div class="modal-body">
     <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
 
-          <div class="form-group row">
-            <div class="col-sm-4">
-              <input type="number" formControlName="fIdForm" class="form-control" placeholder="Ferd ID" autofocus />
-            </div>
-            <div>
-              <small class="alert alert-warning"
-                [hidden]="forms.controls.fIdForm.valid || forms.controls.fIdForm.pristine">
-                En ID kan kun bestå av positive tall
-              </small>
-            </div>
+          <div class="form-group">
+            <label>Ferd (fId) (En bestilling kan kun ha 1-2 ferder. Dvs. kun 1-2 ferder kan bli valgt med en bestilling)</label>
+            <select class="form-control " formControlName="fIdForm">
+                <option *ngFor="let ferd of alleFerder" [ngValue]="ferd.fId">{{ferd.fId}}</option>
+            </select>
+            <p class="alert alert-warning " [hidden]="forms.controls.fIdForm.valid || forms.controls.fIdForm.hasError('required')">
+              Obligatorisk
+            </p>
           </div>
-            
-          <div class="form-group row">
-            <div class="col-sm-4">
-              <input type="number" formControlName="bIdForm" class="form-control" placeholder="Bestilling ID" autofocus />
-            </div>
-            <div>
-              <small class="alert alert-warning"
-                [hidden]="forms.controls.bIdForm.valid || forms.controls.bIdForm.pristine">
-                En ID kan kun bestå av positive tall
-              </small>
-            </div>
+
+          <div class="form-group">
+            <label>Bestilling (bId)</label>
+            <select class="form-control" formControlName="bIdForm">
+                <option *ngFor="let bestilling of alleBestillinger " [ngValue]="bestilling.id">{{bestilling.id}}</option>
+            </select>
+            <p class="alert alert-warning" [hidden]="forms.controls.bIdForm.valid || forms.controls.bIdForm.hasError('required')">
+              Obligatorisk
+            </p>
           </div>
-    
+
           <div class="form-group row">
               <div class="col-sm-4">
                 Voksen:
