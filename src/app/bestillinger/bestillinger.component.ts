@@ -15,7 +15,6 @@ import { VisBilletterForBestilling } from '../modals/vis-billetter-for-bestillin
 export class BestillingerComponent implements OnInit {
   alleBestillinger: Array<Bestilling> = [];
   laster: boolean = false;
-  betalt: boolean = false;
 
   constructor(
     private _http: HttpClient,
@@ -26,7 +25,6 @@ export class BestillingerComponent implements OnInit {
 
   ngOnInit() {
     this.laster = true;
-    this.betalt = false;
     this.hentAlleBestillinger();
     this.nav.show();
   }
@@ -37,11 +35,6 @@ export class BestillingerComponent implements OnInit {
         this.alleBestillinger = bestillinger;
         this.laster = false;
         //Dersom bestillingen er betalt kan ikke bestilling endres -> Endre knapp skjules
-        this.alleBestillinger.forEach((bestilling) => {
-          if (bestilling.betalt == false) {
-            this.betalt = true;
-          }
-        });
       },
       (error) => console.log(error)
     );
@@ -81,7 +74,7 @@ export class BestillingerComponent implements OnInit {
     const modalRef = this.modalService.open(VisBilletterForBestilling, {
       backdrop: 'static',
       keyboard: false,
-      size: 'lg'
+      size: 'lg',
     });
     let title: string = 'Billetter for bestilling';
     modalRef.componentInstance.updateBody(title);

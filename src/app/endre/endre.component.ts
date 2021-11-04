@@ -10,7 +10,8 @@ import { Kunde } from '../models/kunde';
 import { Ferd } from '../models/ferd';
 import { formatDate } from '@angular/common';
 import { Bestilling } from '../models/bestilling';
-import { AdminBruker } from '../models/adminBruker';
+import { AdminPersonalia } from '../models/adminPersonalia';
+import { AdminBrukerPassord } from '../models/adminBrukerPassord';
 
 @Component({
   templateUrl: './endre.component.html',
@@ -22,6 +23,7 @@ export class EndreComponent implements OnInit {
   skjemaFerd: FormGroup;
   skjemaBestilling: FormGroup;
   skjemaAdmin: FormGroup;
+  skjemaAdminPassord: FormGroup;
 
   visEndreBaat: boolean = false;
   visEndreRute: boolean = false;
@@ -29,11 +31,13 @@ export class EndreComponent implements OnInit {
   visEndreFerd: boolean = false;
   visEndreAdmin: boolean = false;
   visEndreBestilling: boolean = false;
+  visEndreAdminPassord: boolean = false;
 
   alleBaater: Array<Baat> = [];
   alleRuter: Array<Rute> = [];
   alleBestillinger: Array<Bestilling> = [];
   alleKunder: Array<Kunde> = [];
+  adminBrukerPassord: AdminBrukerPassord;
 
   //Idér for å printe ut på endreSiden
   bestillingsId: number;
@@ -42,6 +46,8 @@ export class EndreComponent implements OnInit {
   baatId: number;
   kundeId: number;
   billettId: number;
+
+  //Brukernavn admin
 
   //Formater dato
   dateArray: Array<string> = [];
@@ -106,12 +112,17 @@ export class EndreComponent implements OnInit {
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/),
+        Validators.pattern(
+          /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+        ),
       ]),
     ],
     telefonnr: [
       null,
-      Validators.compose([Validators.required, Validators.pattern('^[0-9]{8}$')]),
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('^[0-9]{8}$'),
+      ]),
     ],
   };
 
@@ -146,6 +157,11 @@ export class EndreComponent implements OnInit {
     betalt: ['false', Validators.required],
   };
 
+  valideringPassord = {
+    //Legge til pattern her!
+    passord: [null, Validators.required],
+  };
+
   constructor(
     private _http: HttpClient,
     private _router: Router,
@@ -159,6 +175,7 @@ export class EndreComponent implements OnInit {
     this.skjemaFerd = _fb.group(this.valideringFerd);
     this.skjemaBestilling = _fb.group(this.valideringBestilling);
     this.skjemaAdmin = _fb.group(this.valideringKundeOgAdmin);
+    this.skjemaAdminPassord = _fb.group(this.valideringPassord);
   }
 
   ngOnInit() {
@@ -191,6 +208,14 @@ export class EndreComponent implements OnInit {
             this.hentEnBestilling(params.id);
             this.bestillingsId = params.id;
             break;
+          case 'admin':
+            this.visEndreAdmin = true;
+            this.hentAdminPersonalia();
+            break;
+          case 'adminPassord':
+            this.visEndreAdminPassord = true;
+            this.hentAdminBrukernavn();
+            break;
           default:
             console.log(params.type);
             break;
@@ -219,10 +244,82 @@ export class EndreComponent implements OnInit {
       case 'bestilling':
         this.endreBestilling();
         break;
+      case 'admin':
+        this.endreAdminPersonalia();
+        break;
+      case 'adminPassord':
+        this.endreAdminPassord();
+        break;
       default:
         console.log(type);
         break;
     }
+  }
+
+  //Trenger endepunkt for å hente en bruker (brukernavn bare! ikke passord!)
+  hentAdminBrukernavn() {
+    this._http.get<AdminBrukerPassord>('/api/admin/??SARA!').subscribe(
+      (adminBrukerPassord) => {
+        this.adminBrukerPassord.brukernavn = adminBrukerPassord.brukernavn;
+      },
+      (error) => console.log(error)
+    );
+  }
+  endreAdminPassord() {
+    const passord = this.skjemaAdminPassord.value.passord;
+
+    const endretAdminPassord = new AdminBrukerPassord(
+      this.adminBrukerPassord.brukernavn,
+      passord
+    );
+
+    this._http.put('/api/admin/bruker/', endretAdminPassord).subscribe(
+      (retur) => {
+        this._router.navigate(['/admin']);
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  hentAdminPersonalia() {
+    this._http.get<AdminPersonalia>('/api/admin/profil').subscribe(
+      (adminBrukerPersonalia) => {
+        this.skjemaKunde.patchValue({ id: adminBrukerPersonalia.id });
+        this.skjemaKunde.patchValue({ fornavn: adminBrukerPersonalia.fornavn });
+        this.skjemaKunde.patchValue({
+          etternavn: adminBrukerPersonalia.etternavn,
+        });
+        this.skjemaKunde.patchValue({ epost: adminBrukerPersonalia.epost });
+        this.skjemaKunde.patchValue({
+          telefonnr: adminBrukerPersonalia.telefonnr,
+        });
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  //Bruk lagreKunde!
+  endreAdminPersonalia() {
+    const id = this.skjemaAdmin.value.id;
+    const fornavn = this.skjemaAdmin.value.fornavn;
+    const etternavn = this.skjemaAdmin.value.etternavn;
+    const epost = this.skjemaAdmin.value.epost;
+    const telefonnr = this.skjemaAdmin.value.telefonnr;
+
+    const endretAdminPersonalia = new AdminPersonalia(
+      id,
+      fornavn,
+      etternavn,
+      epost,
+      telefonnr
+    );
+
+    this._http.put('/api/admin/???? SARA/', endretAdminPersonalia).subscribe(
+      (retur) => {
+        this._router.navigate(['/admin']);
+      },
+      (error) => console.log(error)
+    );
   }
 
   hentEnBaat(id: number) {
@@ -376,44 +473,6 @@ export class EndreComponent implements OnInit {
     this._http.put('/api/admin/bestilling/' + id, endretBestilling).subscribe(
       (retur) => {
         this._router.navigate(['/bestillinger']);
-      },
-      (error) => console.log(error)
-    );
-  }
-
-  hentAdminBruker() {
-    this._http.get<AdminBruker>('/api/admin/profil').subscribe(
-      (adminBruker) => {
-        this.skjemaKunde.patchValue({ id: adminBruker.id });
-        this.skjemaKunde.patchValue({ fornavn: adminBruker.fornavn });
-        this.skjemaKunde.patchValue({ etternavn: adminBruker.etternavn });
-        this.skjemaKunde.patchValue({ epost: adminBruker.epost });
-        this.skjemaKunde.patchValue({ telefonnr: adminBruker.telefonnr });
-      },
-      (error) => console.log(error)
-    );
-  }
-
-  endreAdminBruker() {
-    const id = this.skjemaAdmin.value.id;
-    const fornavn = this.skjemaAdmin.value.fornavn;
-    const etternavn = this.skjemaAdmin.value.etternavn;
-    const epost = this.skjemaAdmin.value.epost;
-    const telefonnr = this.skjemaAdmin.value.telefonnr;
-
-    const endretAdminBruker = new AdminBruker(
-      //Kanskje id må inn her
-      fornavn,
-      etternavn,
-      epost,
-      telefonnr
-    );
-    endretAdminBruker.id = id;
-
-    //Usikker på om det skal være id her. Tror ikke det
-    this._http.put('/api/admin/profil/' + id, endretAdminBruker).subscribe(
-      (retur) => {
-        this._router.navigate(['/admin']);
       },
       (error) => console.log(error)
     );

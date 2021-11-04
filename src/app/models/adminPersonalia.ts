@@ -1,4 +1,4 @@
-export class AdminBruker {
+export class AdminPersonalia {
   id: number;
   fornavn: string;
   etternavn: string;
@@ -6,11 +6,13 @@ export class AdminBruker {
   telefonnr: string;
 
   constructor(
+    id: number,
     fornavn: string,
     etternavn: string,
     epost: string,
     telefonnr: string
   ) {
+    this.id = id;
     this.fornavn = fornavn;
     this.etternavn = etternavn;
     this.epost = epost;
