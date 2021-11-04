@@ -8,10 +8,9 @@ import {
   Form,
 } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Ferd } from '../models/ferd';
+import { FerdRute } from '../models/ferdRute';
 import { Bestilling } from '../models/bestilling';
 import { Billett } from '../models/billett';
-
 
 @Component({
   templateUrl: './legg_tilBillett.modal.html',
@@ -20,8 +19,10 @@ export class LeggTilBillettModal {
   forms: FormGroup;
   fb: FormBuilder = new FormBuilder();
   voksen: any;
-  alleFerder: Array<Ferd> = [];
+  alleFerder: Array<FerdRute> = [];
   alleBestillinger: Array<Bestilling> = [];
+  valgtBestilling: any;
+
 
     allForms = {
       //fIdForm: [null, Validators.compose([Validators.required, Validators.pattern(/^\d+$/)])],
@@ -36,13 +37,14 @@ export class LeggTilBillettModal {
     this.forms = this.fb.group(this.allForms);
     this.voksen = document.getElementById('voksen');
     this.voksen.checked = true;
-    this.hentAlleFerder();
     this.hentAlleBestillinger();
   }
 
   vedSubmit() {
     const fId = this.forms.value.fIdForm;
-    const bId = this.forms.value.bIdForm;
+    const bId = this.forms.value.bIdForm.id;
+    console.log(fId)
+    console.log(bId)
     const billett = new Billett(fId, bId, this.voksen.checked);
 
     this._http.post('/api/admin/billetter', billett).subscribe(
@@ -60,15 +62,6 @@ export class LeggTilBillettModal {
     );
   }
 
-  hentAlleFerder() {
-    this._http.get<Ferd[]>('/api/admin/ferder').subscribe(
-      (ferder) => {
-        this.alleFerder = ferder;
-      },
-      (error) => console.log(error)
-    );
-  }
-
   hentAlleBestillinger() {
     this._http.get<Bestilling[]>('/api/admin/bestillinger').subscribe(
       (bestillinger) => {
@@ -77,4 +70,16 @@ export class LeggTilBillettModal {
       (error) => console.log(error)
     );
   }
+
+  hentAlleFerderForBestilling() {
+    
+    this._http.get<FerdRute[]>('/api/admin/bestilling/' + this.valgtBestilling.id + "/ferder").subscribe(
+      (ferder) => {
+        this.alleFerder = ferder;
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  
 }
