@@ -38,16 +38,7 @@ export class BillettComponent implements OnInit {
     );
   }
 
-  endreBillett(id: number) {
-    this._http.put('/api/admin/billett/' + id, id).subscribe(
-      (retur) => {
-        this.hentAllebilletter()      
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
-  }
+
 
   leggTilBillett() { 
     const modalRef = this.modalService.open(LeggTilBillettModal, {
