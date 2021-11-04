@@ -47,6 +47,7 @@ export class RuterComponent implements OnInit {
     const modalRef = this.modalService.open(LeggTilRuteModal, {
       backdrop: 'static',
       keyboard: false,
+      size: 'lg'
     });
 
     modalRef.result.then((retur) => {

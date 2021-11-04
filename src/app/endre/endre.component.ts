@@ -51,7 +51,7 @@ export class EndreComponent implements OnInit {
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern('[a-zA-ZæøåÆØÅ -]{2,30}'),
+        Validators.pattern('[a-zA-ZæøåÆØÅ ]{2,30}'),
       ]),
     ],
   };
@@ -76,7 +76,7 @@ export class EndreComponent implements OnInit {
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern('[1-9][0-9]{0,}'),
+        Validators.pattern(/^[1-9]\d{0,7}(?:\.\d{1,4})?$/),
       ]),
     ],
   };
@@ -101,12 +101,12 @@ export class EndreComponent implements OnInit {
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}'),
+        Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/),
       ]),
     ],
     telefonnr: [
       null,
-      Validators.compose([Validators.required, Validators.pattern('[0-9]{8}')]),
+      Validators.compose([Validators.required, Validators.pattern('^[0-9]{8}$')]),
     ],
   };
 

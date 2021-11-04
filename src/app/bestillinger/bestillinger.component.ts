@@ -81,7 +81,7 @@ export class BestillingerComponent implements OnInit {
     const modalRef = this.modalService.open(VisBilletterForBestilling, {
       backdrop: 'static',
       keyboard: false,
-      size: 'lg',
+      size: 'lg'
     });
     let title: string = 'Billetter for bestilling';
     modalRef.componentInstance.updateBody(title);

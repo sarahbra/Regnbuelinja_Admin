@@ -111,6 +111,7 @@ export class BaaterComponent implements OnInit {
     const modalRef = this.modalService.open(LeggTilBaatModal, {
       backdrop: 'static',
       keyboard: false,
+      size: 'lg'
     });
 
     modalRef.result.then((retur) => {

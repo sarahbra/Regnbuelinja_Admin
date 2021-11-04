@@ -51,7 +51,9 @@ export class BillettComponent implements OnInit {
 
   leggTilBillett() { 
     const modalRef = this.modalService.open(LeggTilBillettModal, {
-      backdrop: 'static', keyboard: false
+      backdrop: 'static', 
+      keyboard: false,
+      size: 'lg'
     });
 
     modalRef.result.then((retur) => {
