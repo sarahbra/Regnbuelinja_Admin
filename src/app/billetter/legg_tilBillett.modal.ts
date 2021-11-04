@@ -41,7 +41,9 @@ export class LeggTilBillettModal {
 
   vedSubmit() {
     const fId = this.forms.value.fIdForm;
-    const bId = this.forms.value.bIdForm;
+    const bId = this.forms.value.bIdForm.id;
+    console.log(fId)
+    console.log(bId)
     const billett = new Billett(fId, bId, this.voksen.checked);
 
     this._http.post('/api/admin/billetter', billett).subscribe(
