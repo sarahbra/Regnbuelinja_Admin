@@ -6,17 +6,14 @@
     <div class="modal-body">
         <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
 
-          <div class="form-group row">
-            <div class="col-sm-4">
-              Kunde ID
-              <input type="number" formControlName="kIdForm" class="form-control" placeholder="Kunde ID" />
-            </div>
-            <div>
-              <small class="alert alert-warning"
-                [hidden]="forms.controls.kIdForm.valid || forms.controls.kIdForm.pristine">
-                En ID kan kun bestå av positive tall
-              </small>
-            </div>
+          <div class="form-group">
+            Kunde
+            <select class="form-control " formControlName="kIdForm">
+                <option *ngFor="let kunde of alleKunder" [ngValue]="kunde.id">{{kunde.fornavn + " " + kunde.etternavn}}</option>
+            </select>
+            <p class="alert alert-warning " [hidden]="forms.controls.kIdForm.valid || forms.controls.kIdForm.hasError('required')">
+              Obligatorisk
+            </p>
           </div>
             
           <div class="form-group row">

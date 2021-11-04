@@ -8,6 +8,7 @@ import {
   Form,
 } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Kunde } from '../models/kunde';
 import { Bestilling } from '../models/bestilling';
 
 @Component({
@@ -17,17 +18,19 @@ export class LeggTilBestillingModal {
   forms: FormGroup;
   fb: FormBuilder = new FormBuilder();
   betalt: any;
+  alleKunder: Array<Kunde> = [];
 
     allForms = {
       kIdForm: [null, Validators.compose([Validators.required, Validators.pattern(/^\d+$/)])]
     }
 
-  constructor(public modal: NgbActiveModal, private http: HttpClient) {}
+  constructor(public modal: NgbActiveModal, private _http: HttpClient) {}
 
     ngOnInit() {
         this.forms = this.fb.group(this.allForms);
         this.betalt = document.getElementById("betalt");
         this.betalt.checked = false;
+        this.hentAlleKunder();
     }
   
     vedSubmit() {
@@ -35,7 +38,7 @@ export class LeggTilBestillingModal {
       
       const bestilling = new Bestilling(kId, 0, this.betalt.checked);
       
-      this.http.post('/api/admin/bestillinger', bestilling).subscribe(
+      this._http.post('/api/admin/bestillinger', bestilling).subscribe(
         (ok) => {
           if (ok)
            this.modal.close("Vellykket");
@@ -48,6 +51,14 @@ export class LeggTilBestillingModal {
           console.log(error)
         }
       );
+    }
 
+    hentAlleKunder() {
+      this._http.get<Kunde[]>('/api/admin/kunder').subscribe(
+        (rutene) => {
+          this.alleKunder = rutene;
+        },
+        (error) => console.log(error)
+      );
     }
 }

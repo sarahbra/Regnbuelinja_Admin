@@ -12,7 +12,6 @@ import { Ferd } from '../models/ferd';
 import { Bestilling } from '../models/bestilling';
 import { Billett } from '../models/billett';
 
-
 @Component({
   templateUrl: './legg_tilBillett.modal.html',
 })
@@ -22,6 +21,7 @@ export class LeggTilBillettModal {
   voksen: any;
   alleFerder: Array<Ferd> = [];
   alleBestillinger: Array<Bestilling> = [];
+  valgtBestilling: any;
 
     allForms = {
       //fIdForm: [null, Validators.compose([Validators.required, Validators.pattern(/^\d+$/)])],
@@ -36,7 +36,6 @@ export class LeggTilBillettModal {
     this.forms = this.fb.group(this.allForms);
     this.voksen = document.getElementById('voksen');
     this.voksen.checked = true;
-    this.hentAlleFerder();
     this.hentAlleBestillinger();
   }
 
@@ -60,15 +59,6 @@ export class LeggTilBillettModal {
     );
   }
 
-  hentAlleFerder() {
-    this._http.get<Ferd[]>('/api/admin/ferder').subscribe(
-      (ferder) => {
-        this.alleFerder = ferder;
-      },
-      (error) => console.log(error)
-    );
-  }
-
   hentAlleBestillinger() {
     this._http.get<Bestilling[]>('/api/admin/bestillinger').subscribe(
       (bestillinger) => {
@@ -77,4 +67,15 @@ export class LeggTilBillettModal {
       (error) => console.log(error)
     );
   }
+
+  hentAlleFerderForBestilling() {
+    console.log("helloo")
+    this._http.get<Ferd[]>('/api/admin/bestilling/' + this.valgtBestilling.id + "/ferder").subscribe(
+      (ferder) => {
+        this.alleFerder = ferder;
+      },
+      (error) => console.log(error)
+    );
+  }
+
 }
