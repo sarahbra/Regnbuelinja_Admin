@@ -1,8 +1,8 @@
 <div class="container">
-    <button class='btn btn-primary col-sm-3 mb-4 ' (click)="leggTilBillett()">Legg til Billett</button>
     <div>
         <div class="col-md-12">
-            <h2 class="mb-4"> Alle billetter: </h2>
+            <button class='btn btn-primary btn-lg mb-4 ' (click)="leggTilBillett()">Legg til Billett</button>
+            <h2 class="mb-4"> Alle billetter </h2>
             <div *ngIf="laster">Laster billetter.....</div>
             <table class="table">
                 <thead>
