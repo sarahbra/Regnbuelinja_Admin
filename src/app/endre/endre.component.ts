@@ -298,7 +298,7 @@ export class EndreComponent implements OnInit {
     );
   }
 
-  //MÅ ha endepunkt for å endreProfil! (putProfil)
+  //Bruk lagreKunde!
   endreAdminPersonalia() {
     const id = this.skjemaAdmin.value.id;
     const fornavn = this.skjemaAdmin.value.fornavn;
