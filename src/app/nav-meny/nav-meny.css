@@ -1,6 +1,6 @@
 .navbar {
   background-color: #eff0f5;
-  height: 100px;
+  height: 120px;
 }
 
 a.btn {
@@ -13,4 +13,8 @@ a.btn {
 }
 a.btn:hover {
   border-radius: 0.5rem;
+}
+
+.navbar li {
+  font-size: 18px;
 }

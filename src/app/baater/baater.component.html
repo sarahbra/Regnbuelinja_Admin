@@ -1,9 +1,8 @@
 <div class="container">
-    <button class='btn btn-primary col-sm-3 mb-4' (click)="leggTilBaat()">Legg til båt</button>
-
     <div>
         <div class="col-md-8">
-            <h2> Alle båtene: </h2>
+            <button class='btn btn-primary btn-lg mb-4' (click)="leggTilBaat()">Legg til båt</button>
+            <h2 class="mb-4"> Alle båter </h2>
             <div *ngIf="laster">Laster båter.....</div>
             <div>{{errorMessage}}</div>
             <table class="table">
