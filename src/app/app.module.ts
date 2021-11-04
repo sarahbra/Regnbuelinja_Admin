@@ -36,7 +36,6 @@ import { VisBilletterForBestilling } from './modals/vis-billetter-for-bestilling
     RuterComponent,
     FerderComponent,
     BaaterComponent,
-    AdminBrukerComponent,
     BestillingerComponent,
     LoginComponent,
     BekreftSlettModal,
@@ -53,6 +52,7 @@ import { VisBilletterForBestilling } from './modals/vis-billetter-for-bestilling
     SlettErrorModal,
     EndreComponent,
     VisBilletterForBestilling,
+    AdminBrukerComponent,
   ],
 
   imports: [
