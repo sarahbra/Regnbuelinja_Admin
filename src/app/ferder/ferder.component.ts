@@ -99,7 +99,9 @@ export class FerderComponent implements OnInit {
   leggTilFerd() { 
   
     const modalRef = this.modalService.open(LeggTilFerdModal, {
-      backdrop: 'static', keyboard: false
+      backdrop: 'static', 
+      keyboard: false,
+      size: 'lg'
     });
 
     modalRef.result.then((retur) => {

@@ -6,8 +6,8 @@
     <div class="modal-body">
         <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
 
+          <label>Båt Navn (bId)</label>
           <div class="form-group">
-            Båt Navn (bId)
             <select class="form-control " formControlName="bIdForm">
                 <option *ngFor="let baat of alleBaater" [ngValue]="baat.id">{{baat.navn}}</option>
             </select>
@@ -16,8 +16,8 @@
             </p>
           </div>
          
+          <label>Rute (rId)</label>
           <div class="form-group">
-            Rute (rId)
             <select class="form-control" formControlName="rIdForm">
                 <option *ngFor="let rute of alleRuter " [ngValue]="rute.id">{{rute.startpunkt + ' - ' + rute.endepunkt}}</option>
             </select>
@@ -26,9 +26,9 @@
             </p>
           </div>
 
+          <label>Avreise Dato</label>
           <div class="form-group row">
             <div class="col-sm-4">
-              Avreise Dato
               <input type="text" formControlName="avreiseDatoForm" class="form-control" placeholder="Avreise dato" autofocus />
             </div>
             <div>
@@ -39,9 +39,9 @@
             </div>
           </div>
 
+          <label>Avreise Tid</label>
           <div class="form-group row">
             <div class="col-sm-4">
-              Avreise Tid
               <input type="text" formControlName="avreiseKlokkeslettForm" class="form-control" placeholder="Avreise tid" autofocus />
             </div>
             <div>
@@ -52,9 +52,9 @@
             </div>
           </div>
           
+          <label>Ankomst Dato</label>
           <div class="form-group row">
             <div class="col-sm-4">
-              Ankomst Dato
               <input type="text" formControlName="ankomstDatoForm" class="form-control" placeholder="Ankomst dato" autofocus />
             </div>
             <div>
@@ -65,9 +65,9 @@
             </div>
           </div>
 
+          <label>Ankomst Tid</label>
           <div class="form-group row">
             <div class="col-sm-4">
-              Ankomst Tid
               <input type="text" formControlName="ankomstKlokkeslettForm" class="form-control" placeholder="Ankomst tid" autofocus />
             </div>
             <div>

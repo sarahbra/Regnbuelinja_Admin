@@ -12,8 +12,7 @@
                 <input class="form-control" formControlName="navn" />
                 <p class="alert alert-warning"
                     [hidden]="skjemaBaat.controls.navn.valid || skjemaBaat.controls.navn.pristine">
-                    - Båt navn er obligatorisk. <br> - Båt navn kan kun inneholde bokstaver, mellom 2-30 tegn <br> -Kan
-                    inneholde mellomrom/bindestrek
+                    Båt navn kan kun inneholde bokstaver og mellomrom, mellom 2-30 tegn
                 </p>
 
             </div>
@@ -41,7 +40,7 @@
                 <input class="form-control" formControlName="startpunkt" />
                 <p class="alert alert-warning"
                     [hidden]="skjemaRute.controls.startpunkt.valid || skjemaRute.controls.startpunkt.pristine">
-                    - Avreisehavn er obligatorisk. <br> - Avreisehavn kan kun inneholde bokstaver, mellom 2-30 tegn
+                    Avreisehavn kan kun inneholde bokstaver, mellom 2-30 tegn
                 </p>
             </div>
 
@@ -50,7 +49,7 @@
                 <input class="form-control" formControlName="endepunkt" />
                 <p class="alert alert-warning"
                     [hidden]="skjemaRute.controls.endepunkt.valid || skjemaRute.controls.endepunkt.pristine">
-                    - Ankomsthavn er obligatorisk. <br> - Ankomsthavn kan kun inneholde bokstaver, mellom 2-30 tegn
+                    Ankomsthavn kan kun inneholde bokstaver, mellom 2-30 tegn
                 </p>
             </div>
 
@@ -59,7 +58,7 @@
                 <input class="form-control" formControlName="pris" />
                 <p class="alert alert-warning"
                     [hidden]="skjemaRute.controls.pris.valid || skjemaRute.controls.pris.pristine">
-                    - Pris er obligatorisk. <br> - Pris kan ikke inneholde desimaltall </p>
+                    Ugyldig pris
             </div>
 
             <div class="form-group">
@@ -110,7 +109,7 @@
                 <input class="form-control" formControlName="telefonnr" />
                 <p class="alert alert-warning"
                     [hidden]="skjemaKunde.controls.telefonnr.valid || skjemaKunde.controls.telefonnr.pristine">
-                    Telefonnummer kan kun innehold tall og må være 8 siffer
+                    Telefonnummeret kan kun bestå av 8 tall
                 </p>
             </div>
 
@@ -159,7 +158,7 @@
                 <input class="form-control" formControlName="avreiseTid" />
                 <p class="alert alert-warning "
                     [hidden]="skjemaFerd.controls.avreiseTid.valid || skjemaFerd.controls.avreiseTid.pristine">
-                    - dd/mm/yyyy hh:mm <br> - Ugyldig dato eller tid
+                    - Må være i formatet: dd/MM/yyyy HH:mm <br> - Ugyldig dato eller tid
                 </p>
             </div>
 
@@ -168,7 +167,7 @@
                 <input class="form-control" formControlName="ankomstTid" />
                 <p class="alert alert-warning"
                     [hidden]="skjemaFerd.controls.ankomstTid.valid || skjemaFerd.controls.ankomstTid.pristine">
-                    - dd/mm/yyyy hh:mm <br> - Ugyldig dato eller tid
+                    - Må være i formatet: dd/MM/yyyy HH:mm <br> - Ugyldig dato eller tid <br> - Amkomst tid kan ikke være tidligere enn avreise tid
                 </p>
             </div>
 

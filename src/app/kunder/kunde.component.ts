@@ -41,7 +41,9 @@ export class KundeComponent implements OnInit {
 
   leggTilKunde() {
     const modalRef = this.modalService.open(LeggTilKundeModal, {
-      backdrop: 'static', keyboard: false
+      backdrop: 'static', 
+      keyboard: false,
+      size: 'lg'
     });
 
     modalRef.result.then((retur) => {

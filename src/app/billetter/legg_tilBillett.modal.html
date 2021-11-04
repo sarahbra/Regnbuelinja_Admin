@@ -5,9 +5,9 @@
 
   <div class="modal-body">
     <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
-
+          
+          <label>Bestilling (bId)</label>
           <div class="form-group">
-            Bestilling (bId)
             <select class="form-control" formControlName="bIdForm" [(ngModel)]="valgtBestilling"(change)="hentAlleFerderForBestilling()">
                 <option *ngFor="let bestilling of alleBestillinger " [ngValue]="bestilling" >{{bestilling.id}}</option>
             </select>
@@ -16,8 +16,8 @@
             </p>
           </div>
 
+          <label>Ferd (fId)</label>
           <div class="form-group">
-            Ferd (fId)
             <select class="form-control " formControlName="fIdForm">
                 <option *ngFor="let ferd of alleFerder" [ngValue]="ferd.fId">{{ferd.strekning}}, {{ferd.avreiseTid | date:'dd/MM/yyyy HH:mm'}} - {{ferd.ankomstTid | date:'dd/MM/yyyy HH:mm'}}</option>
             </select>
@@ -26,9 +26,9 @@
             </p>
           </div>
           
+          <label>Voksen: </label>
           <div class="form-group row">
               <div class="col-sm-4">
-                Voksen: 
                 <input type="checkbox" id="voksen" class="btn-check"/>
               </div>
           </div>
