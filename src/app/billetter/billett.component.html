@@ -22,7 +22,7 @@
                         <td>{{billett.bId}}</td>
                         <td>{{billett.voksen == true ? "Voksen" : "Barn"}}</td>
                         <td><button class="btn btn-danger" (click)="visModalOgSlett(billett.id)">Slett</button></td>
-                        <td><button class="btn btn-success" (click)="endreBillett(billett.id)">Endre</button></td>
+                        <td><button class="btn btn-success" [routerLink]="['/endre/', billett.id, 'billett']">Endre</button></td>
                     </tr>
                 </tbody>
             </table>

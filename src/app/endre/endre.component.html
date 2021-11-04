@@ -261,6 +261,29 @@
             <div class="form-group">
                 <button type="submit" [disabled]="!skjemaKunde.valid" class="btn btn-success btn-lg">Endre</button>
                 <button class="btn btn-default " routerLink="/kunder">Tilbake</button>
+
+<!--Endre Billett-->
+<div class="container mt-4" *ngIf="visEndreBillett">
+    <div class="col-md-8">
+        <h3 class="mb-4">Endre billett med id {{this.billettId}}</h3>
+        <form [formGroup]="skjemaBillett" (ngSubmit)="vedSubmit('billett')">
+
+            <input class="form-control" formControlName="id" type="hidden" />
+            <input class="form-control" formControlName="fId" type="hidden" />
+            <input class="form-control" formControlName="bId" type="hidden" />
+
+            <div class="form-group">
+                <label>Voksen/Barn</label>
+                <select class="form-control" formControlName="voksen">
+                    <option *ngFor="let billett of alleBilletter" [ngValue]="billett.id">{{billett.voksen == true ? 'Voksen' : 'Barn'}}
+                    </option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-lg ">Endre</button>
+                <button class="btn btn-default" routerLink="/billetter">Tilbake</button>
             </div>
         </form>
     </div>

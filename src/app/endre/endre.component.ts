@@ -12,6 +12,8 @@ import { formatDate } from '@angular/common';
 import { Bestilling } from '../models/bestilling';
 import { AdminPersonalia } from '../models/adminPersonalia';
 import { AdminBrukerPassord } from '../models/adminBrukerPassord';
+import { AdminBruker } from '../models/adminBruker';
+import { Billett } from '../models/billett';
 
 @Component({
   templateUrl: './endre.component.html',
@@ -21,6 +23,7 @@ export class EndreComponent implements OnInit {
   skjemaRute: FormGroup;
   skjemaKunde: FormGroup;
   skjemaFerd: FormGroup;
+  skjemaBillett: FormGroup;
   skjemaBestilling: FormGroup;
   skjemaAdmin: FormGroup;
   skjemaAdminPassord: FormGroup;
@@ -33,11 +36,13 @@ export class EndreComponent implements OnInit {
   visEndreBestilling: boolean = false;
   visEndreAdminPassord: boolean = false;
 
+  visEndreBillett: boolean = false;
   alleBaater: Array<Baat> = [];
   alleRuter: Array<Rute> = [];
   alleBestillinger: Array<Bestilling> = [];
   alleKunder: Array<Kunde> = [];
   adminBrukerPassord: AdminBrukerPassord;
+  alleBilletter: Array<Billett> = [];
 
   //Idér for å printe ut på endreSiden
   bestillingsId: number;
@@ -161,6 +166,12 @@ export class EndreComponent implements OnInit {
     //Legge til pattern her!
     passord: [null, Validators.required],
   };
+  valideringBillett = {
+    id: [null, Validators.required],
+    fId: [null, Validators.required],
+    bId: [null, Validators.required],
+    voksen: [null, Validators.required]
+  }
 
   constructor(
     private _http: HttpClient,
@@ -176,6 +187,7 @@ export class EndreComponent implements OnInit {
     this.skjemaBestilling = _fb.group(this.valideringBestilling);
     this.skjemaAdmin = _fb.group(this.valideringKundeOgAdmin);
     this.skjemaAdminPassord = _fb.group(this.valideringPassord);
+    this.skjemaBillett = _fb.group(this.valideringBillett);
   }
 
   ngOnInit() {
@@ -215,6 +227,10 @@ export class EndreComponent implements OnInit {
           case 'adminPassord':
             this.visEndreAdminPassord = true;
             this.hentAdminBrukernavn();
+          case 'billett':
+            this.visEndreBillett = true;
+            this.hentEnBillett(params.id);
+            this.billettId = params.id;
             break;
           default:
             console.log(params.type);
@@ -249,6 +265,9 @@ export class EndreComponent implements OnInit {
         break;
       case 'adminPassord':
         this.endreAdminPassord();
+        break;
+      case 'billett':
+        this.endreBillett()
         break;
       default:
         console.log(type);
@@ -320,6 +339,35 @@ export class EndreComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+  hentEnBillett(id: number) {
+    this._http.get<Billett>('/api/admin/billett/' + id).subscribe(
+      (billett) => {
+        this.skjemaBillett.patchValue({ id: billett.id });
+        this.skjemaBillett.patchValue({ fId: billett.fId });
+        this.skjemaBillett.patchValue({ bId: billett.bId });
+        this.skjemaBillett.patchValue({ voksen: billett.voksen })
+      },
+      (error) => {
+        console.log(error)
+      }
+    );
+  }
+
+  endreBillett() {
+    const id = this.skjemaBillett.value.id;
+    const fId = this.skjemaBillett.value.fId;
+    const bId = this.skjemaBillett.value.bId;
+    const voksen = this.skjemaBillett.value.voksen == 'Voksen ? true : false';
+    const endretBillett = new Billett(fId, bId, voksen)
+
+    this._http.put("api/admin/billett/" + id, endretBillett).subscribe(
+      (retur) => {
+        this._router.navigate(['billetter']);
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
   }
 
   hentEnBaat(id: number) {
