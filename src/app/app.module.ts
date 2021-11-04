@@ -10,6 +10,7 @@ import { NavMenyComponent } from './nav-meny/nav-meny.component';
 import { RuterComponent } from './ruter/ruter.component';
 import { FerderComponent } from './ferder/ferder.component';
 import { BaaterComponent } from './baater/baater.component';
+import { AdminBrukerComponent } from './admin-bruker/admin-bruker.component';
 import { BestillingerComponent } from './bestillinger/bestillinger.component';
 import { LoginComponent } from './login/login.component';
 import { BekreftSlettModal } from './modals/slett-modaler/bekreft-slett.modal';
@@ -51,6 +52,7 @@ import { VisBilletterForBestilling } from './modals/vis-billetter-for-bestilling
     SlettErrorModal,
     EndreComponent,
     VisBilletterForBestilling,
+    AdminBrukerComponent,
   ],
 
   imports: [
@@ -59,7 +61,6 @@ import { VisBilletterForBestilling } from './modals/vis-billetter-for-bestilling
     NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
-    
   ],
 
   providers: [
@@ -71,11 +72,17 @@ import { VisBilletterForBestilling } from './modals/vis-billetter-for-bestilling
     },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [BekreftSlettModal, LeggTilRuteModal, LeggTilBaatModal, 
-    LeggTilFerdModal, LeggTilKundeModal, LeggTilBillettModal, LeggTilBestillingModal], 
+  entryComponents: [
+    BekreftSlettModal,
+    LeggTilRuteModal,
+    LeggTilBaatModal,
+    LeggTilFerdModal,
+    LeggTilKundeModal,
+    LeggTilBillettModal,
+    LeggTilBestillingModal,
+  ],
 })
-
-export class AppModule { }
+export class AppModule {}
 
 function getBaseHref(platformLocation: PlatformLocation): string {
   return platformLocation.getBaseHrefFromDOM();

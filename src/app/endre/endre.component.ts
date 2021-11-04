@@ -10,6 +10,7 @@ import { Kunde } from '../models/kunde';
 import { Ferd } from '../models/ferd';
 import { formatDate } from '@angular/common';
 import { Bestilling } from '../models/bestilling';
+import { AdminBruker } from '../models/adminBruker';
 
 @Component({
   templateUrl: './endre.component.html',
@@ -20,11 +21,15 @@ export class EndreComponent implements OnInit {
   skjemaKunde: FormGroup;
   skjemaFerd: FormGroup;
   skjemaBestilling: FormGroup;
+  skjemaAdmin: FormGroup;
+
   visEndreBaat: boolean = false;
   visEndreRute: boolean = false;
   visEndreKunde: boolean = false;
   visEndreFerd: boolean = false;
+  visEndreAdmin: boolean = false;
   visEndreBestilling: boolean = false;
+
   alleBaater: Array<Baat> = [];
   alleRuter: Array<Rute> = [];
   alleBestillinger: Array<Bestilling> = [];
@@ -81,7 +86,7 @@ export class EndreComponent implements OnInit {
     ],
   };
 
-  valideringKunde = {
+  valideringKundeOgAdmin = {
     id: [null],
     fornavn: [
       null,
@@ -135,7 +140,9 @@ export class EndreComponent implements OnInit {
   };
 
   valideringBestilling = {
+    id: [null, Validators.required],
     kId: [null, Validators.required],
+    totalpris: [null, Validators.required],
     betalt: ['false', Validators.required],
   };
 
@@ -148,9 +155,10 @@ export class EndreComponent implements OnInit {
   ) {
     this.skjemaBaat = _fb.group(this.valideringBaat);
     this.skjemaRute = _fb.group(this.valideringRute);
-    this.skjemaKunde = _fb.group(this.valideringKunde);
+    this.skjemaKunde = _fb.group(this.valideringKundeOgAdmin);
     this.skjemaFerd = _fb.group(this.valideringFerd);
     this.skjemaBestilling = _fb.group(this.valideringBestilling);
+    this.skjemaAdmin = _fb.group(this.valideringKundeOgAdmin);
   }
 
   ngOnInit() {
@@ -347,7 +355,7 @@ export class EndreComponent implements OnInit {
       (bestilling) => {
         this.skjemaBestilling.patchValue({ id: bestilling.id });
         this.skjemaBestilling.patchValue({ kId: bestilling.kId });
-        this.skjemaBestilling.patchValue({ totaltpris: bestilling.totalpris });
+        this.skjemaBestilling.patchValue({ totalpris: bestilling.totalpris });
         this.skjemaBestilling.patchValue({
           betalt: bestilling.betalt.toString(),
         });
@@ -368,6 +376,44 @@ export class EndreComponent implements OnInit {
     this._http.put('/api/admin/bestilling/' + id, endretBestilling).subscribe(
       (retur) => {
         this._router.navigate(['/bestillinger']);
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  hentAdminBruker() {
+    this._http.get<AdminBruker>('/api/admin/profil').subscribe(
+      (adminBruker) => {
+        this.skjemaKunde.patchValue({ id: adminBruker.id });
+        this.skjemaKunde.patchValue({ fornavn: adminBruker.fornavn });
+        this.skjemaKunde.patchValue({ etternavn: adminBruker.etternavn });
+        this.skjemaKunde.patchValue({ epost: adminBruker.epost });
+        this.skjemaKunde.patchValue({ telefonnr: adminBruker.telefonnr });
+      },
+      (error) => console.log(error)
+    );
+  }
+
+  endreAdminBruker() {
+    const id = this.skjemaAdmin.value.id;
+    const fornavn = this.skjemaAdmin.value.fornavn;
+    const etternavn = this.skjemaAdmin.value.etternavn;
+    const epost = this.skjemaAdmin.value.epost;
+    const telefonnr = this.skjemaAdmin.value.telefonnr;
+
+    const endretAdminBruker = new AdminBruker(
+      //Kanskje id må inn her
+      fornavn,
+      etternavn,
+      epost,
+      telefonnr
+    );
+    endretAdminBruker.id = id;
+
+    //Usikker på om det skal være id her. Tror ikke det
+    this._http.put('/api/admin/profil/' + id, endretAdminBruker).subscribe(
+      (retur) => {
+        this._router.navigate(['/admin']);
       },
       (error) => console.log(error)
     );

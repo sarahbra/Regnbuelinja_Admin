@@ -167,7 +167,8 @@
                 <input class="form-control" formControlName="ankomstTid" />
                 <p class="alert alert-warning"
                     [hidden]="skjemaFerd.controls.ankomstTid.valid || skjemaFerd.controls.ankomstTid.pristine">
-                    - Må være i formatet: dd/MM/yyyy HH:mm <br> - Ugyldig dato eller tid <br> - Amkomst tid kan ikke være tidligere enn avreise tid
+                    - Må være i formatet: dd/MM/yyyy HH:mm <br> - Ugyldig dato eller tid <br> - Amkomst tid kan ikke
+                    være tidligere enn avreise tid
                 </p>
             </div>
 
@@ -209,6 +210,57 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-success btn-lg ">Endre</button>
                 <button class="btn btn-default" routerLink="/bestillinger">Tilbake</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--Endre admin-bruker-->
+<div class="container mt-4" *ngIf="visEndreAdmin">
+    <div class="col-md-8">
+        <h3 class="mb-4">Endre personalia</h3>
+        <form [formGroup]="skjemaAdmin" (ngSubmit)="vedSubmit('admin')">
+            <input class="form-control" formControlName="id" type="hidden" />
+
+            <div class="form-group">
+                <label>Fornavn</label>
+                <input class="form-control" formControlName="fornavn" />
+                <p class="alert alert-warning"
+                    [hidden]="skjemaAdmin.controls.fornavn.valid || skjemaKunde.controls.fornavn.pristine">
+                    Fornavn kan kun bestå av bokstaver, og må være mellom 2-30 tegn
+                </p>
+            </div>
+
+            <div class=" form-group ">
+                <label>Etternavn</label>
+                <input class="form-control" formControlName="etternavn" />
+                <p class="alert alert-warning"
+                    [hidden]="skjemaAdmin.controls.etternavn.valid || skjemaKunde.controls.etternavn.pristine">
+                    Etternavn kan kun bestå av bokstaver, og må være mellom 2-30 tegn
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label>Epost</label>
+                <input class="form-control" formControlName="epost" />
+                <p class="alert alert-warning"
+                    [hidden]="skjemaAdmin.controls.epost.valid || skjemaKunde.controls.epost.pristine && skjemaKunde.controls.epost.touched">
+                    Ugyldig epost
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label>Telefonummer</label>
+                <input class="form-control" formControlName="telefonnr" />
+                <p class="alert alert-warning"
+                    [hidden]="skjemaAdmin.controls.telefonnr.valid || skjemaKunde.controls.telefonnr.pristine">
+                    Telefonnummer kan kun innehold tall og må være 8 siffer
+                </p>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" [disabled]="!skjemaKunde.valid" class="btn btn-success btn-lg">Endre</button>
+                <button class="btn btn-default " routerLink="/kunder">Tilbake</button>
             </div>
         </form>
     </div>
