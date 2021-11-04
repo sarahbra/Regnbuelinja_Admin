@@ -6,9 +6,10 @@
     <div class="modal-body">
         <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
 
+          <label>Kunde ID</label>
           <div class="form-group row">
             <div class="col-sm-4">
-              Kunde ID
+              
               <input type="number" formControlName="kIdForm" class="form-control" placeholder="Kunde ID" />
             </div>
             <div>
@@ -18,10 +19,10 @@
               </small>
             </div>
           </div>
-            
+          
+          <label>Betalt:</label>
           <div class="form-group row">
               <div class="col-sm-4">
-                Betalt:
                 <input type="checkbox" id="betalt" class="btn-check"/>
               </div>
           </div>

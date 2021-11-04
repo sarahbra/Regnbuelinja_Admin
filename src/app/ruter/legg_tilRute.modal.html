@@ -5,43 +5,41 @@
 
     <div class="modal-body">
         <form [formGroup]="forms" (ngSubmit)="vedSubmit()">
-        
+            <label>Avreisehavn</label>
             <div class="form-group row">
               <div class="col-sm-4">
-                Startpunkt
-                <input type="text" formControlName="startpunktForm" class="form-control" placeholder="Startpunkt" autofocus />
+                <input type="text" formControlName="startpunktForm" class="form-control" placeholder="Avreisehavn" autofocus />
               </div>
               <div>
                 <small class="alert alert-warning"
                   [hidden]="forms.controls.startpunktForm.valid || forms.controls.startpunktForm.pristine">
-                  Startpunktet må kun bestå av bokstaver
+                  -Avreisehavn kan kun inneholde bokstaver, mellom 2-30 tegn
                 </small>
               </div>
-      
             </div>
-      
+
+            <label>Ankomsthavn</label>
             <div class="form-group row">
               <div class="col-sm-4">
-                Endepunkt
-                <input type="text" formControlName="endepunktForm" class="form-control" placeholder="Endepunkt" />
+                <input type="text" formControlName="endepunktForm" class="form-control" placeholder="Ankomsthavn" />
               </div>
               <div>
                 <small class="alert alert-warning"
                   [hidden]="forms.controls.endepunktForm.valid || forms.controls.endepunktForm.pristine">
-                  Endepunktet må kun bestå av bokstaver
+                  -Ankomsthavn kan kun inneholde bokstaver, mellom 2-30 tegn
                 </small>
               </div>
             </div>
-      
+
+            <label>Pris</label>
             <div class="form-group row">
                 <div class="col-sm-4">
-                  Pris
                   <input type="text" formControlName="prisForm" class="form-control" placeholder="Pris" />
                 </div>
                 <div>
                   <small class="alert alert-warning"
                     [hidden]="forms.controls.prisForm.valid || forms.controls.prisForm.pristine">
-                    Ugyldig pris
+                    -Ugyldig pris
                   </small>
                 </div>
               </div>

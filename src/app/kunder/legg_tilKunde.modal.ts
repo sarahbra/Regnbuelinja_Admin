@@ -18,8 +18,8 @@ export class LeggTilKundeModal {
   fb: FormBuilder = new FormBuilder();
 
     allForms = {
-      fornavnForm: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZøæåØÆÅ\\-. ]{2,30}')])],
-      etternavnForm: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZøæåØÆÅ\\-. ]{2,30}')])],
+      fornavnForm: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZøæåØÆÅ]{2,30}')])],
+      etternavnForm: [null, Validators.compose([Validators.required, Validators.pattern('[a-zA-ZøæåØÆÅ]{2,30}')])],
       epostForm: [null, Validators.compose([Validators.required, Validators.pattern(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)])],
       telefonForm: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]{8}$')])]  // '^-?[0-9]\\d*(\\.\\d*)?$'
     }

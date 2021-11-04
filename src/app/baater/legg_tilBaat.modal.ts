@@ -22,7 +22,7 @@ export class LeggTilBaatModal {
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern('[a-zA-ZøæåØÆÅ\\-. ]{2,30}'),
+        Validators.pattern('[a-zA-ZøæåØÆÅ ]{2,30}'),
       ]),
     ],
   };
