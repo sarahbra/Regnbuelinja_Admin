@@ -19,7 +19,7 @@
           <div class="form-group">
             Ferd (fId)
             <select class="form-control " formControlName="fIdForm">
-                <option *ngFor="let ferd of alleFerder" [ngValue]="ferd.fId">{{ferd.fId}}</option>
+                <option *ngFor="let ferd of alleFerder" [ngValue]="ferd.fId">{{ferd.strekning}}, {{ferd.avreiseTid | date:'dd/MM/yyyy HH:mm'}} - {{ferd.ankomstTid | date:'dd/MM/yyyy HH:mm'}}</option>
             </select>
             <p class="alert alert-warning " [hidden]="forms.controls.fIdForm.valid || forms.controls.fIdForm.hasError('required')">
               Obligatorisk

@@ -3,19 +3,19 @@
 // Det er altså for å forhindre at kunden kan bestille returreise mens kunden er midt på havet på en annen reise
 export class FerdRute {
   fId: number;
-  avreisetid: string;
-  ankomsttid: string;
+  avreiseTid: string;
+  ankomstTid: string;
   strekning: string;
 
   constructor(
     fId: number,
-    avreisetid: string,
-    ankomsttid: string,
+    avreiseTid: string,
+    ankomstTid: string,
     strekning: string
   ) {
     this.fId = fId;
-    this.avreisetid = avreisetid;
-    this.ankomsttid = ankomsttid;
+    this.avreiseTid = avreiseTid;
+    this.ankomstTid = ankomstTid;
     this.strekning = strekning;
   }
 }

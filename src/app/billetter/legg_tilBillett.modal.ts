@@ -8,7 +8,7 @@ import {
   Form,
 } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Ferd } from '../models/ferd';
+import { FerdRute } from '../models/ferdRute';
 import { Bestilling } from '../models/bestilling';
 import { Billett } from '../models/billett';
 
@@ -19,9 +19,10 @@ export class LeggTilBillettModal {
   forms: FormGroup;
   fb: FormBuilder = new FormBuilder();
   voksen: any;
-  alleFerder: Array<Ferd> = [];
+  alleFerder: Array<FerdRute> = [];
   alleBestillinger: Array<Bestilling> = [];
   valgtBestilling: any;
+
 
     allForms = {
       //fIdForm: [null, Validators.compose([Validators.required, Validators.pattern(/^\d+$/)])],
@@ -71,8 +72,8 @@ export class LeggTilBillettModal {
   }
 
   hentAlleFerderForBestilling() {
-    console.log("helloo")
-    this._http.get<Ferd[]>('/api/admin/bestilling/' + this.valgtBestilling.id + "/ferder").subscribe(
+    
+    this._http.get<FerdRute[]>('/api/admin/bestilling/' + this.valgtBestilling.id + "/ferder").subscribe(
       (ferder) => {
         this.alleFerder = ferder;
       },
@@ -80,4 +81,5 @@ export class LeggTilBillettModal {
     );
   }
 
+  
 }
