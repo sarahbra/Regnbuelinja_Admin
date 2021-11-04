@@ -275,8 +275,8 @@
             <div class="form-group">
                 <label>Voksen/Barn</label>
                 <select class="form-control" formControlName="voksen">
-                    <option *ngFor="let billett of alleBilletter" [ngValue]="billett.id">{{billett.voksen == true ? 'Voksen' : 'Barn'}}
-                    </option>
+                    <option value="false">Barn</option>
+                    <option value="true">Voksen</option>
                 </select>
             </div>
 

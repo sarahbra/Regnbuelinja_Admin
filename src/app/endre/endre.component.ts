@@ -345,7 +345,7 @@ export class EndreComponent implements OnInit {
         this.skjemaBillett.patchValue({ id: billett.id });
         this.skjemaBillett.patchValue({ fId: billett.fId });
         this.skjemaBillett.patchValue({ bId: billett.bId });
-        this.skjemaBillett.patchValue({ voksen: billett.voksen })
+        this.skjemaBillett.patchValue({ voksen: billett.voksen.toString() })
       },
       (error) => {
         console.log(error)
@@ -357,9 +357,9 @@ export class EndreComponent implements OnInit {
     const id = this.skjemaBillett.value.id;
     const fId = this.skjemaBillett.value.fId;
     const bId = this.skjemaBillett.value.bId;
-    const voksen = this.skjemaBillett.value.voksen == 'Voksen ? true : false';
+    const voksen = this.skjemaBillett.value.voksen == 'Voksen' ? true : false;
     const endretBillett = new Billett(fId, bId, voksen)
-
+    
     this._http.put("api/admin/billett/" + id, endretBillett).subscribe(
       (retur) => {
         this._router.navigate(['billetter']);
