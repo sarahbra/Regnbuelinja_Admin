@@ -76,7 +76,7 @@ export class EndreComponent implements OnInit {
       null,
       Validators.compose([
         Validators.required,
-        Validators.pattern('[1-9][0-9]{0,}'),
+        Validators.pattern(/^[1-9]\d{0,7}(?:\.\d{1,4})?$/),
       ]),
     ],
   };

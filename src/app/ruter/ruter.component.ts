@@ -9,6 +9,7 @@ import { NavbarService } from '../nav-meny/nav-meny.service';
 import { LeggTilRuteModal } from './legg_tilRute.modal';
 import { VisAvhengigheterModal } from '../modals/slett-modaler/vis-avhengigheter.modal';
 
+
 @Component({
   //selector: 'app-ruter', -> Det er routing som gjelder så denne gjør
   templateUrl: './ruter.component.html',
