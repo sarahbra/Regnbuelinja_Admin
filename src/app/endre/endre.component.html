@@ -215,7 +215,7 @@
     </div>
 </div>
 
-<!--Endre admin-bruker-->
+<!--Endre admin-bruker-personalia-->
 <div class="container mt-4" *ngIf="visEndreAdmin">
     <div class="col-md-8">
         <h3 class="mb-4">Endre personalia</h3>
@@ -255,6 +255,30 @@
                 <p class="alert alert-warning"
                     [hidden]="skjemaAdmin.controls.telefonnr.valid || skjemaKunde.controls.telefonnr.pristine">
                     Telefonnummer kan kun innehold tall og må være 8 siffer
+                </p>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" [disabled]="!skjemaKunde.valid" class="btn btn-success btn-lg">Endre</button>
+                <button class="btn btn-default " routerLink="/kunder">Tilbake</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--Endre admin-passord-->
+<div class="container mt-4" *ngIf="visEndreAdminPassord">
+    <div class="col-md-8">
+        <h3 class="mb-4">Endre passord</h3>
+        <form [formGroup]="skjemaAdminPassord" (ngSubmit)="vedSubmit('adminPassord')">
+            <label>Brukernavn: {{adminBrukerPassord.brukernavn}}</label>
+
+            <div class="form-group">
+                <label>Skriv inn nytt passord</label>
+                <input class="form-control" formControlName="passord" />
+                <p class="alert alert-warning"
+                    [hidden]="skjemaAdminPassord.controls.passord.valid || skjemaAdminPassord.controls.passord.pristine">
+                    Passord må bestå av???
                 </p>
             </div>
 

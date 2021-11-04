@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { NavbarService } from '../nav-meny/nav-meny.service';
-import { AdminBruker } from '../models/adminBruker';
+import { AdminPersonalia } from '../models/adminPersonalia';
 
 @Component({
   templateUrl: './admin-bruker.component.html',
 })
 export class AdminBrukerComponent implements OnInit {
-  adminBruker: AdminBruker;
+  adminBrukerPersonalia: AdminPersonalia;
   laster: boolean;
 
   constructor(
@@ -22,13 +22,13 @@ export class AdminBrukerComponent implements OnInit {
   ngOnInit() {
     this.nav.show();
     this.laster = true;
-    this.hentAdminBruker();
+    this.hentAdminBrukerPersonalia();
   }
 
-  hentAdminBruker() {
-    this._http.get<AdminBruker>('/api/admin/hentLoggetInn').subscribe(
-      (adminBruker) => {
-        this.adminBruker = adminBruker;
+  hentAdminBrukerPersonalia() {
+    this._http.get<AdminPersonalia>('/api/admin/profil').subscribe(
+      (adminBrukerPersonalia) => {
+        this.adminBrukerPersonalia = adminBrukerPersonalia;
         this.laster = false;
       },
       (error) => console.log(error)

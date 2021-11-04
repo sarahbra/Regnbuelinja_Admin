@@ -16,14 +16,14 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{adminBruker.fornavn}}</td>
-                        <td>{{adminBruker.etternavn}}</td>
-                        <td>{{adminBruker.epost}}</td>
-                        <td>{{adminBruker.telefonnr}}</td>
+                        <td>{{adminBrukerPersonalia.fornavn}}</td>
+                        <td>{{adminBrukerPersonalia.etternavn}}</td>
+                        <td>{{adminBrukerPersonalia.epost}}</td>
+                        <td>{{adminBrukerPersonalia.telefonnr}}</td>
                         <td><button class="btn btn-success" [routerLink]="['/endre/', null, 'admin']">Endre
                                 personalia</button>
                         </td>
-                        <td><button class="btn btn-danger" (click)="visModalOgEndrePassord()">Endre
+                        <td><button class="btn btn-danger" [routerLink]="['/endre/', null, 'adminPassord'] ">Endre
                                 passord</button></td>
                     </tr>
                 </tbody>
